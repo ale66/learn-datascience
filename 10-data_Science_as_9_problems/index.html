@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="DSTA">
+  <title>Data Science as 9 problems</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="..\..\styles\dsta_slides.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Data Science as 9 problems</h1>
+  <p class="author">DSTA</p>
+</section>
+
+<section id="a-gentle-yet-focussed-introduction" class="slide level2">
+<h2>A gentle-yet-focussed introduction</h2>
+<figure>
+<img data-src="./imgs/provost-cover.jpg" alt="Ch. 2" />
+<figcaption aria-hidden="true"><a href="./provost-ch2.pdf">Ch.
+2</a></figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<ol type="1">
+<li>(was 2) Regression/value estimation</li>
+</ol>
+<p><strong>Instance:</strong></p>
+<ul>
+<li><p>a collection (dataset) of numerical <span
+class="math inline">\(&lt;\mathbf{x}, y&gt;\)</span> datapoints</p></li>
+<li><p>a regressor (independent) value <span
+class="math inline">\(\mathbf{x}\)</span></p></li>
+</ul>
+<div class="fragment">
+<p><strong>Solution:</strong> a regressand (dependent) value <span
+class="math inline">\(y\)</span></p>
+<p>that complements <span class="math inline">\(\mathbf{x}\)</span></p>
+<p><strong>Measure:</strong> error over the collection</p>
+</div>
+</section>
+<section class="slide level2">
+
+<ol start="2" type="1">
+<li>(was 1) Classification and class probability</li>
+</ol>
+<p><strong>Instance:</strong></p>
+<ul>
+<li><p>a collection (dataset) of datapoints from <span
+class="math inline">\(\mathbf{X}\)</span></p></li>
+<li><p>a classification system <span class="math inline">\(C = \{c_1,
+c_2, \dots c_k\}\)</span></p></li>
+</ul>
+<div class="fragment">
+<p><strong>Solution:</strong> classification function <span
+class="math inline">\(\gamma: \mathbf{X} \rightarrow C\)</span></p>
+<p><strong>Measure:</strong> misclassification</p>
+</div>
+<div class="fragment">
+<p>[PF] “classification predicts whether something will happen, whereas
+regr. predicts how much something will happen.”</p>
+</div>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="./imgs/false_positives_and_negatives.jpg"
+alt="Type I and II errors" />
+<figcaption aria-hidden="true">Type I and II errors</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<ol start="3" type="1">
+<li>Similarity</li>
+</ol>
+<p>Identify similar individuals based on data known about them.</p>
+<p><strong>Instance:</strong></p>
+<ul>
+<li><p>a collection (dataset) of datapoints from <span
+class="math inline">\(\mathbf{X}\)</span>, e.g., <span
+class="math inline">\(\mathbb{R}^n\)</span></p></li>
+<li><p>(distance functions for some of the dimensions)</p></li>
+</ul>
+<div class="fragment">
+<p><strong>Solution:</strong> similarity function <span
+class="math inline">\(\sigma: \mathbf{X} \rightarrow
+\mathbb{R}\)</span></p>
+<p>[<strong>Measure:</strong> error]</p>
+</div>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="./imgs/similarity.png" alt="Ch. 2" />
+<figcaption aria-hidden="true"><a href="./provost-ch2.pdf">Ch.
+2</a></figcaption>
+</figure>
+<!-- http://dingcvnote.blogspot.com/2018/06/matlab-comparing-of-detect-feature.html -->
+</section>
+<section class="slide level2">
+
+<ol start="4" type="1">
+<li>Clustering (segmentation)</li>
+</ol>
+<p>group individuals in a population together by their similarity (but
+not driven by any specific purpose)</p>
+<p><strong>Instance:</strong></p>
+<ul>
+<li><p>a collection (dataset) <span
+class="math inline">\(\mathbf{D}\)</span> of datapoints from <span
+class="math inline">\(\mathbf{X}\)</span>, e.g., <span
+class="math inline">\(\mathbb{R}^n\)</span></p></li>
+<li><p>a relational structure on <span
+class="math inline">\(\mathbf{X}\)</span> (a graph)</p></li>
+<li><p>a small integer <span class="math inline">\(k\)</span></p></li>
+</ul>
+<div class="fragment">
+<p><strong>Solution:</strong> a partition of <span
+class="math inline">\(\mathbf{D}\)</span> into <span
+class="math inline">\(\mathcal{C_1}, \dots \mathcal{C_k}\)</span></p>
+<p><strong>Measure:</strong> network modularity Q: proportion of the
+relational structure that <em>respects</em> the clusters.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Detection version: <span class="math inline">\(k\)</span> is part of
+the output.</p>
+<p>See an <a
+href="https://www.sciencedirect.com/science/article/pii/S0022000013000767">example
+research work (from yours truly)</a></p>
+</section>
+<section class="slide level2">
+
+<ol start="5" type="1">
+<li>Co-occurence (frequent itemset mining)</li>
+</ol>
+<p>similarity of objects based on their appearing together in
+transactions.</p>
+<p><strong>Instance:</strong></p>
+<ul>
+<li><p>a collection (dataset) <span
+class="math inline">\(\mathbf{T}\)</span> of itemsets (subsets of <span
+class="math inline">\(\mathbf{X}\)</span>) or sequences</p></li>
+<li><p>a theshold <span class="math inline">\(\tau\)</span></p></li>
+</ul>
+<div class="fragment">
+<p><strong>Solution:</strong> All <em>frequent patterns:</em> subsets
+that appear in <span class="math inline">\(\mathbf{T}\)</span> above
+<span class="math inline">\(\tau\)</span></p>
+</div>
+<div class="fragment">
+<p>Detection version: <span class="math inline">\(\tau\)</span> is part
+of the output.</p>
+<p>Market-basket analysis, (some) recommendation systems</p>
+</div>
+</section>
+<section class="slide level2">
+
+<ol start="6" type="1">
+<li>Profiling (behaviour description)</li>
+</ol>
+<p><strong>Instance:</strong></p>
+<ul>
+<li><p>a user description <span
+class="math inline">\(\mathbf{u}\)</span> drawn from a <span
+class="math inline">\(\mathbf{D}\)</span> collection</p></li>
+<li><p>a stimulus <span class="math inline">\(a\in
+\mathbf{A}\)</span></p></li>
+<li><p>a set of possible responses <span
+class="math inline">\(\mathbf{R}\)</span></p></li>
+</ul>
+<div class="fragment">
+<p><strong>Solution:</strong> a functional reaction of
+<strong>u</strong> to <strong>a</strong>, i.e., <span
+class="math inline">\(\rho: \mathbf{U} \times \mathbf{A} \rightarrow
+\mathbf{R}\)</span></p>
+</div>
+<div class="fragment">
+<p>Application: anomaly/fraud detection.</p>
+<p>Example research work on <a
+href="https://ieeexplore.ieee.org/abstract/document/6994286">Social
+media profiling</a></p>
+</div>
+</section>
+<section class="slide level2">
+
+<ol start="7" type="1">
+<li>Link prediction</li>
+</ol>
+<p><strong>Instance:</strong> a dynamical <a
+href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph
+(network) <span class="math inline">\(\mathbf{G}\)</span></a> , i.e., a
+sequence</p>
+<p><span class="math inline">\(&lt;V, E&gt;\)</span>,</p>
+<p><span class="math inline">\(&lt;V,
+E^\prime=E+\{(u,v)\}&gt;\)</span>,</p>
+<p><span class="math inline">\(&lt;V,
+E^{\prime\prime}=E^\prime+\{(r,s)\}&gt;\dots\)</span></p>
+<p><img data-src="./imgs/network.png" /></p>
+</section>
+<section class="slide level2">
+
+<p><strong>Question:</strong> what is the next link to be created?</p>
+<p>What YouTube video will you watch next?</p>
+<p>Alternatives: predict the <strong>strength</strong> of the new link;
+link deletion.</p>
+</section>
+<section class="slide level2">
+
+<ol start="8" type="1">
+<li>Data reduction</li>
+</ol>
+<p><strong>Instance:</strong></p>
+<ul>
+<li><p>a collection (dataset) <span
+class="math inline">\(\mathbf{D}\)</span> of datapoints from <span
+class="math inline">\(\mathbf{X}\)</span>, e.g., <span
+class="math inline">\(\mathbb{R}^m\)</span></p></li>
+<li><p>[a distinct independent variable <span
+class="math inline">\(x_i\)</span>]</p></li>
+</ul>
+<div class="fragment">
+<p><strong>Solution:</strong> a projection of <span
+class="math inline">\(\mathbf{D}\)</span> onto <span
+class="math inline">\(\mathbb{R}^n\)</span>, <span
+class="math inline">\(n &lt; m\)</span></p>
+<p><strong>Measure:</strong> error in the estimation of <span
+class="math inline">\(x_i\)</span></p>
+<p>Example: genre identification in consumer behaviour analysis</p>
+</div>
+</section>
+<section class="slide level2">
+
+<ol start="9" type="1">
+<li>Causal modelling</li>
+</ol>
+<p><strong>Instance:</strong></p>
+<ul>
+<li><p>a collection (dataset) <span
+class="math inline">\(\mathbf{D}\)</span> of datapoints from <span
+class="math inline">\(\mathbf{X}\)</span>, e.g., <span
+class="math inline">\(\mathbb{R}^m\)</span></p></li>
+<li><p>a distinct dependent variable <span
+class="math inline">\(x_i\)</span></p></li>
+</ul>
+<div class="fragment">
+<p><strong>Solution:</strong> a variable <span
+class="math inline">\(x_j\)</span> of <span
+class="math inline">\(\mathbf{D}\)</span> that controls <span
+class="math inline">\(x_i\)</span></p>
+<p><strong>Measure:</strong> effectiveness of <span
+class="math inline">\(x_j\)</span> <em>tuning</em> to <em>tune</em>
+<span class="math inline">\(x_i\)</span> in turn.</p>
+</div>
+<div class="fragment">
+<p>Example: Exactly What food causes you to put on weight?</p>
+<p>Controlled clinical trials, A/B testing.</p>
+<!-- --------- -->
+</div>
+</section>
+<section>
+<section id="unsupervision" class="title-slide slide level1">
+<h1>[Un]Supervision</h1>
+
+</section>
+<section id="supervised-data-science" class="slide level2">
+<h2>Supervised Data Science</h2>
+<ul>
+<li><p>obtain a dataset of examples, inc. the “target” dimension, called
+<em>label</em></p></li>
+<li><p>split it in training and test data</p></li>
+<li><p>run a. on the test data, find a putative solution</p></li>
+<li><p>test the quality/pred. power against test data</p></li>
+</ul>
+<div class="fragment">
+<p>Regression involves a numeric target while classification involves a
+categorical/binary one</p>
+</div>
+</section>
+<section id="supervised" class="slide level2">
+<h2>Supervised</h2>
+<p>1: Regression</p>
+<p>2: Classification</p>
+<p>9: Causal Modelling</p>
+</section>
+<section id="could-be-either" class="slide level2">
+<h2>Could be either</h2>
+<p>3: Similarity matching,</p>
+<p>7: link prediction,</p>
+<p>8: data reduction</p>
+</section>
+<section id="mostly-unsupervised" class="slide level2">
+<h2>(mostly) unsupervised</h2>
+<p>4: Clustering</p>
+<p>5: co-occurrence grouping</p>
+<p>6: profiling</p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4//dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^4//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/math/math.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: true,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'convex',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
