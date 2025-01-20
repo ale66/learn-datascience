@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Exoteric: it checks out the repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v4
 
       - name: Install dependencies
@@ -17,23 +18,14 @@ jobs:
       - name: Find changed Markdown files
         id: find_files
         run: |
-          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- '*.md')
+          files = $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- '*.md')
           echo "::set-output name=files::$files"
 
       - name: Convert Markdown to HTML
         if: steps.find_files.outputs.files != ''
         run: |
           for file in ${{ steps.find_files.outputs.files }}; do
-            # cat  config.yaml "$file" >> "${file%md}.qmd"
+            cat  config.yaml "$file" >> "${file%md}.qmd"
             pandoc --from markdown --to html "${file%qmd}.qmd" -o "${file%.qmd}.html"
             pandoc --from markdown --to pdf "${file%qmd}.qmd" -o "${file%.qmd}.pdf"
           done
-
-      - name: Aggregate HTML files into single file
-        if: steps.find_files.outputs.files != ''
-        run: |
-          echo "<html><body>" > compiled.html
-          for file in ${{ steps.find_files.outputs.files }}; do
-            cat "${file%.md}.html" >> compiled.html
-          done
-          echo "</body></html>" >> compiled.html
