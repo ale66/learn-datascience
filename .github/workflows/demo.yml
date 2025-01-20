@@ -26,4 +26,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run Pandoc
-        run: pandoc --from markdown --to html README.md
+        run: pandoc --from markdown --to html README.md --standalone -o readme.html
