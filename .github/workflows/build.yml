@@ -1,4 +1,4 @@
-name: Compile Markdown to HTML
+name: Inject YAML setup to create a Quarto then generate HTML and PDF
 
 on:
   push:

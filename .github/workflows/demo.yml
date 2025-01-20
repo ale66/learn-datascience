@@ -1,6 +1,6 @@
 # .github/workflows/demo.yml
 
-name: CI
+name: Demo
 
 # Controls when the workflow will run
 on:
