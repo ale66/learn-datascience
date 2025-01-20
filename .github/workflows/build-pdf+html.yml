@@ -18,7 +18,8 @@ jobs:
       - name: Find changed Markdown files
         id: find_files
         run: |
-          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- '*.md')
+          files=$(git diff --name-only HEAD~1 HEAD  -- '*.md')
+          # ${{ github.event.before }} ${{ github.sha }}
           echo "::set-output name=files::$files"
 
       - name: Convert Markdown to HTML
