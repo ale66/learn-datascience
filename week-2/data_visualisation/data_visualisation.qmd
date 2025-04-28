@@ -1,0 +1,100 @@
+---
+title: "Visualising the Iris dataset with Seaborn"
+lang: en
+author: PL 
+format:
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://ale66.github.io/dsta/
+    code-links:
+      - text: Data
+        icon: file-code
+        href: ./data/biostats.csv
+jupyter: python3
+---
+
+
+## Preliminaries
+
+We will be deploying two Python modules dedicated to data visualisation: `Matplotlib` and `Seaborn`, so we will install them first.
+
+```{bash}
+pip install matplotlib
+
+pip install seaborn
+```
+
+```{python}
+import pandas as pd
+
+from matplotlib import pyplot as plt
+
+import seaborn as sns
+```
+
+```{python}
+FILE = './data/iris.csv'
+
+iris = pd.read_csv(FILE)
+
+iris
+```
+
+
+## Plot sepal-length in stacked bars
+
+The `hue` parameter controls class separation
+
+```{python}
+sns.histplot(data=iris,  x="SepalLengthCm", hue=iris["Species"], multiple="stack")
+
+plt.show()
+```
+
+```{python}
+# Plot histogram of classes of sepal length dimension in three sub plots
+g = sns.FacetGrid(iris, col="Species")
+
+g.map(sns.histplot, "SepalLengthCm")
+
+# plt.show()
+```
+
+---
+
+```{python}
+# Scatter plot between speal length vs petal length
+g = sns.FacetGrid(iris, hue="Species")
+g.map(sns.scatterplot, "SepalLengthCm", "SepalWidthCm", alpha=.7)
+g.add_legend()
+
+plt.show()
+```
+---
+
+## Plot histograms and scatter plots for all dimensions in one single figure
+
+```{python}
+g = sns.PairGrid(iris, hue="Species")
+
+g.map_diag(sns.histplot)
+g.map_offdiag(sns.scatterplot)
+g.add_legend()
+
+plt.show()
+```
