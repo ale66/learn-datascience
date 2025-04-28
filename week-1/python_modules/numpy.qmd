@@ -1,0 +1,286 @@
+---
+title: 'Numpy'
+author: 'ale66'
+format: 
+  revealjs:
+    footer: '[github.com/ale66/learn-datascience](https://github.com/ale66/learn-datascience)&nbsp;&nbsp;&nbsp;'
+    theme: [moon]
+    preview-links: auto
+    chalkboard: 
+      boardmarker-width: 2
+from: markdown+emoji
+execute:
+  echo: true
+---
+
+# Numpy
+
+
+## Motivations
+
+Python does not cover the data structures normally used in science/engineering
+
+Numpy comes in to support data manipulation of n-dimensional arrays.
+
+Extensive library of functions to reshape data.
+
+Comprehensive collection of mathematical operations. 
+
+```bash
+pip install numpy
+```
+
+
+---
+
+## Arrays
+
+A computer version of vectors and matrices: sequence of uniform-type values with indexing mechanism by integers.
+
+Numpy arrays have methods, applied element-wise, and functions that take into account the position of each element in the array.
+
+```{python}
+import numpy as np
+```
+
+```{python}
+# nr from 2 to 20 (excl.) with step 2
+
+b = np.arange(2, 20, 2)
+
+b
+```
+
+---
+
+```{python}
+# element-wise operations
+
+2*b
+```
+
+---
+
+```{python}
+# cumulative step-by-step sum
+b.cumsum()
+```
+
+---
+
+## Lists vs. Arrays
+
+Same indexing notation:
+
+```python
+mylist[0]
+
+mylistoflists[0][1]
+```
+
+A list is a generic sequence of heterogenous objects.
+
+So, strings, numbers, characters, file name, URLs can be all mixed up!
+
+An array is a sequence of strictly-homogenous objects, normally `int` or `float`
+
+```python
+myarray[1]
+
+mymatrix[1][3]
+```
+
+---
+
+## Notation
+
+1-dimension: an array (sequence of numbers): `[1, 23, …]`
+
+2-dimensions: a matrix (table of numbers) `[ [1, 23, …], [14, 96, …], ...]`
+
+3-dimensions: a *tensor* (box/cube/cuboid) of numbers:  `[ [ [1, 23, …], [14, 96, …], …], ...]`
+
+---
+
+## 2-D Numpy Arrays
+```{python}
+c = np.arange(8)
+
+c
+```
+
+```{python}
+# build a 2-dimensional array from a 1-d one
+d = np.array([c, c*2])
+
+d
+```
+
+```{python}
+# count elements
+
+d.size
+```
+
+
+```{python}
+#  size along each dimension
+
+d.shape
+```
+
+---
+
+## Axes
+
+Numpy arrays can have multiple dimensions
+
+```{python}
+# operations along columns
+d
+```
+
+```{python}
+# operations along columns
+d.sum(axis=0)
+```
+
+---
+
+```{python}
+# summing by row
+d.sum(axis=1)
+```
+
+
+__N. B.__ unlike Pandas, not specifying the axis will apply a function to the entire array.
+
+```{python}
+# sum the whole content
+d.sum()
+```
+
+---
+
+## Shapes
+
+Using information about the shape we can create/manipulate (or reshape, or transpose) Numpy variables.
+
+```{python}
+# Create 2x3 Numpy array and initialise it to 0s
+e = np.zeros((2, 3), dtype = 'i')
+
+e
+```
+
+```{python}
+# Change the shape
+e.reshape(3, 2)
+```
+
+-----
+
+```{python}
+# a new array with exactly the same shape as 'e' and type integer
+f = np.ones_like(e, dtype = 'i')
+f
+```
+
+```{python}
+# Transposition
+g = np.arange(6).reshape(3,2)
+g
+```
+
+
+```{python}
+g.T
+```
+---
+
+## Stacking
+
+2-D arrays with the same dimensions can be merged 
+
+```{python}
+# Create an identity matrix of order 5
+i = np.eye(5)
+
+i
+```
+
+---
+
+```{python}
+# stacking combines two 2-d arrays: vertically
+np.vstack((i, i))
+```
+
+-----
+
+```{python}
+# stacking combines two 2-d arrays: horizontally
+np.hstack((i, i))
+```
+
+---
+
+## Detour: N-dimensional arrays
+
+Numpy can handle multiple dimensions.
+
+This is useful when dealing with multivariate data, from time series to documents.
+
+```{python}
+# N-dimensional array
+
+g = np.zeros((2, 3, 4))
+
+g
+```
+
+Two samples, each with three rows and four columns.
+
+---
+
+## Slicing by Boolean filters
+
+Data can be selected according to specific conditions.
+
+The Boolean filter itself can be represented by a Numpy array
+
+```{python}
+l = np.array(np.arange(9))
+
+l
+```
+```{python}
+l.reshape(3, 3)
+
+l
+```
+
+
+---
+
+## More slicing
+
+```{python}
+# Let's apply a high-pass filter
+
+l[l>4]
+```
+
+```{python}
+# Generate a Boolean array
+
+(l>4)
+```
+
+```{python}
+# now with integers: False=0, True=1)
+
+(l>4).astype(int)
+```
+
+

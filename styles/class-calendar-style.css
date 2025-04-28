@@ -1,0 +1,20 @@
+
+* { font-family: Tahoma, Arial, sans-serif}
+
+
+table { background-color: #ffffff; }
+
+tr { background-color: grey; }
+
+tr.current { background-color: #fff; }
+
+
+h1 { font-size: 18pt; }
+
+h2 { font-size: 14pt; }
+
+ul { margin-top: 3px; margin-bottom: 3px; }
+
+blockquote { margin-top: 3px; margin-bottom: 3px; }
+	.detail { font-size: smaller; color: gray; }
+	.gone { text-decoration:line-through; }
