@@ -39,13 +39,13 @@ jupyter: python3
 <!--------------------------------------------------->
 ## Main topics
 
-* Python modules for DS, `Numpy,` `Pandas,` `Matplotlib` and `Scikit-learn.`
+* Python modules for Data Science, e.g., `Numpy` 
 
-* The geometric view of multidimensional data (Lin. Algebra)
+* The geometric view of multidimensional data 
 
 * The data-as-network view (graph algo.)
 
-* the text-as-data view (Information Theory)
+* the information-theoretic view of data, e.g., text-as-data
 
 . . .
 
@@ -93,26 +93,17 @@ so, expect a more seminarial (than textbook) approach.
 
 Standard Moodle/Teams provision
 
-Updated at-a-glance programme on the satellite site:
-
-[http://www.dcs.bbk.ac.uk/~ale/dsta](http://www.dcs.bbk.ac.uk/~ale/dsta/)
-
-[https://ale66.github.io/dsta/](https://ale66.github.io/dsta/)
-
-All-in-one downloadable materials:
-
-[https://github.com/ale66/dsta/](https://github.com/ale66/dsta/)
-
 Please check your email and MyBirkbeck calendar for (unlikely) time/place amendments.
+
+Extra effort: if you are familiar with the Markdown presentation language and the GitHub software repository you can follow material preparation live in there.
+
 
 <!---------------------------------------------------------------->
 ## Please see your
 
 * PG admins, e.g., Yeti Wan, for support in navigating school: [cs-pg@bbk.ac.uk]()
 
-![Yeti](./imgs/yeti.png)
-
-## also see your
+<!--- ![](./imgs/yeti.png) --->
 
 * TAs, Abul or Paschalis, for support with lab experience
   
@@ -146,21 +137,17 @@ DSTA vs. ML in 2019:
 
 ## Coursework
 
-For the first time, coursework will take the form of an in-class, multiple-choice test via Codio/ Moodle.
+For the second time, coursework will take the form of an in-class, multiple-choice quiz via Codio/ Moodle.
 
-On Week 6 (May 28th) at 20:00 for about 30/40 minutes.
-
-10 questions on the 10 foundational units: from 2.b to 4.c (see the [online calendar](https://github.com/ale66/dsta)).
+Please see the details under the 'Assessment' tile on Moodle.
 
 In view of the novelty of the approach, marks will be awarded generously, but always at the discretion of the School's [Exam board](https://en.wikipedia.org/wiki/The_Spanish_Inquisition_(Monty_Python)).
 
 <!-- ----------------------------------------------- -->
 ## Final test
 
-For the first time, the final test will take the form of an in-class, multiple-choice test via Codio/ Moodle.
+For the second time, the final test will take the form of an in-class, multiple-choice quiz via Codio/ Moodle.
 
-On the final Week 11 (July 2nd) at 18:00 for about 60/80 minutes (notice the time change wrt. the in-class presentation).
-
-20 questions on the 20 advanced units: from 4.d to 10.c but excluding the notebooks on 7.d, 8.d, 9.d and 10.d (see the [online calendar](https://github.com/ale66/dsta)).
+Please see the details under the 'Assessment' tile on Moodle.
 
 In view of the novelty of the approach ...
