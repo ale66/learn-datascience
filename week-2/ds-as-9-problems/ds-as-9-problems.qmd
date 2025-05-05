@@ -1,18 +1,83 @@
 ---
-lang: en
-author: DSTA
 title: "Data Science as 9 problems"
-date: 
+lang: en
+author: AP 
+format:
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    scrollable: true
+    # auto-stretch: false
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://ale66.github.io/learn-datascience/
+jupyter: python3
 ---
 
 
 ## A gentle-yet-focussed introduction
 
-![[Ch. 2](./provost-ch2.pdf)](./imgs/provost-cover.jpg)
+[Chapter 2](./provost-ch2.pdf) describes the core computational problems of Data Science
+
+![](./imgs/provost-cover.jpg){.nostretch fig-align="center" width="200px"}
+
+
+In memoriam: [Tom Fawcett](https://link.springer.com/article/10.1007/s10994-020-05909-0)
 
 -----
 
-1. (was 2) Regression/value estimation
+1.  Classification and class probability
+
+__Instance:__
+
+* a collection (dataset) of datapoints from $\mathbf{X}$
+
+* a classification system $C = \{c_1, c_2, \dots c_k\}$
+
+. . .
+
+__Solution:__  classification function $\gamma: \mathbf{X} \rightarrow C$
+
+__Measure:__ misclassification
+
+
+-----
+
+## Misclassification: detection 
+
+binary, only one class is important
+
+![](./imgs/false_positives_and_negatives.jpg){width="40%"}
+
+-----
+
+## Misclassification: multi-class 
+
+![](./imgs/misclass-examples.png)
+
+
+-----
+
+![](./imgs/misclassification.png)
+
+
+[Source](https://www.researchgate.net/publication/322596493_A_PCA-CCA_network_for_RGB-D_object_recognition)
+
+
+-----
+
+2. Regression/value estimation
 
 __Instance:__
 
@@ -28,29 +93,10 @@ that complements $\mathbf{x}$
 
 __Measure:__ error over the collection
 
------
-
-2. (was 1) Classification and class probability
-
-__Instance:__
-
-* a collection (dataset) of datapoints from $\mathbf{X}$
-
-* a classification system $C = \{c_1, c_2, \dots c_k\}$
-
-. . .
-
-__Solution:__  classification function $\gamma: \mathbf{X} \rightarrow C$
-
-__Measure:__ misclassification
-
 . . .
 
 [PF] "classification predicts whether something will happen, whereas regr. predicts how much something will happen."
 
------
-
-![Type I and II errors](./imgs/false_positives_and_negatives.jpg)
 
 -----
 
@@ -70,11 +116,16 @@ __Solution:__  similarity function $\sigma: \mathbf{X} \rightarrow \mathbb{R}$
 
 [__Measure:__ error]
 
+
 -----
 
-![[Ch. 2](./provost-ch2.pdf)](./imgs/similarity.png)
+Good similarity measures are the key to accurate detection/classification
+
+
+![](./imgs/similarity.png)
 
 <!-- http://dingcvnote.blogspot.com/2018/06/matlab-comparing-of-detect-feature.html -->
+
 
 -----
 
@@ -209,10 +260,51 @@ Example: Exactly What food causes you to put on weight?
 
 Controlled clinical trials, A/B testing.
 
-<!-- --------- -->
-# [Un]Supervision
 
-## Supervised Data Science
+<!-- ------------------------- -->
+# From problems to algorithms
+
+-----
+
+Computer Science is often metaphoric: it uses abstractions that allow us to 
+
+- focus our problem-solving
+
+- communicate with the computer
+
+Examples:
+
+- interpreted languages (Python)
+  
+- data models (SQL and relational tables)
+
+- TCP/IP computer networks
+
+
+-----
+
+Problem $\longrightarrow$ Algorithm $\longrightarrow$ Implementation (code)
+
+For a given problem, more than one algorithm may be available
+
+For a given algorithm, more than one implementation is possible
+
+Only with clarity about the problem we can look for the algorithms.
+
+-----
+
+## Supervised Algorithms
+
+Previous instance/solution pairs are available and fed to the a.
+
+A. may 'memorise' past solutions and re-apply them, via some similarity criterion
+
+A. may also 'learn' a model and apply it to future inputs 
+
+
+-----
+
+## Method 
 
 * obtain a dataset of examples, inc. the  "target"  dimension, called *label*
 
@@ -224,12 +316,11 @@ Controlled clinical trials, A/B testing.
 
 . . .
 
-Regression involves a numeric target while classification
-involves a categorical/binary one
+Regression has  a numeric target while classification has a categorical/binary one
 
 -----
 
-## Supervised
+## P. with good supervised algorithms
 
 1: Regression
 
@@ -237,22 +328,24 @@ involves a categorical/binary one
 
 9: Causal Modelling
 
+
 -----
 
-## Could be either
-
-3: Similarity matching,
-
-7: link prediction,
-
-8: data reduction
-
----
-
-## (mostly) unsupervised
+## P. with mostly unsupervised a.
 
 4: Clustering
 
 5: co-occurrence grouping
 
 6: profiling
+
+
+-----
+
+## P. with a mix of supervised and unsupervised
+
+3: Similarity matching,
+
+7: link prediction,
+
+8: data reduction
