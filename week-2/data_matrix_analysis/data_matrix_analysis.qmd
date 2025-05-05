@@ -1,8 +1,12 @@
 ---
-title: "Spectral Methods for Data Science"
+title: "Data Matrix Analysis"
 lang: en
 author: AP 
 format:
+  pdf:
+    papersize: A4
+    number-sections: true
+    pdf-engine: pdflatex
   revealjs: 
     theme: solarized
     css: ../../styles/dsta_slides.css
@@ -20,11 +24,7 @@ format:
     anchor-sections: true
     other-links:
       - text: Class page
-        href: https://ale66.github.io/dsta/
-    code-links:
-      - text: Data
-        icon: file-code
-        href: ./data/biostats.csv
+        href: https://ale66.github.io/learn-datascience/
 jupyter: python3
 ---
 
@@ -37,11 +37,14 @@ Activity tables show how users *map* their choices or, viceversa, how available 
 
 ![](./imgs/activity_matrix.png)
 
-Essentially, a weighted, binary relationship between users and films...
+Data Science: representation of 6 user profiles; 18 datapoints of user review
 
-# Spectral Methods
+Network science: a weighted, binary relationship between users and films.
 
-## What is it?
+Let us step back and check what Geometry gives us.
+
+<!-- ----------- -->
+# Spectral Methods: Traditional
 
 Most activity matrices represent the connections between n entities, e.g., users and m entities, such as films, $n<>m$.
 
@@ -50,6 +53,58 @@ Sometimes the connections is between the same entities, such as endorsement, tea
 In such cases, the matrix is square.
 
 Hence, standard Geometry holds and we can extracts the __Eigenpairs__.
+
+
+-----
+
+## Geometry
+
+
+## Traditional
+
+There is a *space* in *n* dimensions
+
+Each point is represented by an n-dimensional vector $\vec{x}$
+
+A transformation: a *expansion/contraction* or a *rotation* or a combination thereof, is represented by a matrix, $M$
+
+The resulting point is computed by $M\vec{x}$
+
+
+-----
+
+## Example
+
+$$
+\mathbf{x} =
+\begin{pmatrix}
+1 \\
+0.5 
+\end{pmatrix}
+$$
+
+$$
+M =
+\begin{pmatrix}
+1 & 2\\
+3 & 4
+\end{pmatrix}
+$$
+
+. . .
+
+$$
+M\mathbf{x} =
+\begin{pmatrix}
+2 \\
+5 
+\end{pmatrix}
+$$
+
+rotation anti-clockwise and expansion
+
+
+-----
 
 ## Eigenpairs
 
@@ -68,6 +123,156 @@ In practice,
 
 * are always *costly* (at least quadratic time in the size of the m., $\Omega(n^2)$) to find.
 
+
+
+
+-----
+
+## Eigendecomposition
+
+The effect of M can be decomposed into translation and rotation thanks to the extraction of *eigenpairs* $\langle \lambda, \vec{v} \rangle$:
+
+$$
+M\vec{v} = \lambda \vec{v}
+$$
+
+. . .
+
+$\lambda_1 \approx 5.372$ and $\lambda_2 \approx -0.372$
+
+. . . 
+
+$$
+\mathbf{v_1} \approx
+\begin{pmatrix}
+0.416 \\
+0.909 
+\end{pmatrix}
+$$
+
+$$
+\mathbf{v_2} \approx
+\begin{pmatrix}
+0.824 \\
+-0.0566 
+\end{pmatrix}
+$$
+
+M now can be re-defined as the product of simpler operations:
+
+
+-----
+
+$$
+M = Q\Lambda Q^{-1}
+$$
+
+Stretching, followed by rotation followed by 'stretching back'
+
+$$
+Q =
+\begin{pmatrix}
+\vec{v_1} & \vec{v_2}
+\end{pmatrix}
+$$
+
+$$
+\Lambda = 
+\begin{pmatrix}
+\lambda_1 & 0\\
+0 & \lambda_2
+\end{pmatrix}
+$$
+
+
+-----
+
+$$
+M =
+\begin{pmatrix}
+0.416 & 0.824\\
+0.909 & -0.566 
+\end{pmatrix}
+\begin{pmatrix}
+5.372 & 0 \\
+0 & -0.372 
+\end{pmatrix}
+\begin{pmatrix}
+0.575 & 0.837\\
+0.924 & -0.423 
+\end{pmatrix}
+$$
+
+
+-----
+
+$$
+M\mathbf{x} =
+\begin{pmatrix}
+0.416 & 0.824\\
+0.909 & -0.566 
+\end{pmatrix}
+\begin{pmatrix}
+5.372 & 0 \\
+0 & -0.372 
+\end{pmatrix}
+\begin{pmatrix}
+0.575 & 0.837\\
+0.924 & -0.423 
+\end{pmatrix}
+\begin{pmatrix}
+1 \\
+0.5 
+\end{pmatrix}
+$$
+
+
+-----
+
+$$
+M\mathbf{x} =
+\begin{pmatrix}
+0.416 & 0.824\\
+0.909 & -0.566 
+\end{pmatrix}
+\begin{pmatrix}
+5.372 & 0 \\
+0 & -0.372 
+\end{pmatrix}
+\begin{pmatrix}
+0.994 \\
+0.712
+\end{pmatrix}
+$$
+
+
+-----
+
+$$
+M\mathbf{x} =
+\begin{pmatrix}
+0.416 & 0.824\\
+0.909 & -0.566 
+\end{pmatrix}
+\begin{pmatrix}
+5.340 \\
+-0.265
+\end{pmatrix}
+$$
+
+-----
+
+$$
+M\mathbf{x} =
+\begin{pmatrix}
+2.003 \\
+5.004
+\end{pmatrix}
+$$
+
+
+-----
+
 ## Interesting square matrices
 
 *A* is called *symmetric* when $A=A^T$
@@ -78,8 +283,18 @@ $$\mathbf{x}^T A \mathbf{x} \ge 0$$
 
 In such case its eigenvalues are non-negative: $\lambda_i\ge 0$.
 
+
 <!------------------------------------------------------------->
-# Applications of Spectral analysis
+# Singular Value Decomposition
+
+For rectangular matrices Eigendecomposition is not define
+
+SVD provides a similar decomposition of the data matrix
+
+Details are in the textbook and will be introduced later
+
+<!------------------------------------------------------------->
+# Applications
 
 ## Spectral properties
 
@@ -92,6 +307,7 @@ The Google PageRank algorithm *is* spectral network analysis.
 ![](./imgs/google-page-rank.jpg)
 
 Early applications in Psychology, Social science, Bibliometrics, Economy, and Choice theory (seriously).
+
 
 ## Spectral ranking
 
@@ -121,6 +337,7 @@ i.e., $\mathbf{r}$ is a left eigenvector of M.
 
 This formula might have no solution, but matrix preprocessing can assure that one exists.
 
+
 <!------------------------------------------------------------------>
 # Study plan
 
@@ -129,9 +346,10 @@ This formula might have no solution, but matrix preprocessing can assure that on
 Ian Goodfellow, Yoshua Bengio and Aaron Courville:
 [Deep Learning, MIT Press, 2016](https://www.deeplearningbook.org/).
 
-available in HTML and PDF from the module;
+available in HTML and PDF;
 it is *a refresher* of notation and properties: no examples and no exercises.
-It can be read in the background of our classes.
+
+It can be read in the background.
 
 * Phase 1: read &sect;&sect; 2.1---2.7, then &sect; 2.11.
 
