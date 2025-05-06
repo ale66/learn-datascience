@@ -37,7 +37,7 @@ Activity tables show how users *map* their choices or, viceversa, how available 
 
 ![](./imgs/activity_matrix.png)
 
-Data Science: representation of 6 user profiles; 18 datapoints of user review
+Data Science: representation of 7 user profiles; 18 datapoints of user review
 
 Network science: a weighted, binary relationship between users and films.
 
