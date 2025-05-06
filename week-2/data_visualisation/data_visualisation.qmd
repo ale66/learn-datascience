@@ -1,5 +1,5 @@
 ---
-title: "Visualising the Iris dataset with Seaborn"
+title: "Data Visualisation"
 lang: en
 author: PL 
 format:
@@ -20,11 +20,7 @@ format:
     anchor-sections: true
     other-links:
       - text: Class page
-        href: https://ale66.github.io/dsta/
-    code-links:
-      - text: Data
-        icon: file-code
-        href: ./data/biostats.csv
+        href: https://ale66.github.io/learn-datascience/
 jupyter: python3
 ---
 
@@ -47,14 +43,43 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 ```
 
+
+-----
+
+## Local data
+
+Fisher's dataset is publicly available from ``Scikit-learn`` as well as a comma-separated variables file from a myriad of online sources.
+
+We use the `Pandas` module to upload the data insto a suitable Python data structure.
+
 ```{python}
-FILE = './data/iris.csv'
+# github users
+FILE = "./data/iris.csv"
+
+# colab and general users
+#FILE = "/iris.csv"
+
 
 iris = pd.read_csv(FILE)
 
 iris
 ```
 
+-----
+
+## Seaborn
+
+Seaborn supplies visualisation functions that are oriented to Python data structures.
+
+Data becomes an input parameter to a Seaborne object.
+
+Manuals: [seaborn.pydata.org/](https://seaborn.pydata.org/)
+
+
+Paper: [10.21105/joss.03021](https://joss.theoj.org/papers/10.21105/joss.03021)
+
+
+-----
 
 ## Plot sepal-length in stacked bars
 
@@ -66,6 +91,8 @@ sns.histplot(data=iris,  x="SepalLengthCm", hue=iris["Species"], multiple="stack
 plt.show()
 ```
 
+-----
+
 ```{python}
 # Plot histogram of classes of sepal length dimension in three sub plots
 g = sns.FacetGrid(iris, col="Species")
@@ -75,7 +102,7 @@ g.map(sns.histplot, "SepalLengthCm")
 # plt.show()
 ```
 
----
+-----
 
 ```{python}
 # Scatter plot between speal length vs petal length
@@ -85,9 +112,12 @@ g.add_legend()
 
 plt.show()
 ```
----
+-----
 
-## Plot histograms and scatter plots for all dimensions in one single figure
+## Plot histograms and scatterplots for all dimensions in one single figure
+
+Work with Seaborn's [add_legend]() to personalise the data presentation.
+
 
 ```{python}
 g = sns.PairGrid(iris, hue="Species")
