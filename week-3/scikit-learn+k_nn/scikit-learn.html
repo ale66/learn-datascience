@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scikit-learn: an introduction</title>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Garamond);
+      @import url(https://fonts.googleapis.com/css?family=Muli:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+    </style>
+  </head>
+  <body>
+  <textarea id="source">
+
+class: center, middle
+
+![:scale 10%](imgs/sklearn_logo.png)
+
+
+### Scikit-learn: an introduction
+
+
+Slides and codes courtesy of Andreas C. Müller, NYU
+
+.smaller[https://github.com/amueller/]
+
+
+---
+
+class: center
+
+# <a href="http://scikit-learn.org/" style="color:blue; font-size:30px; text-decoration:None">scikit-learn.org</a>
+
+
+![:scale 60%](./imgs/scikit-learn.png)
+
+
+
+---
+class: center
+
+# Representing Data
+
+![:scale 90%](imgs/matrix-representation.png)
+
+---
+
+class: center
+
+# Training and Test Data
+
+![:scale 80%](imgs/train-test-split.png)
+
+
+---
+class: center
+
+# Supervised ML Workflow
+
+![:scale 70%](imgs/supervised-ml-workflow.png)
+
+---
+class: center
+
+# Supervised ML Workflow
+
+![:scale 90%](imgs/my-supervised-ml-api-combi.png)
+
+---
+
+# 1-NN: Nearest-Neighbor class.
+
+$$\gamma(\mathbf{x}) = y_i, i = \text{argmin}_j || \mathbf{x}_j - \mathbf{x}||$$
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+
+K = 1
+myclassifier = KNeighborsClassifier(n_neighbors=K)
+```
+
+![:scale 25%](imgs/knn_boundary_test_points.png)
+
+---
+
+# 1-NN: Nearest-Neighbor class.
+
+$$\gamma(\mathbf{x}) = y_i, i = \text{argmin}_j || \mathbf{x}_j - \mathbf{x}||$$
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+
+K = 1
+myclassifier = KNeighborsClassifier(n_neighbors=K)
+```
+
+![:scale 25%](imgs/knn_boundary_k1.png)
+
+???
+Let’s say we have this two-class classification dataset here, with
+two features, one on the x axis and one on the y axis.
+And we have three new points as marked by the stars here.
+If I make a prediction using a one nearest neighbor classifier, what
+will it predict?
+It will predict the label of the closest data point in the training set.
+That is basically the simplest machine learning algorithm I can come
+up with.
+
+Here’s the formula:
+the prediction for a new x is the y_i so that x_i is the closest point
+in the training set.
+Ok, so now how do we find out whether this model is any good?
+
+---
+class: center
+
+![:scale 60%](imgs/train_test_set_2d_classification.png)
+
+???
+The simplest way is to split the data into a training and a test set.
+So we take some part of the data set,  let’s say 75% and the
+corresponding output, and train the model, and then apply the model on
+the remaining 25% to compute the accuracy. This test-set accuracy
+will provide an unbiased estimate of future performance.
+So if our i.i.d. assumption is correct, and we get a 90% success
+rate on the test data, we expect about a 90% success rate on any future
+data, for which we don't have labels.
+
+Let's dive into how to build and evaluate this model with scikit-learn.
+
+---
+## k-NN with Scikit-learn
+
+```python
+from sklearn.model_selection import train_test_split
+
+# obtain X and y ...
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+from sklearn.neighbors import KNeighborsClassifier
+
+K=1
+myclassifier = KNeighborsClassifier(n_neighbors=K)
+
+myclassifier.fit(X_train, y_train)
+
+print("accuracy: {:.2f}".format(myclassifier.score(X_test, y_test)))
+
+y_pred = myclassifier.predict(X_test)
+```
+accuracy: 0.77
+
+???
+We import train_test_split form model selection, which does a
+random split into 75%/25%.
+We provide it with the data X, which are our two features, and the
+labels y.
+
+As you might already know, all the models in scikit-learn are implemented
+in python classes, with a single object used to build and store the model.
+
+We start by importing our model, the KneighborsClassifier, and instantiate
+it with n_neighbors=1. Instantiating the object is when we set any hyper parameter,
+such as here saying that we only want to look at the neirest neighbor.
+
+Then we can call the fit method to build the model, here knn.fit(X_train,
+y_train)
+All models in scikit-learn have a fit-method, and all the supervised ones take
+the data X and the outcomes y. The fit method builds the model and stores any
+estimated quantities in the model object, here knn.  In the case of nearest
+neighbors, the `fit` methods simply remembers the whole training set.
+
+Then, we can use knn.score to make predictions on the test data, and
+compare them against the true labels y_test.
+
+For classification models, the score method will always compute
+accuracy.
+
+Just for illustration purposes, I also call the predict method here.
+The predict method is what's used to make predictions on any dataset.
+If we use the score method, it calls predict internally and then
+compares the outcome to the ground truth that's provided.
+
+
+</textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script>
+  // Config Remark
+  remark.macros['scale'] = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+  };
+  config_remark = {
+      highlightStyle: 'github',
+      highlightSpans: true,
+      highlightLines: true,
+      ratio: "16:9"
+  };
+    var slideshow = remark.create(config_remark);
+
+  // Configure MathJax
+  MathJax.Hub.Config({
+  tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] /* removed 'code' entry*/
+  }
+  });
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i = 0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+</body>
+</html>

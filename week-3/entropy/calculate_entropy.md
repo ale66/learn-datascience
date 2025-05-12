@@ -1,0 +1,118 @@
+---
+title: "Mastering entropy"
+lang: en
+author: AP 
+format:
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    # scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://github.com/ale66/learn-datascience
+jupyter: python3
+engine: knitr
+---
+
+
+#  The setup
+
+## Wheather news
+
+$X_{LDN} \in \{$ snow, showers, light rain, wet, misty, cloudy, breezy, bright, sunny}
+
+$Pr[X_{LDN}=x_i] = [\frac{1}{16}, \frac{1}{8},\dots \frac{1}{8}, \frac{1}{16}]$
+
+. . .
+
+$X_{WH} \in \{$ cloudy w. light rain, sunny}
+
+$Pr[X_{WH}=y_i] = [\frac{1}{8}, \frac{7}{8}]$
+
+<!-------------------------->
+# Let's calculate
+
+## Entropy in Wadi Halfa
+
+$H[X_{WH}] = \sum Pr[X_{WH}=y_i]\cdot I[y_i]$
+
+. . .
+
+$H[X_{WH}] = -\sum Pr[X_{WH}=y_i]\cdot \log_2 Pr[X_{WH}=y_i]$
+
+. . .
+
+$H[X_{WH}] = -\frac{1}{8}\cdot \log \frac{1}{8} -\frac{7}{8}\cdot \log \frac{7}{8}$
+
+-----
+
+$= -\frac{1}{8}\cdot \log \frac{1}{8} -\frac{7}{8}[\log 7 - \log 8]$
+
+. . .
+
+$= \frac{1}{8}\cdot\log 8 +\frac{7}{8}[\log 8 - \log 7]$
+
+. . .
+
+$= \frac{1}{8}\cdot 3 +\frac{7}{8}[3 - 2.8073]$
+
+. . .
+
+$= \frac{3}{8} +\frac{7}{8}\cdot 0.2$ (I'm rounding!)
+
+. . .
+
+$= \frac{3}{8} +\frac{7}{8}\cdot \frac{1}{5}$
+
+. . .
+
+$= [\frac{3}{8}\cdot 5 +\frac{7}{8}] \frac{1}{5}$
+
+. . .
+
+$= \frac{22}{8}\cdot \frac{1}{5}$
+
+$= 2.75\cdot 0.2 = 0.55 \approx 1$ bit needed.
+
+## Entropy in London
+
+-----
+
+$H[X_{LDN}] = \sum Pr[X_{LDN}=x_i]\cdot I[x_i]$
+
+. . .
+
+$H[X_{LDN}] = -\sum Pr[X_{LDN}=x_i]\cdot \log_2 Pr[X_{LDN}=x_i]$
+
+. . .
+
+$H[X_{LDN}] = -\frac{1}{16}\cdot \log \frac{1}{16} -\frac{1}{8}\cdot \log \frac{1}{8} \dots$
+
+-----
+
+$= -2\frac{1}{16}\cdot \log \frac{1}{16} -7\frac{1}{8}\log \frac{1}{8}$
+
+. . .
+
+$= 2\frac{1}{16}\cdot\log 16 +7\frac{1}{8}\log 8$
+
+. . .
+
+$= \frac{1}{8}\cdot\log 16 +\frac{7}{8}\log 8$
+
+. . .
+
+$= \frac{1}{8}\cdot 4 +\frac{7}{8}\cdot 3$
+
+$= \frac{25}{8} = 3.125 \approx 4$ bits needed.
