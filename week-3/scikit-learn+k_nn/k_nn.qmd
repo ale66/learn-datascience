@@ -1,5 +1,5 @@
 ---
-title: "k-NN"
+title: "Classification: the nearest-neighbors algorithm (k-NN)"
 lang: en
 author: AP 
 format:
@@ -26,7 +26,7 @@ jupyter: python3
 
 ## From the introduction:
 
-2. (was 1) Classification and class probability
+1. Classification and class probability
 
 __Instance:__
 
@@ -46,23 +46,30 @@ $r=2$: positive and negative.
 
 Misclassification is described by the *confusion matrix,* which scores the result of classification against labeled examples.
 
-![](imgs_perf/confusion_matrix.png)
+![](./imgs/confusion_matrix.png)
 
-Often one class is of more interest than the other: better measures are needed.
+- often one class is of more interest than the other: better measures are needed.
+
+- accuracy on the given examples *does not automatically translate* into accuracy on new, previously-unseen data
+
+-----
 
 ## Binary classification in 2D
 
 With just two numerical dimensions, datapoint similarity can be interpreted as simple Euclideian distance.
 
-Being very close $\Longleftrightarrow$ being very similar. 
+Being very close $\Longleftrightarrow$ being very similar
 
-Are 4 and 6 more similar to each other than -1 and +1?
+Q: are 4 and 6 more similar to each other than -1 and +1?
 
-Assumption: small changes in the values won't alter the classification, close points will receive the same classification. 
+Assumption: small changes in the values won't alter the classification, close points will receive the same classification 
 
-if close distance then assing same class
+if a point is in close distance to a labeled one then assign the same class
 
-## The nearest neigh.
+
+-----
+
+## The nearest neigh. algorithm
 
 Take a set of labeled points (the examples), all others are *blank* at the moment. 
 
@@ -72,12 +79,15 @@ This is the NN, or 1-NN algorithm.
 
 ![](imgs/knn_boundary_test_points.png){scale=40%}
 
+
 -----
 
 ![](imgs/knn_boundary_k1.png)
 
 $$\gamma(\mathbf{x}) = y_i, i = \text{argmin}_j ||\mathbf{x}_j - \mathbf{x}||$$
 
+
+-----
 
 ## From 1-NN to k-NN
 
@@ -86,6 +96,7 @@ Consider the *k* nearest neighbors
 Assign the class that is the most common among them
 
 Variation: consider each label relative to the effective distance of the neighbor.
+
 
 ## 1-NN
 
@@ -105,9 +116,11 @@ k-NN learns an area or *surface* and applies it in classification
 
 A larger k does not always mean a better classification
 
+
 ## Influence of k 
 
 ![](imgs/knn_boundary_varying_k.png)
+
 
 ## Observations
 
@@ -120,14 +133,15 @@ k-NN
 - there is no standard way to choose k, yet it may greatly influence the outcome: 
   - we face hyperparameter optimization.
 
-- on large training datasets, even 1-NN approaches the *irreducible_error_rate* (2x).
+- on large training data, even 1-NN approaches the *irreducible_error_rate* (2x).
+
 
 ## Trade-offs
 
-Sometime improving accuracy on the training data does not translate into improved accuracy in testing against *unseen* data
+Sometimes improving accuracy on the training data does not translate into improved accuracy in testing against *unseen* data
 
 ![](imgs/knn_model_complexity.png)
 
 1-NN is perfect on training but 0.7 on test. 
 
-Higher k's do not improve much and *overfitting* creeps in.
+Increasing k does not improve much and *overfitting* creeps in.
