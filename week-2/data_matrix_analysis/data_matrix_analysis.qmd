@@ -187,8 +187,15 @@ $$
 
 -----
 
+
+## Complete decomposition
+
 $$
-M =
+\begin{pmatrix}
+1 & 2\\
+3 & 4
+\end{pmatrix}
+ =
 \begin{pmatrix}
 0.416 & 0.824\\
 0.909 & -0.566 
@@ -206,8 +213,21 @@ $$
 
 -----
 
+## Example application
+
+$M\mathbf{x}\, =
+\begin{pmatrix}
+1 & 2\\
+3 & 4
+\end{pmatrix}
+\begin{pmatrix}
+1 \\
+0.5 
+\end{pmatrix}
+$
+
+
 $$
-M\mathbf{x} =
 \begin{pmatrix}
 0.416 & 0.824\\
 0.909 & -0.566 

@@ -1,0 +1,241 @@
+---
+title: "Singular'value decomposition"
+lang: en
+author: AP 
+format:
+  pdf:
+    papersize: A4
+    number-sections: true
+    pdf-engine: pdflatex
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://ale66.github.io/learn-datascience/
+jupyter: python3
+---
+
+
+<!-- ----------- -->
+## Spectral Methods: Traditional
+
+Eigenpairs
+
+$$
+A\mathbf{e} = \lambda \mathbf{e}
+$$
+
+Eigendecomposition:
+
+$$
+M = Q\Lambda Q^{-1}
+$$
+
+M is interpreted as the combination of three specific transformations
+
+Computing its inverse, $M^{-1}$, is now much simpler
+
+-----
+
+![](./imgs/eigenpairs.png)
+
+![](./imgs/eigenpairs-caption.png)
+
+
+<!------------------------------------------------------------->
+## Singular-Value Decomposition
+
+For rectangular matrices Eigendecomposition is not defined
+
+Insteas, SVD provides a similar decomposition of the data matrix
+
+The procedure is similar
+
+<!------------------------------------------------------------->
+## The data matrix
+
+$A_{(m \times n)}$
+
+There are *m* points inside a *space* of *n* dimensions
+
+Each point is represented by an m-dimensional *row* vector
+
+Each dimension is represented by an n-dimensional vector
+
+
+-----
+
+By multiplying a rectangular matrix by its transpose we obtain a square matrix that reprents an 'internal' relationship:
+
+$M_{(m \times m)} = A_{(m \times n)}\times A^T_{(n \times m)}$
+
+$N_{(n \times n)} = A^T_{(n \times m)}\times A_{(m \times n)}$
+
+Let's extract their respective eigenpairs.
+
+
+-----
+
+## New matrix: U
+
+$U_{(m \times m)}$: each column is made up of an eigenvector of $M_{(m \times m)}$
+
+notice that e-vectors are always orthogonal with each other: $\vec{U_i}^T \cdot \vec{U_j}=0$
+
+
+-----
+
+## New matrix: V
+
+$V_{(n \times n)}$: each column is made up of an eigenvector of $N_{(n \times n)}$
+
+
+-----
+
+## New matrix: D (or $\Sigma$)
+
+dispose the eigenvalues of N on the main diagonal of a rectangular m. that will be 0 everywhere else
+
+$D_{(n \times m)}$ where $D_{ii}=\sigma_i$ are the singular values
+
+$\sigma_i = \sqrt{\lambda_i}$ the i-th e-value of $N=A^T A$
+
+(it can also be constructed with $M=AA^T$)
+
+
+-----
+
+## Finally...
+
+$$
+A_{(n \times m)} = U_{(n \times n)} D_{(n \times m)} V^T_{(m \times m)}
+$$
+
+- U is a orthogonal m. of *left-singular* (col.) vectors
+
+- D is a diagonal matrix of *singular values*
+
+- V is a orthogonal m. of *right-singular* (col.) vectors
+
+Please see $\S$ 2.7 of [[Goodfellow et al.]](https://www.deeplearningbook.org/contents/linear_algebra.html)
+
+
+-----
+
+## Consenquences
+
+SVD generalises eigen-decomposition:
+
+- any real matrix has one
+
+- even non-square m. admit one
+
+overconstrained systems (m>n) can now be solved
+
+
+-----
+
+## Example 
+
+$A\, =
+\begin{pmatrix}
+1 & 2\\
+3 & 4\\
+5 & 6
+\end{pmatrix}$
+
+
+-----
+
+$AA^T =
+\begin{pmatrix}
+1 & 2\\
+3 & 4\\
+5 & 6
+\end{pmatrix}
+\begin{pmatrix}
+1 & 3 & 5\\
+2 & 4 & 6
+\end{pmatrix} =
+\begin{pmatrix}
+1 & 2\\
+3 & 4\\
+5 & 6
+\end{pmatrix} $
+
+
+-----
+
+$A^TA =
+\begin{pmatrix}
+1 & 3 & 5\\
+2 & 4 & 6
+\end{pmatrix} 
+\begin{pmatrix}
+1 & 2\\
+3 & 4\\
+5 & 6
+\end{pmatrix} =
+\begin{pmatrix}
+35 & 44\\
+44 & 56
+\end{pmatrix} $
+
+The eigenvalues are $\lambda_1 = 90.54$ and $\lambda_2 = 0.26$
+
+The singular values are $\sigma_1 = \sqrt(\lambda_1) = 9.54$ and $\sigma_2 = \sqrt(\lambda_2) = 0.51$
+
+$ D =
+\begin{pmatrix}
+9.53 & 0\\
+0 & 0.51 \\
+0 & 0
+\end{pmatrix} $
+
+-----
+
+$ A =
+\begin{pmatrix}
+0.231 & 0.882,\\
+0.527 & 0.216,\\
+0.823 & -0.451
+\end{pmatrix} 
+\begin{pmatrix}
+9.53 & 0\\
+0 & 0.51 \\
+0 & 0
+\end{pmatrix} $
+\begin{pmatrix}
+ 0.62 & 0.79\\
+-0.79 & 0.62 
+\end{pmatrix} $
+
+<!------------------------------------------------------------------>
+# Study plan
+
+## Background study
+
+Ian Goodfellow, Yoshua Bengio and Aaron Courville:
+[Deep Learning, MIT Press, 2016](https://www.deeplearningbook.org/).
+
+available in HTML and PDF;
+it is *a refresher* of notation and properties: no examples and no exercises.
+
+It can be read in the background.
+
+* Phase 1: read &sect;&sect; 2.1---2.7, then &sect; 2.11.
+
+* Phase 2: read &sect;&sect; 2.8---2.10
