@@ -1,5 +1,5 @@
 ---
-title: "Singular'value decomposition"
+title: "Singular-value decomposition"
 lang: en
 author: AP 
 format:
@@ -35,10 +35,18 @@ jupyter: python3
 Eigenpairs
 
 $$
-A\mathbf{e} = \lambda \mathbf{e}
+A\vec{e} = \lambda \vec{e}
 $$
 
-Eigendecomposition:
+-----
+
+![](./imgs/eigenpairs.png)
+
+![](./imgs/eigenpairs-caption.png)
+
+
+<!-- ----------- -->
+## Eigendecomposition:
 
 $$
 M = Q\Lambda Q^{-1}
@@ -48,28 +56,80 @@ M is interpreted as the combination of three specific transformations
 
 Computing its inverse, $M^{-1}$, is now much simpler
 
------
+<!-- ----------- -->
+## The importance of Matrix inversion
 
-![](./imgs/eigenpairs.png)
+M. inversion solves linear systems of linear equations
 
-![](./imgs/eigenpairs-caption.png)
+$$
+M\vec{x} = \vec{v}
+$$
+
+When M and $\vec{v}$ are know, we find $\vec{x}$
+
+$$
+M^{-1}M\vec{x} = M^{-1}\vec{v}
+$$
+
+$$
+I\vec{x} = M^{-1}\vec{v}
+$$
+
+<!-- ----------- -->
+## M. inversion underpins regression
+
+The solution $\vec{x} = M^{-1}\vec{v}$ gives us the regression coefficients that define the linear regression model. 
+
+To estimate a new datapoint, say, $[a, b]$, just plug in the solution: $\hat{y} = [a, b]\cdot\vec{x}$
+
+Regression seen as solving the underlying linear system by matrix inversion
+
+. . .
+
+#### Practical aspects
+
+Textbook inversion takes $\Theta(n^3)$ operations: unfeasible
+
+Advanced a. in Numpy run in $\Theta(n^2)$ (but check for numeric issues)
+
+Compute $M^{-1}$ once then store and re-use it for different $\vec{v}$
+
+
+<!-- ----------- -->
+## Matrix inversion 
+
+Thanks to properties of the Q matrix, where each column is an e-vector, inversion is simplified
+
+$M = Q\Lambda Q^{-1}$
+
+. . . 
+
+$M^{-1} = (Q\Lambda Q^{-1})^{-1}$
+
+$M^{-1} = Q^{-1}\Lambda^{-1} (Q^{-1})^{-1}$
+
+$M^{-1} = Q^{-1}\Lambda^{-1} Q$
+
+where $\Lambda^{-1}$ is obtained by simply substituing each $\lambda_i$ on the diagonal with $\frac{1}{\lambda_i}$
 
 
 <!------------------------------------------------------------->
 ## Singular-Value Decomposition
 
-For rectangular matrices Eigendecomposition is not defined
+For rectangular matrices $A_{(m \times n)}$ eigendecomposition is not defined
 
-Insteas, SVD provides a similar decomposition of the data matrix
+Instead, SVD provides a similar decomposition of the data matrix
 
-The procedure is similar
+The procedure is more complex
+
+Until 1955, no general procedure for inverting rectangular m. was available
 
 <!------------------------------------------------------------->
 ## The data matrix
 
 $A_{(m \times n)}$
 
-There are *m* points inside a *space* of *n* dimensions
+There are *m* points (rows) inside a *space* of *n* dimensions (columns)
 
 Each point is represented by an m-dimensional *row* vector
 
@@ -91,16 +151,22 @@ Let's extract their respective eigenpairs.
 
 ## New matrix: U
 
-$U_{(m \times m)}$: each column is made up of an eigenvector of $M_{(m \times m)}$
+$U_{(m \times m)}$: columns made up of eigenvectors of $M_{(m \times m)} = A_{(m \times n)}\times A^T_{(n \times m)}$
 
-notice that e-vectors are always orthogonal with each other: $\vec{U_i}^T \cdot \vec{U_j}=0$
+notice that e-vectors are always orthogonal with each other: $\vec{U_i}^T \cdot \vec{U_j}=0\ (i\neq j)$
+
+this will simplify computation
+
+However, some further orthogonal column will have to be introduced with external methods as only $min(m, n)$ non-zero eigenpairs can be obtained.
 
 
 -----
 
 ## New matrix: V
 
-$V_{(n \times n)}$: each column is made up of an eigenvector of $N_{(n \times n)}$
+$V_{(n \times n)}$: colums made up of eigenvectors of $N_{(n \times n)}$
+
+Again, e-vectors are orthogonal to each other: $\vec{V_i}^T \cdot \vec{V_j}=0\ (i\neq j)$
 
 
 -----
@@ -135,7 +201,7 @@ Please see $\S$ 2.7 of [[Goodfellow et al.]](https://www.deeplearningbook.org/co
 
 -----
 
-## Consenquences
+## Consequences
 
 SVD generalises eigen-decomposition:
 
@@ -150,6 +216,11 @@ overconstrained systems (m>n) can now be solved
 
 ## Example 
 
+
+$A_{(3 \times 2)}\vec{x} = \vec{v}$
+
+Focus on
+
 $A\, =
 \begin{pmatrix}
 1 & 2\\
@@ -160,7 +231,7 @@ $A\, =
 
 -----
 
-$AA^T =
+$$AA^T =
 \begin{pmatrix}
 1 & 2\\
 3 & 4\\
@@ -171,15 +242,18 @@ $AA^T =
 2 & 4 & 6
 \end{pmatrix} =
 \begin{pmatrix}
-1 & 2\\
-3 & 4\\
-5 & 6
-\end{pmatrix} $
+5 & 11 & 17\\
+11 & 25 & 39\\
+17 & 39 & 61
+\end{pmatrix}$$
 
+Extract the eigenpairs: $\lambda_1 = 91$, $v_1 = [0.15, 0.33, 0.52]$ 
+
+Unfortunately, $\lambda_1 = \lambda_2 = 0$: we need a couple more orthogonal vectors to make up our matrix U
 
 -----
 
-$A^TA =
+$$A^TA =
 \begin{pmatrix}
 1 & 3 & 5\\
 2 & 4 & 6
@@ -192,36 +266,43 @@ $A^TA =
 \begin{pmatrix}
 35 & 44\\
 44 & 56
-\end{pmatrix} $
+\end{pmatrix}$$
 
 The eigenvalues are $\lambda_1 = 90.54$ and $\lambda_2 = 0.26$
 
 The singular values are $\sigma_1 = \sqrt(\lambda_1) = 9.54$ and $\sigma_2 = \sqrt(\lambda_2) = 0.51$
 
-$ D =
+-----
+
+$$D =
 \begin{pmatrix}
 9.53 & 0\\
 0 & 0.51 \\
 0 & 0
-\end{pmatrix} $
+\end{pmatrix}$$
 
------
+. . . 
 
-$ A =
+Putting it all together:
+
+$$A =
 \begin{pmatrix}
-0.231 & 0.882,\\
-0.527 & 0.216,\\
-0.823 & -0.451
+0.15 & 0.231 & 0.882\\
+0.33 & 0.527 & 0.216\\
+0.52 & 0.823 & -0.451
 \end{pmatrix} 
 \begin{pmatrix}
 9.53 & 0\\
 0 & 0.51 \\
 0 & 0
-\end{pmatrix} $
+\end{pmatrix} 
 \begin{pmatrix}
  0.62 & 0.79\\
 -0.79 & 0.62 
-\end{pmatrix} $
+\end{pmatrix}$$
+
+
+Even though this formulation is far from the original and not easily interpreted, it has good properties.
 
 <!------------------------------------------------------------------>
 # Study plan
@@ -239,3 +320,107 @@ It can be read in the background.
 * Phase 1: read &sect;&sect; 2.1---2.7, then &sect; 2.11.
 
 * Phase 2: read &sect;&sect; 2.8---2.10
+
+
+<!-- --------------------------------------------- -->
+# Moore-Penrose pseudo-inverse
+
+## Motivations
+
+solve linear systems  
+
+$$
+A\vec{x} = \vec{v}
+$$
+
+for non-square (rectangular) matrices:
+
+- n >m: the problem is overconstrained (no solution?)
+
+- n < m: the problem is overparametrized (many sols.?)
+
+
+## Reminder: the ideal procedure
+
+If A is squared (m=n) and non-singular ($|A|\neq 0$) then
+
+$$
+A\vec{x} = \vec{v}
+$$
+
+. . .
+
+$$
+A^{-1}A\vec{x} = A^{-1} \vec{v}
+$$
+
+. . .
+
+$$
+I\vec{x} = A^{-1} \vec{v}
+$$
+
+Compute $A^{-1}$ once, run for different values of $\vec{v}$
+
+
+## The pseudo-inverse
+
+Given A_{(n \times m)}, Penrose seeks a matrix $A^+$ that would work the same as the left inverse: 
+
+$A^+ A \approx I$
+
+. . . 
+
+strenghten up the main diagonal before inversion:
+
+$$
+A^+ = \lim_{\alpha\rightarrow 0} (A^TA + \alpha I)^{-1}A^T
+$$
+
+
+Thanks to $A^+$, over-constrained linear systems can now be solved (w. approximation)
+
+
+## SVD leads to approx. inversion
+
+for the decomposition
+
+$$
+A = UDV^T
+$$
+
+$$
+A^+ = VD^+ U^T
+$$
+
+where $D^+$, such that $D^+D=I$ is easy to calculate: D is diagonal.
+
+-----
+
+Does $A^+ A \approx I$?
+
+Yes, because U and V are s. t. $U^T U = VV^T=I$.
+
+. . .  
+
+$$
+VD^+ U^T \cdot UDV^T\ =
+$$
+
+. . .
+
+$$
+VD^+ I DV^T\ =
+$$
+
+. . .
+
+$$
+VD^+ DV^T \ =
+$$
+
+. . .
+
+$$
+V I V^T   = V V^T = I
+$$
