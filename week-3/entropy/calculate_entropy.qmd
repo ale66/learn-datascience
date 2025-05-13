@@ -1,5 +1,5 @@
 ---
-title: "Mastering entropy"
+title: "Calculate entropy"
 lang: en
 author: AP 
 format:
@@ -22,7 +22,7 @@ format:
       - text: Class page
         href: https://github.com/ale66/learn-datascience
 jupyter: python3
-engine: knitr
+#engine: knitr
 ---
 
 

@@ -22,7 +22,7 @@ format:
       - text: Class page
         href: https://github.com/ale66/learn-datascience
 jupyter: python3
-engine: knitr
+#engine: knitr
 ---
 
 # Motivations
@@ -59,31 +59,26 @@ in a supervised scenario, informative attributes lead to data segmentation thus 
 Information channels: to communicate __n__ distinct signals/commands, how many lamps/semaphores are needed?
 
 :::: {.columns}
-
 ::: {.column width="50%"}
-
 ![](./imgs/railway-lights.jpg)
-
 :::
-
 ::: {.column width="50%"}
 It depends on the informative content (surprise) of the signals.
 :::
 ::::
 
------
+. . .
 
 Data compression: how many bits are needed to store a text? Can we compress it?
 
-. . .
+It depends on frequency of the letters: are they equally likely?
 
-I depends on frequency of the letters: are they equally likely?
 
-## Wheather news: London vs. Wadi Halfa
+-----
+
+## Weather news: London vs. Wadi Halfa
 
 Weather forecasts for London are frequent and __nuanced__
-
-. . .
 
 Not so in [Wadi Halfa (Sudan)](https://en.wikipedia.org/wiki/Wadi_Halfa), one of the driest cities on Earth
 
@@ -91,11 +86,11 @@ Not so in [Wadi Halfa (Sudan)](https://en.wikipedia.org/wiki/Wadi_Halfa), one of
 
 A light rain may be surprising in Wadi Halfa but in London?
 
-What if we want to add wheather information at the bus stop?
+What if we want to add Weather information at the bus stop?
 
 -----
 
-Wheather in Wadi Halfa has __low entropy__ thus needs a *small communication channel:* few signals are needed.
+Weather in Wadi Halfa has __low entropy__ thus needs a *small communication channel:* few signals are needed.
 
 London needs a high-capacity communication channel.
 
@@ -103,7 +98,7 @@ London needs a high-capacity communication channel.
 
 ## Distributions
 
-A set of *n=31* observations, e.g., [London Wheather](https://weatherspark.com/h/y/45062/2022/Historical-Weather-during-2022-in-London-United-Kingdom#Figures-ObservedWeather):
+A set of *n=31* observations, e.g., [London Weather](https://weatherspark.com/h/y/45062/2022/Historical-Weather-during-2022-in-London-United-Kingdom#Figures-ObservedWeather):
 
 *{sunny, sunny, rain, cloudy, sunny, rain ... }*
 
