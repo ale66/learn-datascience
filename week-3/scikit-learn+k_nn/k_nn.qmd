@@ -40,17 +40,19 @@ __Solution:__  classification function $\gamma: \mathbf{X} \rightarrow C$
 
 __Measure:__ misclassification
 
-## Binary classification
+-----
 
-$r=2$: positive and negative.
-
-Misclassification is described by the *confusion matrix,* which scores the result of classification against labeled examples.
-
-![](./imgs/confusion_matrix.png)
+## Misclassification when r=2 
+ 
+ - it's described by the *confusion matrix,* which scores the result of classification against labeled examples.
 
 - often one class is of more interest than the other: better measures are needed.
 
 - accuracy on the given examples *does not automatically translate* into accuracy on new, previously-unseen data
+
+
+![](./imgs/confusion_matrix-small.png)
+
 
 -----
 
