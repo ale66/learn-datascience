@@ -109,6 +109,23 @@ Variation: consider each label relative to the effective distance of the neighbo
 
 ![](./imgs/knn_boundary_k3.png)
 
+-----
+
+
+## 1-NN
+
+![](./imgs/knn_boundary_k1.png) 
+
+
+## 3-NN
+
+![](./imgs/knn_boundary_k3.png)
+
+
+
+
+
+
 
 ## Learning
 

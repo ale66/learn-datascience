@@ -96,23 +96,6 @@ London needs a high-capacity communication channel.
 
 # Notations
 
-## Distributions
-
-A set of *n=31* observations, e.g., [London Weather](https://weatherspark.com/h/y/45062/2022/Historical-Weather-during-2022-in-London-United-Kingdom#Figures-ObservedWeather):
-
-*{sunny, sunny, rain, cloudy, sunny, rain ... }*
-
-Count them:
-
-*{sunny: 25, cloudy:2, rain:4}*
-
-Drop the labels then normalize:
-
-divide each value by n: values will sum to 1:
-
-*{0.8065, 0.0645, 0.1290}*
-
-Mind numerical issues w. rounding etc.
 
 ## Rand. variables
 
@@ -128,7 +111,10 @@ $Pr[X_{die}=x_i] = \frac{1}{6}$
 
 . . .
 
-$Pr[X_{wheater}=cloudy] = 0.0645$
+$Pr[X_{weater}=cloudy] = 0.0645$
+
+
+-----
 
 ## Expectation
 
@@ -141,6 +127,27 @@ For numerical outcomes, $E[X]$ predicts the cumulative effect of repeating obs. 
 $E[X_{die}] = 3.5$
 
 For $n$ throws of a dice expect a cumulative score $n\cdot 3.5$
+
+## Distributions, by example
+
+$X_{LDN} \in \{$ snow, showers, light rain, wet, misty, cloudy, breezy, bright, sunny$}$
+
+Last May: a set of *n=31* observations, e.g., [London Weather](https://weatherspark.com/h/y/45062/2022/Historical-Weather-during-2022-in-London-United-Kingdom#Figures-ObservedWeather):
+
+*{sunny, sunny, rain, cloudy, sunny, rain ... }*
+
+Count them:
+
+*{sunny: 25, cloudy:2, rain:4}*
+
+Drop the labels then convert into frequencies (divide each by n=31)
+
+*{0.8065, 0.0645, 0.1290}*
+
+Mind numerical issues w. rounding etc.
+
+$X_{LDN} = [0, 0, 0.1290, 0, 0, 0.0645, 0, 0, 0.8065]$
+
 
 <!------------------------------------------------->
 # Understanding the definition
@@ -181,11 +188,11 @@ $H[X] = -\sum Pr[X=x_i]\cdot \log_2 Pr[X=x_i]$
 
 . . .
 
-Min: H[X]=0, the system is deterministic, no information in knowing about.
+Min: $H[X]=0$, the system is deterministic, no information in knowing about.
 
 . . .
 
-Max: $H[X]=\log_2 n$ all messages have the same probability.
+Max: $H[X]=\log_2 n$, all messages have the same probability.
 
 ## Implementation
 

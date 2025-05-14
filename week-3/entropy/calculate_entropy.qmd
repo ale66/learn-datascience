@@ -28,7 +28,7 @@ jupyter: python3
 
 #  The setup
 
-## Wheather news
+## Weather news
 
 $X_{LDN} \in \{$ snow, showers, light rain, wet, misty, cloudy, breezy, bright, sunny}
 
@@ -69,7 +69,7 @@ $= \frac{1}{8}\cdot 3 +\frac{7}{8}[3 - 2.8073]$
 
 . . .
 
-$= \frac{3}{8} +\frac{7}{8}\cdot 0.2$ (I'm rounding!)
+$= \frac{3}{8} +\frac{7}{8}\cdot 0.2$ (let's round it)
 
 . . .
 

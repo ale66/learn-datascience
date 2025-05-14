@@ -270,17 +270,6 @@ DSTA
 <h1>Notations</h1>
 
 </section>
-<section id="distributions" class="slide level2">
-<h2>Distributions</h2>
-<p>A set of <em>n=31</em> observations, e.g., <a href="https://weatherspark.com/h/y/45062/2022/Historical-Weather-during-2022-in-London-United-Kingdom#Figures-ObservedWeather">London Weather</a>:</p>
-<p><em>{sunny, sunny, rain, cloudy, sunny, rain … }</em></p>
-<p>Count them:</p>
-<p><em>{sunny: 25, cloudy:2, rain:4}</em></p>
-<p>Drop the labels then normalize:</p>
-<p>divide each value by n: values will sum to 1:</p>
-<p><em>{0.8065, 0.0645, 0.1290}</em></p>
-<p>Mind numerical issues w. rounding etc.</p>
-</section>
 <section id="rand.-variables" class="slide level2">
 <h2>Rand. variables</h2>
 <p>Let <span class="math inline">\(X\)</span> be a <a href="https://en.wikipedia.org/wiki/Random_variable"><em>numerical random variable</em></a> and <span class="math inline">\(x_1, \dots x_n\)</span> its possible <em>outcomes.</em></p>
@@ -290,7 +279,7 @@ DSTA
 <p><span class="math inline">\(Pr[X_{die}=x_i] = \frac{1}{6}\)</span></p>
 </div>
 <div class="fragment">
-<p><span class="math inline">\(Pr[X_{wheater}=cloudy] = 0.0645\)</span></p>
+<p><span class="math inline">\(Pr[X_{weater}=cloudy] = 0.0645\)</span></p>
 </div>
 </section>
 <section id="expectation" class="slide level2">
@@ -300,8 +289,20 @@ DSTA
 <div class="fragment">
 <p><span class="math inline">\(E[X_{die}] = 3.5\)</span></p>
 <p>For <span class="math inline">\(n\)</span> throws of a dice expect a cumulative score <span class="math inline">\(n\cdot 3.5\)</span></p>
-<!------------------------------------------------->
 </div>
+</section>
+<section id="distributions-by-example" class="slide level2">
+<h2>Distributions, by example</h2>
+<p><span class="math inline">\(X_{LDN} \in \{\)</span> snow, showers, light rain, wet, misty, cloudy, breezy, bright, sunny<span class="math inline">\(}\)</span></p>
+<p>Last May: a set of <em>n=31</em> observations, e.g., <a href="https://weatherspark.com/h/y/45062/2022/Historical-Weather-during-2022-in-London-United-Kingdom#Figures-ObservedWeather">London Weather</a>:</p>
+<p><em>{sunny, sunny, rain, cloudy, sunny, rain … }</em></p>
+<p>Count them:</p>
+<p><em>{sunny: 25, cloudy:2, rain:4}</em></p>
+<p>Drop the labels then convert into frequencies (divide each by n=31)</p>
+<p><em>{0.8065, 0.0645, 0.1290}</em></p>
+<p>Mind numerical issues w. rounding etc.</p>
+<p><span class="math inline">\(X_{LDN} = [0, 0, 0.1290, 0, 0, 0.0645, 0, 0, 0.8065]\)</span></p>
+<!------------------------------------------------->
 </section></section>
 <section>
 <section id="understanding-the-definition" class="title-slide slide level1 center">
@@ -333,10 +334,10 @@ DSTA
 <h2>Final definition</h2>
 <p><span class="math inline">\(H[X] = -\sum Pr[X=x_i]\cdot \log_2 Pr[X=x_i]\)</span></p>
 <div class="fragment">
-<p>Min: H[X]=0, the system is deterministic, no information in knowing about.</p>
+<p>Min: <span class="math inline">\(H[X]=0\)</span>, the system is deterministic, no information in knowing about.</p>
 </div>
 <div class="fragment">
-<p>Max: <span class="math inline">\(H[X]=\log_2 n\)</span> all messages have the same probability.</p>
+<p>Max: <span class="math inline">\(H[X]=\log_2 n\)</span>, all messages have the same probability.</p>
 </div>
 </section>
 <section id="implementation" class="slide level2">

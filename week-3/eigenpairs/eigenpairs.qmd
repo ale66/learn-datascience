@@ -62,7 +62,10 @@ In practice, eigenpairs
   
 * $\lambda$ might not be a real number: no interpretation.
 
-## Conditions for _good_ eigen-
+
+-----
+
+## Conditions for a _good_ eigen-pair
 
 A square matrix $A$ is called _positive semidefinite_ when for any $\vec{x}$ we have
 
@@ -143,6 +146,8 @@ we interpret those directions as *topics* that hidden (latent) within the data.
 
 e-values *expand* one's affiliation to a specific *topic*.
 
+
+<!-- ------------------- -->
 # Norms and distances
 
 ## Euclidean norm
@@ -184,7 +189,7 @@ $$
 \vec{u} = \frac{\vec{x}}{||\vec{x}||} = (\frac{1}{||\vec{x}||})\vec{x}
 $$
 
-* has the same direction of the original
+* $\vec{u}$ has the same direction of the original
 
 * its norm is constructed to be 1.  
 
@@ -202,7 +207,7 @@ $$
 Handbook solution: solve the equivalent system
 
 $$
-(M - \lambda \vec{I})\vec{e} = \vec{0}
+(M - \lambda I)\vec{e} = \vec{0}
 $$
 
 . . .
@@ -211,13 +216,13 @@ Either of the two factors should be 0.
 Hence, a non-zero vector __e__ is associated to a solution of
 
 $$
-|M - \lambda \vec{I}| = 0
+|M - \lambda I| = 0
 $$
 
 ---
 
 $$
-|M - \lambda \vec{I}| = 0
+|M - \lambda I| = 0
 $$
 
 In Numerical Analysis many methods are available.
@@ -271,6 +276,7 @@ Now, we repeat the iteration on $M^*$ to find the second eigenpair.
 Times are in $\Theta(dn^2)$.  
 
 For better scalability, we will cover [Pagerank](https://en.wikipedia.org/wiki/PageRank) later.
+
 
 <!------------------------------------>
 # Eigenpairs in Python

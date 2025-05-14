@@ -238,8 +238,8 @@ AP
 </ul>
 </div>
 </section>
-<section id="conditions-for-good-eigen-" class="slide level2">
-<h2>Conditions for <em>good</em> eigen-</h2>
+<section id="conditions-for-a-good-eigen-pair" class="slide level2">
+<h2>Conditions for a <em>good</em> eigen-pair</h2>
 <p>A square matrix <span class="math inline">\(A\)</span> is called <em>positive semidefinite</em> when for any <span class="math inline">\(\vec{x}\)</span> we have</p>
 <p><span class="math display">\[\vec{x}^T A \vec{x} \ge 0\]</span></p>
 <p>In such case its eigenvalues are non-negative: <span class="math inline">\(\lambda_i\ge 0\)</span>.</p>
@@ -299,6 +299,7 @@ AP
 <p>each e-vector represents a <em>direction</em></p>
 <p>we interpret those directions as <em>topics</em> that hidden (latent) within the data.</p>
 <p>e-values <em>expand</em> one’s affiliation to a specific <em>topic</em>.</p>
+<!-- ------------------- -->
 </div>
 </section></section>
 <section>
@@ -334,7 +335,7 @@ AP
 \vec{u} = \frac{\vec{x}}{||\vec{x}||} = (\frac{1}{||\vec{x}||})\vec{x}
 \]</span></p>
 <ul>
-<li><p>has the same direction of the original</p></li>
+<li><p><span class="math inline">\(\vec{u}\)</span> has the same direction of the original</p></li>
 <li><p>its norm is constructed to be 1.</p></li>
 </ul>
 <!--------------------------------------------------->
@@ -352,20 +353,20 @@ M\vec{e} = \lambda \vec{e}
 <div class="fragment">
 <p>Handbook solution: solve the equivalent system</p>
 <p><span class="math display">\[
-(M - \lambda \vec{I})\vec{e} = \vec{0}
+(M - \lambda I)\vec{e} = \vec{0}
 \]</span></p>
 </div>
 <div class="fragment">
 <p>Either of the two factors should be 0. Hence, a non-zero vector <strong>e</strong> is associated to a solution of</p>
 <p><span class="math display">\[
-|M - \lambda \vec{I}| = 0
+|M - \lambda I| = 0
 \]</span></p>
 </div>
 </section>
 <section class="slide level2">
 
 <p><span class="math display">\[
-|M - \lambda \vec{I}| = 0
+|M - \lambda I| = 0
 \]</span></p>
 <p>In Numerical Analysis many methods are available.</p>
 <p>Their general algorithmic structure:</p>
@@ -411,13 +412,13 @@ M^* = M - \lambda_1^\prime \vec{x}_1 \vec{x}_1^T
 </section>
 <section id="e-pairs-with-numpy" class="slide level2">
 <h2>E-pairs with Numpy</h2>
-<div id="7616474a" class="cell" data-execution_count="1">
+<div id="c53b01ff" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href=""></a></span>
 <span id="cb2-3"><a href=""></a><span class="co"># this is the specific submodule</span></span>
 <span id="cb2-4"><a href=""></a><span class="im">from</span> numpy <span class="im">import</span> linalg <span class="im">as</span> la</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fda04e5a" class="cell" data-execution_count="2">
+<div id="74f4a707" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># create a 'blank' matrix</span></span>
 <span id="cb3-2"><a href=""></a>m <span class="op">=</span> np.zeros([<span class="dv">7</span>, <span class="dv">5</span>])</span>
 <span id="cb3-3"><a href=""></a></span>
@@ -433,7 +434,7 @@ M^* = M - \lambda_1^\prime \vec{x}_1 \vec{x}_1^T
 </section>
 <section class="slide level2">
 
-<div id="fee88277" class="cell" data-execution_count="3">
+<div id="cd8e9f2a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="kw">def</span> find_eigenpairs(mat):</span>
 <span id="cb4-2"><a href=""></a>    <span class="co">"""Test the quality of Numpy eigenpairs"""</span></span>
 <span id="cb4-3"><a href=""></a>    n <span class="op">=</span> <span class="bu">len</span>(mat)</span>
@@ -455,7 +456,7 @@ M^* = M - \lambda_1^\prime \vec{x}_1 \vec{x}_1^T
 <section id="older-versions" class="slide level2">
 <h2>Older versions:</h2>
 <p>E-values come normalized: <span class="math inline">\(\sqrt{\lambda_1^2 + \dots \lambda_n^2} = 1\)</span>; hence we later multiply them by <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span></p>
-<div id="43861c2d" class="cell" data-execution_count="4">
+<div id="fe98299f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># lambda_1 = find_eigenpairs(m)</span></span>
 <span id="cb5-2"><a href=""></a></span>
 <span id="cb5-3"><a href=""></a><span class="co"># lambda_1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
