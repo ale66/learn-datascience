@@ -1,0 +1,259 @@
+---
+title: "High-Dimensionality in data and their projections"
+lang: en
+author: DSTA 
+format:
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://ale66.github.io/dsta/
+    code-links:
+      - text: Data
+        icon: file-code
+        href: https://ale66.github.io/dsta/
+jupyter: python3
+---
+
+<!-------------------------------------------------------------->
+## Data Science context
+
+- Dataset: n points in a d-dimensional space:
+
+- essentially, a $n \times d$ matrix of floats
+
+- For $d > 3$ and growing, several practical problems
+
+## 1-hot encodings raise dimensionality
+
+![](./imgs/fm-dataset-example.png)
+
+## How to see dimensions
+
+data points are row vectors
+
+<table>
+	<thead>
+		<th></th>
+		<th>X<sub>1</sub></th>
+		<th>X<sub>2</sub></th>
+		<th>...</th>
+		<th>X<sub>d</sub></th>		
+	</thead>
+	<tr>
+		<td><b>x<sub>1</sub></b></td>
+		<td>x<sub>11</sub></td>
+		<td>x<sub>12</sub></td>
+		<td>...</td>
+		<td>x<sub>1d</sub></td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr>
+		<td><b>x<sub>n</sub></b></td>
+		<td>x<sub>n1</sub></td>
+		<td>x<sub>n2</sub></td>
+		<td>...</td>
+		<td>x<sub>nd</sub></td>
+	</tr>
+</table>
+
+## Issues
+
+- visualization is hard, we need projection. Which?
+
+- decision-making is impaired by the need of chosing which dimensions to operate on
+
+- __sensitivity analyis__ or causal analysis: which dimension affects others?
+
+<!-------------------------------------------------------------->
+# Issues with High-Dim. data
+
+## I: a false sense of sparsity
+
+adding dimensions makes points seems further apart:
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Degrees</th>
+	</tr>
+	<tr>
+		<td>Chianti</td>
+		<td>Red</td>
+		<td>12.5</td>
+	</tr>
+	<tr>
+		<td>Grenache</td>
+		<td>Rose</td>
+		<td>12</td>
+	</tr>	
+	<tr>
+		<td>Bordeaux</td>
+		<td>Red</td>
+		<td>12.5</td>
+	</tr>
+	<tr>
+		<td>Cannonau</td>
+		<td>Red</td>
+		<td>13.5</td>
+	</tr>
+</table>
+
+d(Chianti, Bordeaux) = 0
+
+-----
+
+let type differences count for 1:
+
+ d(red, rose) = 1
+
+take the alcohol strengh as integer tenths-of-degree: d(12, 12.5) = 5
+
+. . .
+
+d(Chianti, Grenache) = $\sqrt{ 1^2 + 5^2} =5.1$
+
+Adding further dimensions make points seem further from each other
+
+## not close anymore?
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Degrees</th>
+		<th>Grape</th>
+		<th>Year</th>		
+	</tr>
+	<tr>
+		<td>Chianti</td>
+		<td>Red</td>
+		<td>12.5</td>
+		<td>Sangiovese</td>
+		<td>2016</td>
+	</tr>
+	<tr>
+		<td>Grenache</td>
+		<td>Rose</td>
+		<td>12</td>
+		<td>Grenache</td>
+		<td>2011</td>
+	</tr>
+	<tr>
+		<td>Bordeaux</td>
+		<td>Red</td>
+		<td>12.5</td>
+		<td></td>
+		<td>2009</td>
+	</tr>
+	<tr>
+		<td>Cannonau</td>
+		<td>Red</td>
+		<td>13.5</td>
+		<td>Grenache</td>
+		<td>2015</td>
+	</tr>		
+</table>
+
+d(Chianti, Bordeaux) > 7  
+
+d(Chianti, Grenache) > $\sqrt{5^2 + 1^2 + 5^2} =7.14$
+
+## II: the collapsing on the surface
+
+Bodies have most of their mass distributed close to the surface (even under uniform density)
+
+![](./imgs/orange2.jpg)
+
+the *outer* orange is twice as big, but how much more juice will it give?
+
+-----
+
+![](./imgs/orange2.jpg)
+
+- for d=3, $vol= \frac{4}{3}\pi r^3$.
+
+- With 50% radius, vol. is only $\frac{1}{8}=12.5\%$
+
+## Possibly misguiding
+
+![](./imgs/earth.jpg)
+
+The most volume (and thus weight) is in the external ring (the equators)
+
+## counter-intuitive properties
+
+At a fixed radius (r=1), raising dimensionality *above 5* in fact [decreases the volume](https://upload.wikimedia.org/wikipedia/commons/6/6c/Hypersphere_volume_and_surface_area_graphs.svg).
+
+![](./imgs/volume+surface.png)
+
+Hyperballs deflate.
+
+Geometry is not what we experienced in $d\leq 3.$
+
+## [The Curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality)
+
+Volume will concentrate near the surface: most points will look as if they are at a uniform distance from each other
+
+- distance-based similarity fails
+
+<!-------------------------------------------------------------->
+# Consequences
+
+## Adding dimensions apparently increases sparsity
+
+Deceiving as a chance to get a clean-cut segmentation of the data, as we did with Iris
+
+. . .
+
+In high dimension, all points tend to be at the same distance from each other
+
+Exp: generate a set of random points in $D^n$, compute Frobenius norms: very little variance.
+
+. . .  
+
+bye bye clustering algorithms, e.g., k-NN.
+
+-----
+
+## The porcupine
+
+At high dimensions,
+
+- all diagonals strangely become orthogonal to the axes
+  
+- points distributed along a diagonal gets *``compressed down''* to the origin of axes.
+
+![](./imgs/porcupine.png)
+
+. . .
+
+bye bye to all distance-based algorithms and similarity measures, e.g., Cosine Similarity.
+
+## Where are all my data points?
+
+![](./imgs/porcupine.png)
+
+<!-------------------------------------------------------------->
+<!-------------------------------------------------------------->
+<!-------------------------------------------------------------->
+<!-------------------------------------------------------------->
+<!-------------------------------------------------------------->
