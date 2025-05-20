@@ -1,7 +1,7 @@
 ---
-title: "High-Dimensionality in data and their projections"
+title: "High-Dimensional data and their projections"
 lang: en
-author: DSTA 
+author: AP 
 format:
   revealjs: 
     theme: solarized
@@ -18,11 +18,11 @@ format:
     anchor-sections: true
     other-links:
       - text: Class page
-        href: https://ale66.github.io/dsta/
+        href: https://github.com/ale66/learn-datascience/
     code-links:
       - text: Data
         icon: file-code
-        href: https://ale66.github.io/dsta/
+        href: https://github.com/ale66/learn-datascience/
 jupyter: python3
 ---
 

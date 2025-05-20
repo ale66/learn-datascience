@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Non-binary Classification: the case of the MNIST 784 Dataset</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://github.com/amueller/ml-workshop-3-of-4/blob/master/slides/style.css">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+![:scale 10%](./imgs/sklearn_logo.png)
+
+### Non-binary classification:
+
+#### A case study on the MNIST 784 Dataset
+
+Extra Slides and codes courtesy of [A. Hasan]()
+
+---
+
+### MNIST 784
+
+* A set of 70,000 small images of handwritten digits.
+* Each image is labelled with the digit it represents.
+* This data set is often called as "hello world" of Machine Vision.
+
+### Loading the data
+
+* Loading the dataset using sklearn package is as simple as this:
+
+```python
+from sklearn.datasets import fetch_openml
+
+mnist=fetch_openml('mnist_784', version=1)
+```
+---
+
+### Image display
+
+* We can display the image from vectors.
+* We must reshape the image vector to a matrix. 
+
+```python
+import matplotlib as mpi
+import matplotlib.pyplot as plt
+X,y=mnist['data'], mnist['target']
+some_digit=X[0]
+some_digit_image=some_digit.reshape(28,28)
+plt.imshow(some_digit_image, cmap="binary")
+plt.axis("off")
+```
+
+---
+
+### Binary classification : `\(\textit{5 or not 5}\)` classifier
+
+* an example of *one vs. rest* training and evaluation
+
+* First divide the dataset into train and test set.
+
+* Then cast the labels into two classes: `\(\textit{5}\)` and `\(\textit{not 5}\)`
+
+* Use <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html">sklearn.linear_model.SGDClassifier</a> as binary classier.
+
+* The module uses stochastic gradient descent to train a Support Vector Machine classifier. 
+
+```python
+y=y.astype(np.uint8)
+X_train, X_test, y_train, y_test=X[:60000], X[60000:], y[:60000], y[60000:]
+y_train_5=(y_train==5)
+y_test_5=(y_test==5)
+from sklearn.linear_model import SGDClassifier
+sgd_clf=SGDClassifier(random_state=42)
+sgd_clf.fit(X_train, y_train_5)
+```
+
+---
+
+### Evaluation
+
+* Sklearn package provides module to evaluate classifier's accuracy, precision and F-score.
+
+* Lets calculate the accuracy on a three-fold cross-validation.
+
+```python
+from sklearn.model_selection import cross_val_score
+cross_val_score(sgd_clf,X_train, y_train_5, cv=3, scoring="accuracy")
+```
+* Run a dumb classifier:
+
+```python
+from sklearn.base import BaseEstimator
+class NeverSclassifier(BaseEstimator):
+    def fit(self, x, y=None):
+        pass
+    def predict(self, X):
+        return np.zeros((len(X),1),dtype=bool)
+never_S_clf=NeverSclassifier()
+cross_val_score(never_S_clf,X_train, y_train_5, cv=3, scoring="accuracy")
+```
+---
+
+### The SoftMax logistic regression
+
+<p>We will use SoftMax regression as a multiclass classifier :
+\begin{align}
+p(y=i|\boldsymbol{x};W) = \frac{e^{\boldsymbol{w}_i^T \boldsymbol{x}}}{\sum_{j=0}^9 e^{\boldsymbol{w}_j^T}},
+\end{align}
+Where \(p(y=i|\boldsymbol{x};W)\) is the probability that input \(\boldsymbol{x}\) is the \(i\)-th digit, \(i\in[0,9]\).
+We can use this information for prediction by taking maximum probability:
+\begin{align}
+y_{pred}=\arg\max_i p(y=i|\boldsymbol{x})
+\end{align}</p>
+
+---
+
+### Exercise
+
+* Apply softmax logistic regression to do multiclass classification. (Hint: Apply <a href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression"> sklearn.linear_model.LogisticRegression</a> )
+
+* Evaluate the performance by producing precision, recall and F score for each digit. (Hint: Use classification report function)
+
+* Apply <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html">GridSearchCV<a> to MNIST and compare your results. (This exercise is for later part)
+
+* Evaluate the performance: see previous presentation.
+
+<!--This is an inline integral: `\(\int_a^bf(x)dx\)`-->
+<!------------END OF PRESENTATION------------------------------------>
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script>
+      // Config Remark
+      remark.macros['scale'] = function (percentage) {
+        var url = this;
+        return '<img src="' + url + '" style="width: ' + percentage + '" />';
+      };
+      config_remark = {
+        highlightStyle: 'magula',
+        highlightSpans: true,
+        highlightLines: true,
+        ratio: "16:9"
+      };
+      var slideshow = remark.create(config_remark);
+      // Configure MathJax
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] /* removed 'code' entry*/
+        }
+      });
+      MathJax.Hub.Queue(function () {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i = 0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    </body>
+    
+    </html>
