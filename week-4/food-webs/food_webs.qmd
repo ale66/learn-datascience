@@ -1,7 +1,7 @@
 ---
 title: "Food webs"
 lang: en
-author: DSTA 
+author: AP 
 format:
   pdf:
     papersize: A4
@@ -24,11 +24,14 @@ format:
     anchor-sections: true
     other-links:
       - text: Class page
-        href: https://ale66.github.io/dsta/
+        href: https://gitub.com/ale66/learn-datascience/
 jupyter: python3
 ---
 
 # Data Science and Complex Networks
+
+[![](./imgs/caldarelli-cover.jpg)](http://book.complexnetworks.net/)
+
 
 ## Basic concepts
 
@@ -129,23 +132,13 @@ for v in G:
     print('%s %s' % (v, G.degree(v)))
 ```
 
-<!-- ------------------------------ -->
-# Visualization
 
-## Visualizing frequencies by graphs
+## Extra: visualizing frequencies by graphs
 
 Polisemy:
 
 ![](./imgs/polisemy-graph.jpg)
 
-## More on Graphs/Networks
-
-[![](./imgs/caldarelli-cover.jpg)](http://book.complexnetworks.net/)
-. . .
-
-The Python 2 code can be [cloned from Github](https://github.com/datascienceandcomplexnetworks/book_code)
-
-From the same author, a [summary of the main concepts](./caldarelli_introduction.pdf)
 
 <!-- ------------------------------- -->
 # Ch. 1: Food Webs
@@ -170,12 +163,24 @@ source, connect and sink.
 
 ![](./imgs/food_web.png)
 
+
+# Learn Network Science
+
 ## Method
 
-- study degree distribution
+- study *degree distribution*
 
 - find properties of a network in terms of the *degree organization*
 
 . . .
 
 - study *clustering coefficient:* why is it so much better than plain network density?
+
+
+-----
+
+Clone the [original (Python 2) from Github](https://github.com/datascienceandcomplexnetworks/book_code)
+
+From the same author, a [summary of the main concepts](./caldarelli_introduction.pdf)
+
+[![](./imgs/caldarelli-cover.jpg)](http://book.complexnetworks.net/)
