@@ -1,0 +1,210 @@
+---
+title: "Trade Networks"
+lang: en
+author: DSTA 
+format:
+  pdf:
+    papersize: A4
+    number-sections: true
+    pdf-engine: pdflatex
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://ale66.github.io/dsta/
+jupyter: python3
+---
+
+<!-- ------------------------ -->
+# Ch. 2: Trade networks
+
+## Important concepts
+
+* directed networks
+
+* weighted networks
+
+* sorts, and their quantitites
+
+* time
+
+. . . 
+
+discover __multiplex networks__
+
+
+## Towards Clustering
+
+* reciprocity
+
+* assorativity
+
+. . .
+
+* discover hidden structures
+
+<img src="https://www.dcs.bbk.ac.uk/~ale/dsta/dsta-7/Trade_networks/imgs/bipartite.png" height="300">
+
+
+## The directed network model
+
+Theme: discover non-trivial relationships among countries 
+
+look at how they trade and what they trade
+
+
+## Weighted networks
+
+The [BACI-CEPII dataset:](http://www.cepii.fr/CEPII/en/publications/wp/abstract.asp?NoDoc=6112)
+
+
+![](./imgs/world_trade.png)
+
+
+## Bipartite networks
+
+The country-to-product network induces country-to-country and product-to-product relationships.
+
+![](./imgs/bipartite.png)
+
+
+## Reconstruction
+
+$$
+C = M_{cp}\cdot M_{cp}^T
+$$
+
+$$
+P = M_{cp}^T\cdot M_{cp}
+$$
+
+## Analysis of neighbours
+
+For a node i, let $k_i$ be its degree.
+
+For directed networks: $k_i = k_i^{in} + k_i^{out}$.
+
+The distribution of degree $P(k)$ provides a signature of the network. 
+
+The average degree is denoted $\langle k \rangle.$
+
+
+## Reciprocity
+
+For a given directed network, reciprocity is the probability that of having links in both directions between two vertices.
+
+R measures how the economies of two countries become interconnected (or interdependent).
+
+$$
+r = \frac{L^\leftrightarrow}{L}
+$$
+
+$L^\leftrightarrow$: number of reciprocal links
+
+$L$: total number of links.
+
+
+## Assortativity
+
+Do vertices tend to connect with those with similar/dissimilar degree? Compute
+
+. . .
+
+- the avg. degree of node $i$'s neighbors:
+
+$$
+K_{nn}(i) = \frac{\sum_{\langle ij\rangle} k_j}{k_i}
+$$
+
+
+. . .
+
+- Next, the avg. $K_{nn}$ for the $n_d$ nodes which have degree $d$
+
+$$
+K_{nn}(d) = \frac{\sum_{i:k_i=d} K_{nn}(i)}{n_d}
+$$
+
+-----
+
+$$
+K_{nn}(d) = \frac{\sum_{i:k_i=d} K_{nn}(i)}{n_d}
+$$
+
+Are $d$ and $K_{nn}(d)$ close?
+
+Does assortativity grow over time?
+
+
+## Balassa's RCA 
+
+The export matrix $M$ is an adjacency matrix which reprents a bipartite graph.
+
+Each scalar value $M_{cp}$ corresponds to the aggregated export of product $p$ by country $c.$
+
+We can compute fractional ownership of export, product by product. 
+
+Many countries export coffee, so none really controls it. 
+
+Italy exports 100\% of Bergamot oil (cfr. Prince of Wales tea). 
+
+-----
+
+The Revealed Comparative Advantage (RCA) is in controlling a high fraction of some product. 
+
+$\sum_{p^\prime} M_{cp^\prime}$: total value of export by country $c$. 
+
+. . .
+
+$\textrm{RCA}_{cp} = \frac{\frac{M_{cp}}{\sum_{p^\prime} M_{cp^\prime}}}{\frac{\sum_{c^\prime} M_{c^\prime p}}{\sum_{c^\prime} \sum_{p^\prime} M_{c^\prime p^\prime}}}$
+
+
+{{< fa battery-quarter size=2x>}}
+
+Originality: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
+
+Significance: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
+
+Rigour:  {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
+
+Originality: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
+
+Significance: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
+
+Rigour:  {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
+
+
+Originality: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
+
+Significance: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
+
+Rigour:  {{< fa star size=xs >}} {{< fa star size=xs >}}? 
+
+Chiar.ma collega, grazie della pronta risposta.
+Alcune domande che volevo porle sono queste -scusandomi in anticipo se forse la risposta poteva trovarsi in qualche sezione del sito web.
+
+a. Qual e' il carico didattico previsto per questa posizione?
+Essenzialmente, quante ore di didattica e per quali insegnamenti? Solo al BSc o pure al MSc?
+
+b. quante tesi di BSc seguire ogni anno?
+
+c. in futuro sarebbe possibile, immagino tramite l'affiliazione con l'istituto Dalle Molle, seguire studenti di dottorato?
+
+Grazie ancora del contatto e dell'aiuto, spero di poterla conoscere di persona presto.
+Cordialmente,
+ALessandro Provetti
+
+
