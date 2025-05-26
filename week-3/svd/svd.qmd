@@ -187,7 +187,7 @@ $\sigma_i = \sqrt{\lambda_i}$ the i-th e-value of $N=A^T A$
 ## Finally...
 
 $$
-A_{(n \times m)} = U_{(n \times n)} D_{(n \times m)} V^T_{(m \times m)}
+A_{(m \times n)} = U_{(m \times m)} D_{(m \times n)} V^T_{(n \times n)}
 $$
 
 - U is a orthogonal m. of *left-singular* (col.) vectors
@@ -207,9 +207,9 @@ SVD generalises eigen-decomposition:
 
 - any real matrix has one
 
-- even non-square m. admit one
+- even non-square matrices admit one
 
-overconstrained systems (m>n) can now be solved
+overconstrained systems (more rows than cols.) can now be solved
 
 
 -----
@@ -335,10 +335,12 @@ $$
 
 for non-square (rectangular) matrices:
 
-- n >m: the problem is overconstrained (no solution?)
+- rows > columns: the problem is overconstrained (no solution?)
 
-- n < m: the problem is overparametrized (many sols.?)
+- rows < columns: the problem is overparametrized (infinite sols.?)
 
+
+-----
 
 ## Reminder: the ideal procedure
 
@@ -365,7 +367,7 @@ Compute $A^{-1}$ once, run for different values of $\vec{v}$
 
 ## The pseudo-inverse
 
-Given A_{(n \times m)}, Penrose seeks a matrix $A^+$ that would work the same as the left inverse: 
+Given A_{(m \times n)}, Penrose seeks a matrix $A^+$ that would work the same as the left inverse: 
 
 $A^+ A \approx I$
 
