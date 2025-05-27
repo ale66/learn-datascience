@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="svd_files/libs/clipboard/clipboard.min.js"></script>
-<script src="svd_files/libs/quarto-html/tabby.min.js"></script>
-<script src="svd_files/libs/quarto-html/popper.min.js"></script>
-<script src="svd_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="svd_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="svd_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="svd_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="latent_files/libs/clipboard/clipboard.min.js"></script>
+<script src="latent_files/libs/quarto-html/tabby.min.js"></script>
+<script src="latent_files/libs/quarto-html/popper.min.js"></script>
+<script src="latent_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="latent_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="latent_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="latent_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.31">
 
   <meta name="author" content="AP">
-  <title>Singular-value decomposition</title>
+  <title>Latent dimensions</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="svd_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="svd_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="latent_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="latent_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -29,12 +29,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="svd_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="latent_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
-  <link href="svd_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="svd_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="svd_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="svd_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="latent_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="latent_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="latent_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="latent_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -46,7 +46,6 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
-      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -129,7 +128,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Singular-value decomposition</h1>
+  <h1 class="title">Latent dimensions</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -140,115 +139,134 @@ AP
 </div>
 
 </section>
-<section class="slide level2">
+<section>
+<section id="dimensionality-reduction" class="title-slide slide level1 center">
+<h1>Dimensionality reduction</h1>
 
-<!-- ----------- -->
-</section>
-<section id="spectral-methods-traditional" class="slide level2">
-<h2>Spectral Methods: Traditional</h2>
-<p>Eigenpairs</p>
-<p><span class="math display">\[
-A\vec{e} = \lambda \vec{e}
-\]</span></p>
 </section>
 <section class="slide level2">
 
-<p><img data-src="./imgs/eigenpairs.png"></p>
-<p><img data-src="./imgs/eigenpairs-caption.png"></p>
-<!-- ----------- -->
-</section>
-<section id="eigendecomposition" class="slide level2">
-<h2>Eigendecomposition:</h2>
-<p><span class="math display">\[
-M = Q\Lambda Q^{-1}
-\]</span></p>
-<p>M is interpreted as the combination of three specific transformations</p>
-<p>Computing its inverse, <span class="math inline">\(M^{-1}\)</span>, is now much simpler</p>
-<!-- ----------- -->
-</section>
-<section id="the-importance-of-matrix-inversion" class="slide level2">
-<h2>The importance of Matrix inversion</h2>
-<p>M. inversion solves linear systems of linear equations</p>
-<p><span class="math display">\[
-M\vec{x} = \vec{v}
-\]</span></p>
-<p>When M and <span class="math inline">\(\vec{v}\)</span> are know, we find <span class="math inline">\(\vec{x}\)</span></p>
-<p><span class="math display">\[
-M^{-1}M\vec{x} = M^{-1}\vec{v}
-\]</span></p>
-<p><span class="math display">\[
-I\vec{x} = M^{-1}\vec{v}
-\]</span></p>
-<!-- ----------- -->
-</section>
-<section id="m.-inversion-underpins-regression" class="slide level2">
-<h2>M. inversion underpins regression</h2>
-<p>The solution <span class="math inline">\(\vec{x} = M^{-1}\vec{v}\)</span> gives us the regression coefficients that define the linear regression model.</p>
-<p>To estimate a new datapoint, say, <span class="math inline">\([a, b]\)</span>, just plug in the solution: <span class="math inline">\(\hat{y} = [a, b]\cdot\vec{x}\)</span></p>
-<p>Regression seen as solving the underlying linear system by matrix inversion</p>
+<p>Problem 8: Data reduction</p>
+<p><strong>Instance:</strong></p>
+<ul>
+<li><p>a collection (dataset) <span class="math inline">\(\mathbf{D}\)</span> of datapoints from <span class="math inline">\(\mathbf{X}\)</span>, e.g., <span class="math inline">\(\mathbb{R}^m\)</span></p></li>
+<li><p>[a distinct independent variable <span class="math inline">\(x_i\)</span>]</p></li>
+</ul>
 <div class="fragment">
-<h4 id="practical-aspects">Practical aspects</h4>
-<p>Textbook inversion takes <span class="math inline">\(\Theta(n^3)\)</span> operations: unfeasible</p>
-<p>Advanced a. in Numpy run in <span class="math inline">\(\Theta(n^2)\)</span> (but check for numeric issues)</p>
-<p>Compute <span class="math inline">\(M^{-1}\)</span> once then store and re-use it for different <span class="math inline">\(\vec{v}\)</span></p>
-<!-- ----------- -->
+<p><strong>Solution:</strong> a projection of <span class="math inline">\(\mathbf{D}\)</span> onto <span class="math inline">\(\mathbb{R}^n\)</span>, <span class="math inline">\(n &lt; m\)</span></p>
+<p><strong>Measure:</strong> error in the estimation of <span class="math inline">\(x_i\)</span></p>
+<p>Example: genre identification in consumer behaviour analysis</p>
 </div>
 </section>
-<section id="matrix-inversion" class="slide level2">
-<h2>Matrix inversion</h2>
-<p>Thanks to properties of the Q matrix, where each column is an e-vector, inversion is simplified</p>
-<p><span class="math inline">\(M = Q\Lambda Q^{-1}\)</span></p>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<p>Olivetti faces are 64x64 binary matrices.</p>
+<p>Through SVD we discovered that most singular values are in fact 0 or very small</p>
+<p>by considering only the top 20 or so singular values we can obtain a very similar image with less data:</p>
+<ul>
+<li><p>A contains 64x64=4096 values</p></li>
+<li><p><span class="math inline">\(U\Sigma V^T\)</span> contains 20x20 + 20 + 20x20 = 820 values (5:1 compression ratio)</p></li>
+</ul>
+</section>
+<section id="why-reduce-dimensions" class="slide level2">
+<h2>Why reduce dimensions?</h2>
+<ul>
+<li>easier to store, quicker to process</li>
+<li>interpretation and visualisation</li>
+<li>remove redundant or noisy features</li>
+<li>escape the curse of dimensionality and go back to intuitive distance features</li>
+<li>discover hidden correlations/topics</li>
+</ul>
+</section>
+<section id="when-reduce-dimensions" class="slide level2">
+<h2>When reduce dimensions?</h2>
+<p>When any of the goals becomes important</p>
+<p>Empirically: when we believe that data essentially represents the mixing of a smaller set of <em>feature</em> which are the real <em>axes</em> of the data.</p>
+<p>There really are only two <em>features:</em> sci-fi and romance</p>
+
+<img data-src="./imgs/activity_matrix.png" class="r-stretch"></section>
+<section id="how-to-reduce-dimensions" class="slide level2">
+<h2>How to reduce dimensions?</h2>
+<p>High-level view:</p>
+<ul>
+<li><p>data lies on or near a low-dimensional space:</p></li>
+<li><p>axes of that space are effective representations of data</p></li>
+</ul>
+</section>
+<section id="examples-dlongrightarrow-d" class="slide level2">
+<h2>Examples: <span class="math inline">\(D\longrightarrow d\)</span></h2>
+
+<img data-src="./imgs/from-2-to-1.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>The data axes (in red) are almost never the original measurement axes</p>
+
+<img data-src="./imgs/from-3-to-2.png" class="r-stretch"></section>
+<section id="bankground-matrix-rank" class="slide level2">
+<h2>Bankground: matrix rank</h2>
+<p>Rank is an important feature/descriptor of a data matrix</p>
+<p>Rank is the maximum number or colums (or rows) that are linearly independent.</p>
+<p>Such independent cols/rows are <em>candidates for the new, reduced reference system</em> (the red axes)</p>
+<p>Rectangular matrices with SVD: <span class="math inline">\(r \leq \min\{n,m\}\)</span></p>
 <div class="fragment">
-<p><span class="math inline">\(M^{-1} = (Q\Lambda Q^{-1})^{-1}\)</span></p>
-<p><span class="math inline">\(M^{-1} = Q^{-1}\Lambda^{-1} (Q^{-1})^{-1}\)</span></p>
-<p><span class="math inline">\(M^{-1} = Q^{-1}\Lambda^{-1} Q\)</span></p>
-<p>where <span class="math inline">\(\Lambda^{-1}\)</span> is obtained by simply substituing each <span class="math inline">\(\lambda_i\)</span> on the diagonal with <span class="math inline">\(\frac{1}{\lambda_i}\)</span></p>
-<!------------------------------------------------------------->
+<p>We can map data points is a completely-new, dataset-dependent representation!</p>
+<p>The dataset-depent representation will be compact</p>
+<p>Let’s create a new, abstract <em>feature space</em></p>
 </div>
 </section>
-<section id="singular-value-decomposition" class="slide level2">
-<h2>Singular-Value Decomposition</h2>
-<p>For rectangular matrices <span class="math inline">\(A_{(m \times n)}\)</span> eigendecomposition is not defined</p>
-<p>Instead, SVD provides a similar decomposition of the data matrix</p>
-<p>The procedure is more complex</p>
-<p>Until 1955, no general procedure for inverting rectangular m. was available</p>
-<!------------------------------------------------------------->
-</section>
-<section id="the-data-matrix" class="slide level2">
-<h2>The data matrix</h2>
-<p><span class="math inline">\(A_{(m \times n)}\)</span></p>
-<p>There are <em>m</em> points (rows) inside a <em>space</em> of <em>n</em> dimensions (columns)</p>
-<p>Each point is represented by an m-dimensional <em>row</em> vector</p>
-<p>Each dimension is represented by an n-dimensional vector</p>
+<section id="example-1" class="slide level2">
+<h2>Example</h2>
+<p>Handmade dimensionality reduction, from the MMDS textbook</p>
+<p><span class="math display">\[
+A_{3\times 3}  =  
+\begin{pmatrix}
+1 &amp;  2 &amp; 1\\
+-2 &amp; -3 &amp; 1\\
+3 &amp;  5 &amp; 0
+\end{pmatrix}
+\]</span></p>
+<p><span class="math inline">\(r=2\)</span> as the third row can be expressed as the first minus the second:</p>
+<p><span class="math display">\[
+\begin{array}{rrrl}
+1 &amp;  2 &amp; 1 &amp; -\\
+-2 &amp; -3 &amp; 1 &amp; =\\
+\hline\\
+3  &amp; 5  &amp; 0
+\end{array}
+\]</span></p>
 </section>
 <section class="slide level2">
 
-<p>By multiplying a rectangular matrix by its transpose we obtain a square matrix that reprents an ‘internal’ relationship:</p>
-<p><span class="math inline">\(M_{(m \times m)} = A_{(m \times n)}\times A^T_{(n \times m)}\)</span></p>
-<p><span class="math inline">\(N_{(n \times n)} = A^T_{(n \times m)}\times A_{(m \times n)}\)</span></p>
-<p>Let’s extract their respective eigenpairs.</p>
+<p>We create a new 2-d space where the axes are the first two rows:</p>
+<p><span class="math inline">\([1,0,0],[0,1,0],[0,0,1]\)</span> <span class="math inline">\(\longrightarrow\)</span> <span class="math inline">\([1, 2, 1],[-2, -3, 1]\)</span></p>
+<p>The new rows are <span class="math inline">\([1, 0]\)</span> <span class="math inline">\([0, 1]\)</span> and <span class="math inline">\([1,1]\)</span></p>
+<p><span class="math display">\[
+A^\prime_{3\times 2}  =  
+\begin{pmatrix}
+1 &amp; 0\\
+0 &amp; 1\\
+1 &amp; -1
+\end{pmatrix}
+\]</span></p>
+<p>The new points work as selectors of the new axes: it’s easy to go back from this space to the original, no loss of information/precision</p>
 </section>
-<section id="new-matrix-u" class="slide level2">
-<h2>New matrix: U</h2>
-<p><span class="math inline">\(U_{(m \times m)}\)</span>: columns made up of eigenvectors of <span class="math inline">\(M_{(m \times m)} = A_{(m \times n)}\times A^T_{(n \times m)}\)</span></p>
-<p>notice that e-vectors are always orthogonal with each other: <span class="math inline">\(\vec{U_i}^T \cdot \vec{U_j}=0\ (i\neq j)\)</span></p>
-<p>this will simplify computation</p>
-<p>However, some further orthogonal column will have to be introduced with external methods as only <span class="math inline">\(min(m, n)\)</span> non-zero eigenpairs can be obtained.</p>
+<section id="dimensionality-reduction-1" class="slide level2">
+<h2>Dimensionality reduction</h2>
+<p>In real dataset mapping to a lower-dimensional space may introduce errors</p>
+<p>in the <span class="math inline">\(2\rightarrow 1\)</span> example below, instead of points we just take the measure (distance from the origin) of their projection on the red axis</p>
+<p>The red axis is chosen as to minimise the error introduced by the <span class="math inline">\(2\rightarrow 1\)</span> <em>projection.</em></p>
+<p>Data mining studies how to find such axes, called concepts</p>
+<p>They capture some alignment which is inherent to the data.</p>
+
+<!-------------------------------------------------------------->
+<img data-src="./imgs/from-2-to-1.png" class="r-stretch"></section></section>
+<section>
+<section id="svd" class="title-slide slide level1 center">
+<h1>SVD</h1>
+
 </section>
-<section id="new-matrix-v" class="slide level2">
-<h2>New matrix: V</h2>
-<p><span class="math inline">\(V_{(n \times n)}\)</span>: colums made up of eigenvectors of <span class="math inline">\(N_{(n \times n)}\)</span></p>
-<p>Again, e-vectors are orthogonal to each other: <span class="math inline">\(\vec{V_i}^T \cdot \vec{V_j}=0\ (i\neq j)\)</span></p>
-</section>
-<section id="new-matrix-d-or-sigma" class="slide level2">
-<h2>New matrix: D (or <span class="math inline">\(\Sigma\)</span>)</h2>
-<p>dispose the eigenvalues of N on the main diagonal of a rectangular m. that will be 0 everywhere else</p>
-<p><span class="math inline">\(D_{(n \times m)}\)</span> where <span class="math inline">\(D_{ii}=\sigma_i\)</span> are the singular values</p>
-<p><span class="math inline">\(\sigma_i = \sqrt{\lambda_i}\)</span> the i-th e-value of <span class="math inline">\(N=A^T A\)</span></p>
-<p>(it can also be constructed with <span class="math inline">\(M=AA^T\)</span>)</p>
-</section>
-<section id="finally" class="slide level2">
-<h2>Finally…</h2>
+<section id="decomposition" class="slide level2">
+<h2>Decomposition</h2>
 <p><span class="math display">\[
 A_{(m \times n)} = U_{(m \times m)} D_{(m \times n)} V^T_{(n \times n)}
 \]</span></p>
@@ -257,196 +275,92 @@ A_{(m \times n)} = U_{(m \times m)} D_{(m \times n)} V^T_{(n \times n)}
 <li><p>D is a diagonal matrix of <em>singular values</em></p></li>
 <li><p>V is a orthogonal m. of <em>right-singular</em> (col.) vectors</p></li>
 </ul>
-<p>Please see <span class="math inline">\(\S\)</span> 2.7 of <a href="https://www.deeplearningbook.org/contents/linear_algebra.html">[Goodfellow et al.]</a></p>
-</section>
-<section id="consequences" class="slide level2">
-<h2>Consequences</h2>
-<p>SVD generalises eigen-decomposition:</p>
-<ul>
-<li><p>any real matrix has one</p></li>
-<li><p>even non-square matrices admit one</p></li>
-</ul>
-<p>overconstrained systems (more rows than cols.) can now be solved</p>
-</section>
-<section id="example" class="slide level2">
-<h2>Example</h2>
-<p><span class="math inline">\(A_{(3 \times 2)}\vec{x} = \vec{v}\)</span></p>
-<p>Focus on</p>
-<p><span class="math inline">\(A\, =
-\begin{pmatrix}
-1 &amp; 2\\
-3 &amp; 4\\
-5 &amp; 6
-\end{pmatrix}\)</span></p>
-</section>
-<section class="slide level2">
-
-<p><span class="math display">\[AA^T =
-\begin{pmatrix}
-1 &amp; 2\\
-3 &amp; 4\\
-5 &amp; 6
-\end{pmatrix}
-\begin{pmatrix}
-1 &amp; 3 &amp; 5\\
-2 &amp; 4 &amp; 6
-\end{pmatrix} =
-\begin{pmatrix}
-5 &amp; 11 &amp; 17\\
-11 &amp; 25 &amp; 39\\
-17 &amp; 39 &amp; 61
-\end{pmatrix}\]</span></p>
-<p>Extract the eigenpairs: <span class="math inline">\(\lambda_1 = 91\)</span>, <span class="math inline">\(v_1 = [0.15, 0.33, 0.52]\)</span></p>
-<p>Unfortunately, <span class="math inline">\(\lambda_1 = \lambda_2 = 0\)</span>: we need a couple more orthogonal vectors to make up our matrix U</p>
-</section>
-<section class="slide level2">
-
-<p><span class="math display">\[A^TA =
-\begin{pmatrix}
-1 &amp; 3 &amp; 5\\
-2 &amp; 4 &amp; 6
-\end{pmatrix}
-\begin{pmatrix}
-1 &amp; 2\\
-3 &amp; 4\\
-5 &amp; 6
-\end{pmatrix} =
-\begin{pmatrix}
-35 &amp; 44\\
-44 &amp; 56
-\end{pmatrix}\]</span></p>
-<p>The eigenvalues are <span class="math inline">\(\lambda_1 = 90.54\)</span> and <span class="math inline">\(\lambda_2 = 0.26\)</span></p>
-<p>The singular values are <span class="math inline">\(\sigma_1 = \sqrt(\lambda_1) = 9.54\)</span> and <span class="math inline">\(\sigma_2 = \sqrt(\lambda_2) = 0.51\)</span></p>
-</section>
-<section class="slide level2">
-
-<p><span class="math display">\[D =
-\begin{pmatrix}
-9.53 &amp; 0\\
-0 &amp; 0.51 \\
-0 &amp; 0
-\end{pmatrix}\]</span></p>
 <div class="fragment">
-<p>Putting it all together:</p>
-<p><span class="math display">\[A =
-\begin{pmatrix}
-0.15 &amp; 0.231 &amp; 0.882\\
-0.33 &amp; 0.527 &amp; 0.216\\
-0.52 &amp; 0.823 &amp; -0.451
-\end{pmatrix}
-\begin{pmatrix}
-9.53 &amp; 0\\
-0 &amp; 0.51 \\
-0 &amp; 0
-\end{pmatrix}
-\begin{pmatrix}
-0.62 &amp; 0.79\\
--0.79 &amp; 0.62
-\end{pmatrix}\]</span></p>
-<p>Even though this formulation is far from the original and not easily interpreted, it has good properties.</p>
-<!------------------------------------------------------------------>
+<p>Suppose only <span class="math inline">\(r\)</span> (<span class="math inline">\(r&lt;\min\{m,n\}\)</span>) singular values are non-zero</p>
+<p>We can rewrite the decomposition as follows:</p>
+<p><span class="math display">\[
+A_{(m \times n)} \approx U_{(m \times r)} D_{(r \times r)} V^T_{(r \times n)}
+\]</span></p>
 </div>
 </section>
+<section class="slide level2">
+
+<p>Suppose <span class="math inline">\(r=2\)</span>, visualise</p>
+<p><span class="math display">\[
+A_{(m \times n)} \approx U_{(m \times 2)} D_{(2 \times 2)} V^T_{(2 \times n)}
+\]</span></p>
+
+<img data-src="./imgs/visual-svd-1.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<p><span class="math display">\[
+A_{(m \times n)} \approx \sum_i \sigma_i U_i \circ V^T_i
+\]</span></p>
+<p>where <span class="math inline">\(U_i\)</span> is the i-th column of <span class="math inline">\(U\)</span> and <span class="math inline">\(\circ\)</span> is matrix multiplication</p>
+<p>Now A is represented as the sum of independent <em>factors</em> that were not explicit in the original data</p>
+
+<img data-src="./imgs/visual-svd-2.png" class="r-stretch"></section>
+<section id="example-users-to-films-becomes-users-to-concepts-to-films" class="slide level2">
+<h2>Example: users to films becomes users to concepts to films</h2>
+<p>(sligthy different data)</p>
+
+<img data-src="./imgs/visual-svd-3.png" class="r-stretch"></section>
+<section class="slide level2">
+
+
+<img data-src="./imgs/visual-svd-4.png" class="r-stretch"></section>
+<section id="concepts" class="slide level2">
+<h2>Concepts</h2>
+
+<img data-src="./imgs/visual-svd-5.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<p><span class="math inline">\(U\)</span> is a user-to-concept similarity matrix</p>
+
+<img data-src="./imgs/visual-svd-6.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<p><span class="math inline">\(\sigma\)</span>s reveal the strength of each concept</p>
+
+<img data-src="./imgs/visual-svd-7.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<p><span class="math inline">\(V^T\)</span> is a concept-to-film similarity matrix</p>
+
+<!-------------------------------------------------------------->
+<img data-src="./imgs/visual-svd-8.png" class="r-stretch"></section></section>
 <section>
-<section id="study-plan" class="title-slide slide level1 center">
-<h1>Study plan</h1>
+<section id="svd-interpretation--1" class="title-slide slide level1 center">
+<h1>SVD interpretation -1</h1>
 
 </section>
-<section id="background-study" class="slide level2">
-<h2>Background study</h2>
-<p>Ian Goodfellow, Yoshua Bengio and Aaron Courville: <a href="https://www.deeplearningbook.org/">Deep Learning, MIT Press, 2016</a>.</p>
-<p>available in HTML and PDF; it is <em>a refresher</em> of notation and properties: no examples and no exercises.</p>
-<p>It can be read in the background.</p>
-<ul>
-<li><p>Phase 1: read §§ 2.1—2.7, then § 2.11.</p></li>
-<li><p>Phase 2: read §§ 2.8—2.10</p></li>
-</ul>
-<!-- --------------------------------------------- -->
-</section></section>
-<section>
-<section id="moore-penrose-pseudo-inverse" class="title-slide slide level1 center">
-<h1>Moore-Penrose pseudo-inverse</h1>
+<section id="from-svd-back-to-geometry" class="slide level2">
+<h2>From SVD back to geometry</h2>
+<p>The <em>singular vectors</em> that make up V (and U) are the new axes for projection</p>
 
-</section>
-<section id="motivations" class="slide level2">
-<h2>Motivations</h2>
-<p>solve linear systems</p>
-<p><span class="math display">\[
-A\vec{x} = \vec{v}
-\]</span></p>
-<p>for non-square (rectangular) matrices:</p>
-<ul>
-<li><p>rows &gt; columns: the problem is overconstrained (no solution?)</p></li>
-<li><p>rows &lt; columns: the problem is overparametrized (infinite sols.?)</p></li>
-</ul>
-</section>
-<section id="reminder-the-ideal-procedure" class="slide level2">
-<h2>Reminder: the ideal procedure</h2>
-<p>If A is squared (m=n) and non-singular (<span class="math inline">\(|A|\neq 0\)</span>) then</p>
-<p><span class="math display">\[
-A\vec{x} = \vec{v}
-\]</span></p>
-<div class="fragment">
-<p><span class="math display">\[
-A^{-1}A\vec{x} = A^{-1} \vec{v}
-\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[
-I\vec{x} = A^{-1} \vec{v}
-\]</span></p>
-<p>Compute <span class="math inline">\(A^{-1}\)</span> once, run for different values of <span class="math inline">\(\vec{v}\)</span></p>
-</div>
-</section>
-<section id="the-pseudo-inverse" class="slide level2">
-<h2>The pseudo-inverse</h2>
-<p>Given A_{(m n)}, Penrose seeks a matrix <span class="math inline">\(A^+\)</span> that would work the same as the left inverse:</p>
-<p><span class="math inline">\(A^+ A \approx I\)</span></p>
-<div class="fragment">
-<p>strenghten up the main diagonal before inversion:</p>
-<p><span class="math display">\[
-A^+ = \lim_{\alpha\rightarrow 0} (A^TA + \alpha I)^{-1}A^T
-\]</span></p>
-<p>Thanks to <span class="math inline">\(A^+\)</span>, over-constrained linear systems can now be solved (w. approximation)</p>
-</div>
-</section>
-<section id="svd-leads-to-approx.-inversion" class="slide level2">
-<h2>SVD leads to approx. inversion</h2>
-<p>for the decomposition</p>
-<p><span class="math display">\[
-A = UDV^T
-\]</span></p>
-<p><span class="math display">\[
-A^+ = VD^+ U^T
-\]</span></p>
-<p>where <span class="math inline">\(D^+\)</span>, such that <span class="math inline">\(D^+D=I\)</span> is easy to calculate: D is diagonal.</p>
-</section>
+<img data-src="./imgs/svd-interpretation-1.png" class="r-stretch"></section>
 <section class="slide level2">
 
-<p>Does <span class="math inline">\(A^+ A \approx I\)</span>?</p>
-<p>Yes, because U and V are s. t. <span class="math inline">\(U^T U = VV^T=I\)</span>.</p>
-<div class="fragment">
-<p><span class="math display">\[
-VD^+ U^T \cdot UDV^T\ =
-\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[
-VD^+ I DV^T\ =
-\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[
-VD^+ DV^T \ =
-\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[
-V I V^T   = V V^T = I
-\]</span></p>
+<p>The <em>singular vectors</em> that make up V (and U) are the new axes for projection</p>
+<p>They will minimise the <em>reconstruction error</em> (<span class="math inline">\(z\)</span> is the the value obtained by the reduced SVD)</p>
+<p><span class="math display">\[\epsilon = \sum_{i=1}^{m} \sum_{i=1}^{n} \left\lVert a_{ij} - z_{ij}\right\lVert\]</span></p>
 
-</div>
-</section></section>
+<!-------------------------------------------------------------->
+<img data-src="./imgs/svd-interpretation-1.png" class="r-stretch"></section></section>
+<section>
+<section id="svd-interpretation--2" class="title-slide slide level1 center">
+<h1>SVD interpretation -2</h1>
+
+</section>
+<section id="step-by-step" class="slide level2">
+<h2>Step-by-step</h2>
+<p>Again, we use the singular vectors as the new axes</p>
+
+<!-------------------------------------------------------------->
+<!-------------------------------------------------------------->
+<!-------------------------------------------------------------->
+
+<img data-src="./imgs/svd-interpretation-2.png" class="r-stretch"></section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -455,19 +369,19 @@ V I V^T   = V V^T = I
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="svd_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="latent_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="svd_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="svd_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="svd_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="svd_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="svd_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="latent_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="latent_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="latent_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="latent_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="latent_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="svd_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="svd_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="svd_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="svd_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="latent_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="latent_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="latent_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="latent_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
