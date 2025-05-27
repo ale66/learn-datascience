@@ -219,11 +219,7 @@ $$
 
 -----
 
-Suppose $r=2$, visualise
-
-$$
-A_{(m \times n)} \approx U_{(m \times 2)} D_{(2 \times 2)} V^T_{(2 \times n)}
-$$
+Suppose $r=2$, visualise $A_{(m \times n)} \approx U_{(m \times 2)} D_{(2 \times 2)} V^T_{(2 \times n)}$
 
 ![](./imgs/visual-svd-1.png)
 
