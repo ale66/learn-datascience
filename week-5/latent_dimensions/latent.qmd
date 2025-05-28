@@ -233,7 +233,6 @@ $$
 
 where $U_i$ is the i-th column of $U$ and $\circ$ is matrix multiplication
 
-
 Now A is represented as the sum of independent *factors* that were not explicit in the original data
 
 ![](./imgs/visual-svd-2.png)
@@ -241,7 +240,7 @@ Now A is represented as the sum of independent *factors* that were not explicit 
 
 -----
 
-## Example: users to films becomes users to concepts to films
+## Users-to-films becomes users-to-concepts-to-films
 
 (sligthy different data)
 
