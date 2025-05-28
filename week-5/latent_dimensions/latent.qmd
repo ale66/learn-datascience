@@ -219,11 +219,7 @@ $$
 
 -----
 
-Suppose $r=2$, visualise
-
-$$
-A_{(m \times n)} \approx U_{(m \times 2)} D_{(2 \times 2)} V^T_{(2 \times n)}
-$$
+Suppose $r=2$, visualise $A_{(m \times n)} \approx U_{(m \times 2)} D_{(2 \times 2)} V^T_{(2 \times n)}$
 
 ![](./imgs/visual-svd-1.png)
 
@@ -237,7 +233,6 @@ $$
 
 where $U_i$ is the i-th column of $U$ and $\circ$ is matrix multiplication
 
-
 Now A is represented as the sum of independent *factors* that were not explicit in the original data
 
 ![](./imgs/visual-svd-2.png)
@@ -245,7 +240,7 @@ Now A is represented as the sum of independent *factors* that were not explicit 
 
 -----
 
-## Example: users to films becomes users to concepts to films
+## Users-to-films becomes users-to-concepts-to-films
 
 (sligthy different data)
 
@@ -291,7 +286,7 @@ $V^T$ is a concept-to-film similarity matrix
 
 -----
 
-## From SVD back to geometry
+## First interpretation
 
 The *singular vectors* that make up V (and U) are the new axes for projection
 
@@ -307,6 +302,8 @@ They will minimise the *reconstruction error* ($z$ is the the value obtained by 
 
 $$\epsilon = \sum_{i=1}^{m} \sum_{i=1}^{n} \left\lVert a_{ij} - z_{ij}\right\lVert$$
 
+The sum of the green, orthogonal lines connecting the point to its compressed representation on the new axis is minimal
+
 ![](./imgs/svd-interpretation-1.png)
 
 
@@ -314,16 +311,149 @@ $$\epsilon = \sum_{i=1}^{m} \sum_{i=1}^{n} \left\lVert a_{ij} - z_{ij}\right\lVe
 
 # SVD interpretation -2 
 
+
 -----
 
-## Step-by-step
+## Second interpretation 
+
 
 Again, we use the singular vectors as the new axes
 
+The $\sigma$s indicate the *spread* (variance) of the projected points on the new axis
+
+the more spread apart points are, the easier it will be to classify/find cluster them
 
 ![](./imgs/svd-interpretation-2.png)
 
+-----
+
+Let's see what happens to the original datapoints
+
+$UD$ project users onto the *concept* axes
+
+![](./imgs/svd-interpretation-3-a.png)
+
+
+-----
+
+We see values that *look like* measures of the implicit user-to-topic affiliation
+
+Interpreting negative values is problematic, expecially for $V^T$
+
+::::{.colums}
+:::{.column}
+![](./imgs/svd-interpretation-3-a.png)
+:::
+:::{.column}
+![](./imgs/svd-interpretation-3-b.png)
+:::
+::::
 
 <!-------------------------------------------------------------->
+
+# Dimensionality reduction
+
+-----
+
+## Set the smallest singular values to 0
+
+![](./imgs/smallest-values-1.png)
+
+
+-----
+
+## The B matrix
+
+Let $A=UDV^T$ as before, with a ranking $r \le \min\{m,n\}$ 
+
+For a small integer $k$, define
+
+and let $E$ be a *reduction* of $D$: same everywhere but for $\sigma_{k+1}\dots \sigma_{r}$  set to 0.
+
+Theorem: $B=UEV^T$ with ranking $k$ is the best approximation of A with rank $k$: 
+
+$B \in \mathrm{argmin}_{X:\mathrm{rank}(X)=k}\{ ||A-X||_F \}$
+
+![](./imgs/smallest-values-3.png)
+
+
+-----
+
+## Why B is a good reduction?
+
+rows of $U$ and $V$ are the new axes, but they are unit vectors
+
+the singular values $\sigma_i$ do the scaling
+
+$$
+A_{(m \times n)} \approx  \sigma_1 U_1 \circ V^T_1 + \sigma_1 U_1 \circ V^T_1 + \dots \sigma_r U_r \circ V^T_r 
+$$
+
+
+-----
+
+since we constructed $D$ to have $\sigma_1 \ge \sigma_2 \dots$, the smallest $\sigma$ will do little scaling
+
+so dropping $\sigma_{k+1}\dots \sigma_{r}$ will introduce less error
+
+
+Rule of thumb: keep singular values that sum up to about 80% of the total *'energy'*
+
+$$
+\sum_1^k \sigma_i \approx 0.8\sum_1^r \sigma_j
+$$
+
+
 <!-------------------------------------------------------------->
+# Conclusions
+
+-----
+
+$A=UDV^T$ provides a unique decomposition that is *interpretable*
+
+__Interpretability:__
+
+$U$: user-to-concept affiliations/similarities
+
+$D$: strenght of each concept
+
+$V$: film-to-concept affiliations/similarities
+
+
+SVD picks up linear dependencies
+
+-----
+
+__Dimensionality reduction:__
+
+SVD finds the *best* reduced matrix B
+
+$k$ is not really an hyperparameter (as with K-nn): we set it empirically to keep 80% of values
+
+SVD dim. reduction is the key to *denoising*
+
+-----
+
+__Cost:__ 
+
+the core component requires $\min\{nm^2, n^2m\}$ ops.
+
+
+__Implementation:__ 
+
+`truncatedSVD` in Scikit-learn
+
+```python
+from sklearn.decomposition import TruncatedSVD
+
+K=2
+
+% X is assigned ...
+
+svd = TruncatedSVD(n_components=K) 
+
+X_reduced = svd.fit_transform(X)
+```
+
+
 <!-------------------------------------------------------------->

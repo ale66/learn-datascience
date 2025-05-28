@@ -1,7 +1,7 @@
 ---
 title: "Trade Networks"
 lang: en
-author: DSTA 
+author: AP 
 format:
   pdf:
     papersize: A4
@@ -24,12 +24,11 @@ format:
     anchor-sections: true
     other-links:
       - text: Class page
-        href: https://ale66.github.io/dsta/
+        href: https://github.com/ale66/learn-datascience
 jupyter: python3
 ---
 
 <!-- ------------------------ -->
-# Ch. 2: Trade networks
 
 ## Important concepts
 
@@ -170,41 +169,3 @@ $\sum_{p^\prime} M_{cp^\prime}$: total value of export by country $c$.
 . . .
 
 $\textrm{RCA}_{cp} = \frac{\frac{M_{cp}}{\sum_{p^\prime} M_{cp^\prime}}}{\frac{\sum_{c^\prime} M_{c^\prime p}}{\sum_{c^\prime} \sum_{p^\prime} M_{c^\prime p^\prime}}}$
-
-
-{{< fa battery-quarter size=2x>}}
-
-Originality: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
-
-Significance: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
-
-Rigour:  {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
-
-Originality: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
-
-Significance: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
-
-Rigour:  {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
-
-
-Originality: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
-
-Significance: {{< fa star size=xs >}} {{< fa star size=xs >}} {{< fa star size=xs >}}? 
-
-Rigour:  {{< fa star size=xs >}} {{< fa star size=xs >}}? 
-
-Chiar.ma collega, grazie della pronta risposta.
-Alcune domande che volevo porle sono queste -scusandomi in anticipo se forse la risposta poteva trovarsi in qualche sezione del sito web.
-
-a. Qual e' il carico didattico previsto per questa posizione?
-Essenzialmente, quante ore di didattica e per quali insegnamenti? Solo al BSc o pure al MSc?
-
-b. quante tesi di BSc seguire ogni anno?
-
-c. in futuro sarebbe possibile, immagino tramite l'affiliazione con l'istituto Dalle Molle, seguire studenti di dottorato?
-
-Grazie ancora del contatto e dell'aiuto, spero di poterla conoscere di persona presto.
-Cordialmente,
-ALessandro Provetti
-
-

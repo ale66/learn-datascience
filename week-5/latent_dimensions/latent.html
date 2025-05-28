@@ -28,6 +28,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="latent_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
@@ -285,10 +351,7 @@ A_{(m \times n)} \approx U_{(m \times r)} D_{(r \times r)} V^T_{(r \times n)}
 </section>
 <section class="slide level2">
 
-<p>Suppose <span class="math inline">\(r=2\)</span>, visualise</p>
-<p><span class="math display">\[
-A_{(m \times n)} \approx U_{(m \times 2)} D_{(2 \times 2)} V^T_{(2 \times n)}
-\]</span></p>
+<p>Suppose <span class="math inline">\(r=2\)</span>, visualise <span class="math inline">\(A_{(m \times n)} \approx U_{(m \times 2)} D_{(2 \times 2)} V^T_{(2 \times n)}\)</span></p>
 
 <img data-src="./imgs/visual-svd-1.png" class="r-stretch"></section>
 <section class="slide level2">
@@ -334,8 +397,8 @@ A_{(m \times n)} \approx \sum_i \sigma_i U_i \circ V^T_i
 <h1>SVD interpretation -1</h1>
 
 </section>
-<section id="from-svd-back-to-geometry" class="slide level2">
-<h2>From SVD back to geometry</h2>
+<section id="first-interpretation" class="slide level2">
+<h2>First interpretation</h2>
 <p>The <em>singular vectors</em> that make up V (and U) are the new axes for projection</p>
 
 <img data-src="./imgs/svd-interpretation-1.png" class="r-stretch"></section>
@@ -344,6 +407,7 @@ A_{(m \times n)} \approx \sum_i \sigma_i U_i \circ V^T_i
 <p>The <em>singular vectors</em> that make up V (and U) are the new axes for projection</p>
 <p>They will minimise the <em>reconstruction error</em> (<span class="math inline">\(z\)</span> is the the value obtained by the reduced SVD)</p>
 <p><span class="math display">\[\epsilon = \sum_{i=1}^{m} \sum_{i=1}^{n} \left\lVert a_{ij} - z_{ij}\right\lVert\]</span></p>
+<p>The sum of the green, orthogonal lines connecting the point to its compressed representation on the new axis is minimal</p>
 
 <!-------------------------------------------------------------->
 <img data-src="./imgs/svd-interpretation-1.png" class="r-stretch"></section></section>
@@ -352,15 +416,106 @@ A_{(m \times n)} \approx \sum_i \sigma_i U_i \circ V^T_i
 <h1>SVD interpretation -2</h1>
 
 </section>
-<section id="step-by-step" class="slide level2">
-<h2>Step-by-step</h2>
+<section id="second-interpretation" class="slide level2">
+<h2>Second interpretation</h2>
 <p>Again, we use the singular vectors as the new axes</p>
+<p>The <span class="math inline">\(\sigma\)</span>s indicate the <em>spread</em> (variance) of the projected points on the new axis</p>
+<p>the more spread apart points are, the easier it will be to classify/find cluster them</p>
 
+<img data-src="./imgs/svd-interpretation-2.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>Let’s see what happens to the original datapoints</p>
+<p><span class="math inline">\(UD\)</span> project users onto the <em>concept</em> axes</p>
+
+<img data-src="./imgs/svd-interpretation-3-a.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>We see values that <em>look like</em> measures of the implicit user-to-topic affiliation</p>
+<p>Interpreting negative values is problematic, expecially for <span class="math inline">\(V^T\)</span></p>
+<div class="colums">
+<div class="column">
+<p><img data-src="./imgs/svd-interpretation-3-a.png"></p>
+</div><div class="column">
+<p><img data-src="./imgs/svd-interpretation-3-b.png"></p>
+</div></div>
 <!-------------------------------------------------------------->
+</section></section>
+<section>
+<section id="dimensionality-reduction-2" class="title-slide slide level1 center">
+<h1>Dimensionality reduction</h1>
+
+</section>
+<section id="set-the-smallest-singular-values-to-0" class="slide level2">
+<h2>Set the smallest singular values to 0</h2>
+
+<img data-src="./imgs/smallest-values-1.png" class="r-stretch"></section>
+<section id="the-b-matrix" class="slide level2">
+<h2>The B matrix</h2>
+<p>Let <span class="math inline">\(A=UDV^T\)</span> as before, with a ranking <span class="math inline">\(r \le \min\{m,n\}\)</span></p>
+<p>For a small integer <span class="math inline">\(k\)</span>, define</p>
+<p>and let <span class="math inline">\(E\)</span> be a <em>reduction</em> of <span class="math inline">\(D\)</span>: same everywhere but for <span class="math inline">\(\sigma_{k+1}\dots \sigma_{r}\)</span> set to 0.</p>
+<p>Theorem: <span class="math inline">\(B=UEV^T\)</span> with ranking <span class="math inline">\(k\)</span> is the best approximation of A with rank <span class="math inline">\(k\)</span>:</p>
+<p><span class="math inline">\(B \in \mathrm{argmin}_{X:\mathrm{rank}(X)=k}\{ ||A-X||_F \}\)</span></p>
+
+<img data-src="./imgs/smallest-values-3.png" class="r-stretch"></section>
+<section id="why-b-is-a-good-reduction" class="slide level2">
+<h2>Why B is a good reduction?</h2>
+<p>rows of <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are the new axes, but they are unit vectors</p>
+<p>the singular values <span class="math inline">\(\sigma_i\)</span> do the scaling</p>
+<p><span class="math display">\[
+A_{(m \times n)} \approx  \sigma_1 U_1 \circ V^T_1 + \sigma_1 U_1 \circ V^T_1 + \dots \sigma_r U_r \circ V^T_r
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>since we constructed <span class="math inline">\(D\)</span> to have <span class="math inline">\(\sigma_1 \ge \sigma_2 \dots\)</span>, the smallest <span class="math inline">\(\sigma\)</span> will do little scaling</p>
+<p>so dropping <span class="math inline">\(\sigma_{k+1}\dots \sigma_{r}\)</span> will introduce less error</p>
+<p>Rule of thumb: keep singular values that sum up to about 80% of the total <em>‘energy’</em></p>
+<p><span class="math display">\[
+\sum_1^k \sigma_i \approx 0.8\sum_1^r \sigma_j
+\]</span></p>
 <!-------------------------------------------------------------->
+</section></section>
+<section>
+<section id="conclusions" class="title-slide slide level1 center">
+<h1>Conclusions</h1>
+
+</section>
+<section class="slide level2">
+
+<p><span class="math inline">\(A=UDV^T\)</span> provides a unique decomposition that is <em>interpretable</em></p>
+<p><strong>Interpretability:</strong></p>
+<p><span class="math inline">\(U\)</span>: user-to-concept affiliations/similarities</p>
+<p><span class="math inline">\(D\)</span>: strenght of each concept</p>
+<p><span class="math inline">\(V\)</span>: film-to-concept affiliations/similarities</p>
+<p>SVD picks up linear dependencies</p>
+</section>
+<section class="slide level2">
+
+<p><strong>Dimensionality reduction:</strong></p>
+<p>SVD finds the <em>best</em> reduced matrix B</p>
+<p><span class="math inline">\(k\)</span> is not really an hyperparameter (as with K-nn): we set it empirically to keep 80% of values</p>
+<p>SVD dim. reduction is the key to <em>denoising</em></p>
+</section>
+<section class="slide level2">
+
+<p><strong>Cost:</strong></p>
+<p>the core component requires <span class="math inline">\(\min\{nm^2, n^2m\}\)</span> ops.</p>
+<p><strong>Implementation:</strong></p>
+<p><code>truncatedSVD</code> in Scikit-learn</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> TruncatedSVD</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a>K<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb1-4"><a href=""></a></span>
+<span id="cb1-5"><a href=""></a><span class="op">%</span> X <span class="kw">is</span> assigned ...</span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a>svd <span class="op">=</span> TruncatedSVD(n_components<span class="op">=</span>K) </span>
+<span id="cb1-8"><a href=""></a></span>
+<span id="cb1-9"><a href=""></a>X_reduced <span class="op">=</span> svd.fit_transform(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <!-------------------------------------------------------------->
 
-<img data-src="./imgs/svd-interpretation-2.png" class="r-stretch"></section></section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
