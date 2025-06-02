@@ -1,7 +1,7 @@
 ---
 title: "The Internet[work]"
 lang: en
-author: DSTA 
+author: AP 
 format:
   pdf:
     papersize: A4
@@ -24,7 +24,7 @@ format:
     anchor-sections: true
     other-links:
       - text: Class page
-        href: https://ale66.github.io/dsta/
+        href: https://github.com/ale66/learn-datascience/
 jupyter: python3
 ---
 
@@ -255,6 +255,8 @@ $$
 which is the needed centrality measure.
 
 ## Computing Eigenvector centrality
+
+here Network science incorporates concepts from the geometric view of data 
 
 1. Compute the dominant Eigenpair $(\lambda_1, \mathbf{v_1})$ of A;
 
