@@ -218,8 +218,8 @@ AP
 <div class="fragment">
 <p><span class="math inline">\(U_{(m \times r)}\)</span> is column-orthonormal: <span class="math inline">\(u_i\cdot u_j^T=0\)</span></p>
 <p><span class="math inline">\(V^T_{(r \times n)}\)</span> is row-orthonormal: <span class="math inline">\(v_i^T\cdot v_j=0\)</span></p>
-<p><span class="math inline">\(\Sigma_{(r \times r)}\)</span> (or <span class="math inline">\(D\Sigma_{(r \times r)}\)</span> is diagonal, <span class="math inline">\(\sigma_{ij}\)</span> are the singular values</p>
-<p>dimension <strong><em>r</em></strong> will depend on the no. of singular values found</p>
+<p><span class="math inline">\(\Sigma_{(r \times r)}\)</span> (or <span class="math inline">\(D_{(r \times r)}\)</span>) is diagonal, <span class="math inline">\(\sigma_{ij}\)</span> are the singular values</p>
+<p>dimension <span class="math inline">\(r\leq \min\{m,n\}\)</span> also depends on the no. of singular values found; it can be further reduced by dropping 0 and very low <span class="math inline">\(\sigma\)</span>s</p>
 </div>
 </section>
 <section id="hurdle-interpretation-of-negative-values" class="slide level2">
@@ -235,8 +235,8 @@ AP
 <li><p>outright <em>repulsion.</em></p></li>
 </ol>
 </section>
-<section class="slide level2">
-
+<section id="an-ideal-view" class="slide level2">
+<h2>An ideal view</h2>
 <p>A non-negative decomposition of the activity matrix would be <em>interpretable:</em></p>
 <p><span class="math display">\[A_{(m\times n)} = P_{(m\times r)} \cdot Q_{(r\times n)}\]</span></p>
 <ul>
@@ -246,6 +246,7 @@ AP
 </ul>
 <div class="fragment">
 <p>user/product profiling and reccommender sys. would be half-done already!</p>
+<p><span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span> are of independent interest</p>
 <!-- ------------------- -->
 </div>
 </section></section>
@@ -492,11 +493,15 @@ v_i \approx W\cdot h_i
 <section id="iterated-error-balancing" class="slide level2 scrollable">
 <h2>Iterated <strong>error balancing</strong></h2>
 <ol type="1">
-<li><p>start from random W and H</p></li>
+<li>initialise W and H at random</li>
+</ol>
+<p>repeat:</p>
+<ol start="2" type="1">
 <li><p>compute the error</p></li>
 <li><p>update W and H with the <strong>multiplicative update</strong> rule</p></li>
-<li><p>repeat normalisation of W: each column sum to 1</p></li>
+<li><p>normalise W: each column sums to 1</p></li>
 </ol>
+<p>until error is tamed</p>
 
 <img data-src="./imgs/iterative.png" class="r-stretch"></section>
 <section id="multiplicative-update" class="slide level2">

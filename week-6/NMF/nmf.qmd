@@ -43,9 +43,9 @@ $U_{(m \times r)}$ is column-orthonormal: $u_i\cdot u_j^T=0$
 
 $V^T_{(r \times n)}$ is row-orthonormal: $v_i^T\cdot v_j=0$
 
-$\Sigma_{(r \times r)}$ (or $D\Sigma_{(r \times r)}$ is diagonal, $\sigma_{ij}$ are the singular values
+$\Sigma_{(r \times r)}$ (or $D_{(r \times r)}$) is diagonal, $\sigma_{ij}$ are the singular values
 
-dimension __*r*__ will depend on the no. of singular values found
+dimension $r\leq \min\{m,n\}$ also depends on the no. of singular values found; it can be further reduced by dropping 0 and very low $\sigma$s
 
 
 -----
@@ -67,6 +67,8 @@ ii) outright *repulsion.*
 
 -----
 
+## An ideal view
+
 A non-negative decomposition of the activity matrix would be *interpretable:*
 
 $$A_{(m\times n)} = P_{(m\times r)} \cdot Q_{(r\times n)}$$
@@ -80,6 +82,8 @@ $$A_{(m\times n)} = P_{(m\times r)} \cdot Q_{(r\times n)}$$
 . . .
 
 user/product profiling and reccommender sys. would be half-done already!
+
+$P$ and $Q$ are of independent interest
 
 
 <!-- ------------------- -->
@@ -365,13 +369,18 @@ The Kullback-Leibler divergence, $D_{KL},$ may also be used.
 
 ## Iterated __error balancing__
 
-1. start from random W and H
+1. initialise  W and H at random
+
+repeat: 
 
 2. compute the error
 
 3. update W and H with the __multiplicative update__ rule
    
-4. repeat normalisation of W: each column sum to 1
+4. normalise W: each column sums to 1
+
+until error is tamed
+
 
 ![](./imgs/iterative.png)
 
