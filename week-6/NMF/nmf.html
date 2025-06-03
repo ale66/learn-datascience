@@ -218,19 +218,27 @@ AP
 <div class="fragment">
 <p><span class="math inline">\(U_{(m \times r)}\)</span> is column-orthonormal: <span class="math inline">\(u_i\cdot u_j^T=0\)</span></p>
 <p><span class="math inline">\(V^T_{(r \times n)}\)</span> is row-orthonormal: <span class="math inline">\(v_i^T\cdot v_j=0\)</span></p>
-<p><span class="math inline">\(\Sigma_{(r \times r)}\)</span> is diagonal, <span class="math inline">\(\sigma_{ij}\)</span> are the singular values</p>
+<p><span class="math inline">\(\Sigma_{(r \times r)}\)</span> (or <span class="math inline">\(D\Sigma_{(r \times r)}\)</span> is diagonal, <span class="math inline">\(\sigma_{ij}\)</span> are the singular values</p>
 <p>dimension <strong><em>r</em></strong> will depend on the no. of singular values found</p>
 </div>
 </section>
 <section id="hurdle-interpretation-of-negative-values" class="slide level2">
 <h2>Hurdle: interpretation of negative values</h2>
 
-<img data-src="./imgs/mmds-svd-example.png" class="r-stretch"><p>With negative values we cannot distinguish between i) lack of information, ii) lack of interest or ii) outright <em>repulsion.</em></p>
+<img data-src="./imgs/mmds-svd-example.png" class="r-stretch"></section>
+<section class="slide level2 scrollable">
+
+<p>With negative values from SVD we cannot distinguish between</p>
+<ol type="i">
+<li><p>lack of information,</p></li>
+<li><p>lack of interest or</p></li>
+<li><p>outright <em>repulsion.</em></p></li>
+</ol>
 </section>
 <section class="slide level2">
 
 <p>A non-negative decomposition of the activity matrix would be <em>interpretable:</em></p>
-<p><span class="math display">\[A_{(n\times d)} = P_{(n\times r)} \cdot Q_{(r\times d)}\]</span></p>
+<p><span class="math display">\[A_{(m\times n)} = P_{(m\times r)} \cdot Q_{(r\times n)}\]</span></p>
 <ul>
 <li><p><span class="math inline">\(A\)</span>: activity</p></li>
 <li><p><span class="math inline">\(P\)</span>: user participation to a topic</p></li>
@@ -246,6 +254,20 @@ AP
 <h1>Non-negative decomposition</h1>
 
 </section>
+<section id="context" class="slide level2">
+<h2>Context</h2>
+<p>Lee and Seung sought a new approach to the problem of learning images (how to recognise them) via visual patters:</p>
+<p>reduce a specific image to the combination of known patters: face <span class="math inline">\(\approx\)</span> eyes, eyebrows, nose, chin etc.</p>
+<p>Could each face be decomposed into basic, repeated visual patterns?</p>
+<p>In the neural network model of brain activity, firing rates of neurons cannot be negative: patterns are either activated or ignored</p>
+<p>Sparsity: only few patterns should be needed to re-create an image</p>
+<div class="fragment">
+<p>Example dataset: faces (not Olivetti)</p>
+<p>2429 mugshots, each having <span class="math inline">\(19\times 19=361\)</span> pixels, rescaled to [0,1]: <span class="math inline">\(V_{361\times 2429}\)</span></p>
+<p>Lee-Seung fix <span class="math inline">\(r=49\)</span> and compute <span class="math inline">\(V_{361\times 2429} = W_{361\times 49} \times H_{49\times 2429}\)</span></p>
+<p>For comparison, they also try PCA (diagonalisation of <span class="math inline">\(VV^T\)</span>) and VQ</p>
+</div>
+</section>
 <section id="the-numerical-problem" class="slide level2">
 <h2>The numerical problem</h2>
 <p>Istance: a non-negative matrix V</p>
@@ -254,6 +276,48 @@ AP
 V \approx W \cdot H
 \]</span></p>
 <p>with <span class="math inline">\(w_{ij}, h_{rs}\ge 0\)</span></p>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<p><span class="math display">\[
+V_{3\times 3}  =  
+\begin{pmatrix}
+4 &amp;  0 &amp; 2\\
+0 &amp;  3 &amp; 1\\
+2 &amp;  1 &amp; 3
+\end{pmatrix}
+\]</span></p>
+<p>choose <span class="math inline">\(r=2\)</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+V_{3\times 3} \approx W_{3\times 2} \times H_{2\times 3} =
+\begin{pmatrix}
+2 &amp;  0 \\
+0 &amp;  1.5 \\
+1 &amp;  1
+\end{pmatrix}
+\times
+\begin{pmatrix}
+2 &amp;  0 &amp; 1\\
+0 &amp;  2 &amp; 1
+\end{pmatrix}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{pmatrix}
+4 &amp;  0 &amp; 2\\
+0 &amp;  3 &amp; 1\\
+2 &amp;  1 &amp; 3
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+4 &amp;  0 &amp; 2\\
+0 &amp;  3 &amp; 1.5 \\
+2 &amp;  2 &amp; 2
+\end{pmatrix}
+\]</span></p>
+</div>
 </section>
 <section id="notation" class="slide level2">
 <h2>Notation</h2>
@@ -273,8 +337,76 @@ A = B \cdot C
 \]</span></p>
 </div>
 </section>
-<section id="interpretation" class="slide level2">
-<h2>Interpretation</h2>
+<section id="example-1" class="slide level2">
+<h2>Example</h2>
+<p><span class="math display">\[
+\begin{pmatrix}
+4 &amp;  0 &amp; 2\\
+0 &amp;  3 &amp; 1\\
+2 &amp;  1 &amp; 3
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+2 &amp;  0 \\
+0 &amp;  1.5 \\
+1 &amp;  1
+\end{pmatrix}
+\times
+\begin{pmatrix}
+2 &amp;  0 &amp; 1\\
+0 &amp;  2 &amp; 1
+\end{pmatrix}
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{pmatrix}
+4 \\
+0 \\
+2
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+2 &amp;  0 \\
+0 &amp;  1.5 \\
+1 &amp;  1
+\end{pmatrix}
+\times
+\begin{pmatrix}
+2 \\
+0
+\end{pmatrix}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{pmatrix}
+4 \\
+0 \\
+2
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+2  \\
+0 \\
+1
+\end{pmatrix}\cdot 2
++
+\begin{pmatrix}
+0 \\
+1.5 \\
+1
+\end{pmatrix}\cdot 0
+\]</span></p>
+<!-- ------------------------ -->
+</div>
+</section></section>
+<section>
+<section id="interpretability-of-nmf" class="title-slide slide level1 center">
+<h1>Interpretability of NMF</h1>
+
+</section>
+<section id="how-we-read-nmf" class="slide level2">
+<h2>How we read NMF</h2>
 <p>Let <span class="math inline">\(\mathbf{v}_i\)</span> be the i-th column of V.</p>
 <p>If V is an activity m., <span class="math inline">\(\mathbf{v}_i\)</span> represent the <em>consumption</em> of <span class="math inline">\(i\)</span></p>
 <div class="fragment">
@@ -326,8 +458,8 @@ v_i \approx W\cdot h_i
 </ul>
 </div>
 </section>
-<section id="information-theoretic-view" class="slide level2">
-<h2>Information-theoretic view</h2>
+<section id="aside-information-theoretic-view" class="slide level2">
+<h2>Aside: information-theoretic view</h2>
 <p>If the input matrix can be (somehow) normalised then we see the search for the perfect non-negative decomposition in terms of minimizing <em>divergence:</em></p>
 <p><span class="math inline">\(D_I(X||Y) =  \Sigma_{i,j} (x_{ij}\cdot \log(\frac{x_{ij}}{y_{ij}}) - x_{ij} + y_{ij}))\)</span></p>
 <div class="fragment">
@@ -337,8 +469,8 @@ v_i \approx W\cdot h_i
 <p>The Kullback-Leibler divergence, <span class="math inline">\(D_{KL},\)</span> may also be used.</p>
 </div>
 </section>
-<section id="gradient-descent-ko" class="slide level2">
-<h2>Gradient descent KO</h2>
+<section id="gradient-descent-may-not-find-the-minimal-error-solution" class="slide level2">
+<h2>Gradient descent may not find the minimal-error solution</h2>
 <blockquote>
 <p>Although [error func.] are convex in W only or H only, they are not convex in both variables together.</p>
 <p>Therefore it is unrealistic to expect an algorithm to solve [the problem] in the sense of finding global minima.</p>
@@ -362,15 +494,15 @@ v_i \approx W\cdot h_i
 <ol type="1">
 <li><p>start from random W and H</p></li>
 <li><p>compute the error</p></li>
-<li><p>update W and H with the <strong>multiplicative update</strong> rule:</p></li>
+<li><p>update W and H with the <strong>multiplicative update</strong> rule</p></li>
+<li><p>repeat normalisation of W: each column sum to 1</p></li>
 </ol>
 
 <img data-src="./imgs/iterative.png" class="r-stretch"></section>
 <section id="multiplicative-update" class="slide level2">
 <h2>Multiplicative update</h2>
 <p>Classical Gradient descent: we <em>move around</em> by adding/subtracting some quantity</p>
-<p>NMF: we <em>move around</em> by multiplying by a <em>local</em> error measure</p>
-<p><span class="math inline">\(\frac{v_{i\mu}}{(wh)_{i\mu}}\)</span></p>
+<p>NMF: we <em>move around</em> by multiplying by a <em>local</em> error measure <span class="math inline">\(\frac{v_{i\mu}}{(wh)_{i\mu}}\)</span></p>
 <div class="fragment">
 <p><img data-src="./imgs/iterative.png"></p>
 </div>
@@ -380,25 +512,22 @@ v_i \approx W\cdot h_i
 
 <img data-src="./imgs/iterative-emphasised.png" class="r-stretch"><ul>
 <li><p>through iteration, the <span class="math inline">\(\frac{v_{i\mu}}{(wh)_{i\mu}}\)</span> factors vanish and we stop.</p></li>
-<li><p>the update rules maintain non-negativity and force <span class="math inline">\(\mathbf{w}_i\)</span> to sum to 1.</p></li>
+<li><p>the update rules maintain non-negativity and force the <span class="math inline">\(\mathbf{w}_i\)</span> columns to sum to 1.</p></li>
 </ul>
 <!-- ------------------- -->
 </section></section>
 <section>
-<section id="interpretability-of-nmf" class="title-slide slide level1 center">
+<section id="interpretability-of-nmf-1" class="title-slide slide level1 center">
 <h1>Interpretability of NMF</h1>
 
 </section>
-<section id="the-19x19-mugshots" class="slide level2">
-<h2>The 19x19 mugshots</h2>
-</section>
-<section id="section" class="slide level2">
-<h2><img data-src="./imgs/original.png"></h2>
-<p>A probabilistic hidden-variables model:</p>
-<p><img data-src="./imgs/interpretation.png"></p>
-<p>Cols. of W are <em>bases</em> that are combined to form the rec.</p>
-<p>The influence of <span class="math inline">\(\mathbf{h}_a\)</span> on <span class="math inline">\(\mathbf{v}_i\)</span> is represented by a connection <strong>of strength</strong> <span class="math inline">\(w_{ia}\)</span></p>
-</section>
+<section id="extracting-common-parts-facial-features" class="slide level2">
+<h2>Extracting common parts: facial features</h2>
+<p>Each column <span class="math inline">\(V_i\)</span> represent a 19x19 mugshots</p>
+<p>Lee-Seung render it as a linear combination of 49 common facial features,</p>
+<p>each weighted by an entry in the H matrix.</p>
+
+<img data-src="./imgs/original.png" class="r-stretch"></section>
 <section id="w-and-h-in-a-7x7-montage" class="slide level2">
 <h2>W and H in a 7x7 montage</h2>
 
@@ -408,131 +537,131 @@ v_i \approx W\cdot h_i
 <p>The <em>eigenfaces</em> might have negative values</p>
 
 <img data-src="./imgs/pca.png" class="r-stretch"></section>
-<section id="the-faces-on-scikit-learn" class="slide level2">
-<h2>The faces on Scikit-learn</h2>
-<p>Check a <a href="https://scikit-learn.org/stable/auto_examples/decomposition/plot_faces_decomposition.html">visual comparison of the methods</a> on <code>64x64=4096</code> mugshots: 40 classes for 400 samples.</p>
-<div id="8031eb91" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_olivetti_faces</span>
-<span id="cb1-2"><a href=""></a></span>
-<span id="cb1-3"><a href=""></a>olivetti_faces <span class="op">=</span> fetch_olivetti_faces()</span>
-<span id="cb1-4"><a href=""></a></span>
-<span id="cb1-5"><a href=""></a>olivetti_faces.images.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>(400, 64, 64)</code></pre>
-</div>
-</div>
-</section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># ...</span></span>
-<span id="cb3-2"><a href=""></a><span class="im">from</span> sklearn <span class="im">import</span> decomposition</span>
-<span id="cb3-3"><a href=""></a></span>
-<span id="cb3-4"><a href=""></a><span class="im">from</span> numpy.random <span class="im">import</span> RandomState</span>
-<span id="cb3-5"><a href=""></a></span>
-<span id="cb3-6"><a href=""></a>faces, _ <span class="op">=</span> fetch_olivetti_faces()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>nmf_estimator <span class="op">=</span> decomposition.NMF(solver<span class="op">=</span><span class="st">'mu'</span>)</span>
-<span id="cb4-2"><a href=""></a></span>
-<span id="cb4-3"><a href=""></a>nmf_estimator.fit(faces)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="a-probabilistic-hidden-variables-model" class="slide level2">
+<h2>A probabilistic hidden-variables model:</h2>
+<p>The columns. of W are <em>bases</em> that are combined to form the reconstruction</p>
+<p>As in neural networks, the influence of <span class="math inline">\(\mathbf{h}_a\)</span> on <span class="math inline">\(\mathbf{v}_i\)</span> is represented by a connection <strong>of strength</strong> <span class="math inline">\(w_{ia}\)</span></p>
+
+<!-- --------------------------- -->
+<img data-src="./imgs/interpretation.png" class="r-stretch"></section></section>
+<section>
+<section id="nmf-in-scikit-learn" class="title-slide slide level1 center">
+<h1>NMF in Scikit-learn</h1>
+
+</section>
+<section id="the-olivetti-faces" class="slide level2">
+<h2>The Olivetti faces</h2>
+<p>Today Lee-Seung method is implemented in Scikit-learn via the <code>mu</code> (multiplicative update) method</p>
+<p>try <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html">sklearn.decomposition.NMF</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>faces <span class="op">=</span> fetch_olivetti_faces()</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a>nmf_estimator <span class="op">=</span> decomposition.NMF(solver<span class="op">=</span><span class="st">'mu'</span>)</span>
+<span id="cb1-4"><a href=""></a></span>
+<span id="cb1-5"><a href=""></a>nmf_estimator.fit(faces)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For reference: a <a href="https://scikit-learn.org/stable/auto_examples/decomposition/plot_faces_decomposition.html">visual comparison</a> of the decomposition methods available in Scikit-learn</p>
 <!-- ---------------------- -->
 </section></section>
 <section>
-<section id="activity-matrix-decomposition" class="title-slide slide level1 center">
-<h1>Activity-matrix decomposition</h1>
+<section id="coda-simple-nmf-example" class="title-slide slide level1 center">
+<h1>Coda: simple NMF example</h1>
 
 </section>
-<section id="a-simple-ratings-matrix" class="slide level2">
-<h2>A simple ratings matrix</h2>
+<section id="decomposing-the-netflix-example" class="slide level2">
+<h2>Decomposing the Netflix example</h2>
+<p>Another look at the running example with film ratings</p>
+<p>W: users’ committment to a topic.</p>
+<p>H: films’ pertinence to a specific topic (binary, why?)</p>
 
 <img data-src="./imgs/activity_matrix.png" class="r-stretch"></section>
 <section class="slide level2">
 
-<p>N=7, M=5.</p>
-<p>Fix K=2 and run NMF:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="at">@INPUT</span>:</span>
-<span id="cb5-2"><a href=""></a>    R: a m. to be factorized, dim. N x M</span>
-<span id="cb5-3"><a href=""></a>    P: an initial m. of dim. N x K</span>
-<span id="cb5-4"><a href=""></a>    Q: an initial m. of dim. M x K</span>
-<span id="cb5-5"><a href=""></a>    K: the no. of latent features</span>
-<span id="cb5-6"><a href=""></a>    steps: the <span class="bu">max</span> no. of steps to perform the optimisation</span>
-<span id="cb5-7"><a href=""></a>    alpha: the learning rate</span>
-<span id="cb5-8"><a href=""></a>    beta: the regularization parameter</span>
-<span id="cb5-9"><a href=""></a></span>
-<span id="cb5-10"><a href=""></a><span class="at">@OUTPUT</span>:</span>
-<span id="cb5-11"><a href=""></a>    the final matrices P <span class="kw">and</span> Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let <span class="math inline">\(R\)</span> be the film ratings matrix and compute <span class="math inline">\(R=PQ\)</span></p>
+<p><span class="math inline">\(M=7\)</span>, <span class="math inline">\(N=5\)</span> and we fix <span class="math inline">\(K=2\)</span> to run NMF:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="at">@INPUT</span>:</span>
+<span id="cb2-2"><a href=""></a>    R: <span class="bu">input</span> matrix to be factorized, dim. M x N</span>
+<span id="cb2-3"><a href=""></a>    P: an initial m. of dim. M x K</span>
+<span id="cb2-4"><a href=""></a>    Q: an initial m. of dim. K x N</span>
+<span id="cb2-5"><a href=""></a>    K: the no. of latent features</span>
+<span id="cb2-6"><a href=""></a>    steps: the <span class="bu">max</span> no. of steps to perform the optimisation</span>
+<span id="cb2-7"><a href=""></a>    alpha: the learning rate</span>
+<span id="cb2-8"><a href=""></a>    beta: the regularization parameter</span>
+<span id="cb2-9"><a href=""></a></span>
+<span id="cb2-10"><a href=""></a><span class="at">@OUTPUT</span>:</span>
+<span id="cb2-11"><a href=""></a>    the final matrices P <span class="kw">and</span> Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="direct-implementation-1-run" class="slide level2">
 <h2>Direct implementation (1 run)</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>nP<span class="op">=</span></span>
-<span id="cb6-2"><a href=""></a>[[ <span class="fl">0.33104196</span>  <span class="fl">0.39332058</span>]</span>
-<span id="cb6-3"><a href=""></a> [ <span class="fl">1.08079793</span>  <span class="fl">1.08397306</span>]</span>
-<span id="cb6-4"><a href=""></a> [ <span class="fl">1.59267325</span>  <span class="fl">1.27929568</span>]</span>
-<span id="cb6-5"><a href=""></a> [ <span class="fl">1.87852789</span>  <span class="fl">1.72209575</span>]</span>
-<span id="cb6-6"><a href=""></a> [ <span class="fl">0.67146598</span>  <span class="fl">1.76523621</span>]</span>
-<span id="cb6-7"><a href=""></a> [ <span class="fl">1.04872774</span>  <span class="fl">2.10824903</span>]</span>
-<span id="cb6-8"><a href=""></a> [ <span class="fl">0.94419145</span>  <span class="fl">0.59698619</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>nQ.T<span class="op">=</span></span>
-<span id="cb7-2"><a href=""></a>[[ <span class="fl">1.27381876</span>  <span class="fl">1.3870236</span>   <span class="fl">1.67315614</span>  <span class="fl">0.9855609</span>   <span class="fl">0.81578369</span>]</span>
-<span id="cb7-3"><a href=""></a> [ <span class="fl">1.50953822</span>  <span class="fl">1.38352352</span>  <span class="fl">1.06501557</span>  <span class="fl">1.87281749</span>  <span class="fl">1.96189735</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>nP<span class="op">=</span></span>
+<span id="cb3-2"><a href=""></a>[[ <span class="fl">0.33104196</span>  <span class="fl">0.39332058</span>]</span>
+<span id="cb3-3"><a href=""></a> [ <span class="fl">1.08079793</span>  <span class="fl">1.08397306</span>]</span>
+<span id="cb3-4"><a href=""></a> [ <span class="fl">1.59267325</span>  <span class="fl">1.27929568</span>]</span>
+<span id="cb3-5"><a href=""></a> [ <span class="fl">1.87852789</span>  <span class="fl">1.72209575</span>]</span>
+<span id="cb3-6"><a href=""></a> [ <span class="fl">0.67146598</span>  <span class="fl">1.76523621</span>]</span>
+<span id="cb3-7"><a href=""></a> [ <span class="fl">1.04872774</span>  <span class="fl">2.10824903</span>]</span>
+<span id="cb3-8"><a href=""></a> [ <span class="fl">0.94419145</span>  <span class="fl">0.59698619</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>nQ.T<span class="op">=</span></span>
+<span id="cb4-2"><a href=""></a>[[ <span class="fl">1.27381876</span>  <span class="fl">1.3870236</span>   <span class="fl">1.67315614</span>  <span class="fl">0.9855609</span>   <span class="fl">0.81578369</span>]</span>
+<span id="cb4-3"><a href=""></a> [ <span class="fl">1.50953822</span>  <span class="fl">1.38352352</span>  <span class="fl">1.06501557</span>  <span class="fl">1.87281749</span>  <span class="fl">1.96189735</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="analysis-of-the-error-i" class="slide level2">
 <h2>Analysis of the error, I</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>np.dot(nP, nQ.T) <span class="op">=</span> [</span>
-<span id="cb8-2"><a href=""></a>    [ <span class="fl">1.01541991</span>  <span class="fl">1.00333129</span>  <span class="fl">0.97277743</span>  <span class="fl">1.06287968</span>  <span class="fl">1.04171324</span>]</span>
-<span id="cb8-3"><a href=""></a>        [ <span class="fl">3.01303945</span>  <span class="fl">2.99879446</span>  <span class="fl">2.96279189</span>  <span class="fl">3.09527589</span>  <span class="fl">3.0083412</span> ]</span>
-<span id="cb8-4"><a href=""></a>        [ <span class="fl">3.95992279</span>  <span class="fl">3.97901104</span>  <span class="fl">4.02726085</span>  <span class="fl">3.9655638</span>   <span class="fl">3.80912366</span>]</span>
-<span id="cb8-5"><a href=""></a>        [ <span class="fl">4.99247343</span>  <span class="fl">4.98812249</span>  <span class="fl">4.97712927</span>  <span class="fl">5.07657468</span>  <span class="fl">4.91104751</span>]</span>
-<span id="cb8-6"><a href=""></a>        [ <span class="fl">3.52001748</span>  <span class="fl">3.37358497</span>  <span class="fl">3.00347147</span>  <span class="fl">3.96773585</span>  <span class="fl">4.01098322</span>]</span>
-<span id="cb8-7"><a href=""></a>        [ <span class="fl">4.51837154</span>  <span class="fl">4.37142223</span>  <span class="fl">4.00000329</span>  <span class="fl">4.98195069</span>  <span class="fl">4.99170315</span>]</span>
-<span id="cb8-8"><a href=""></a>        [ <span class="fl">2.10390225</span>  <span class="fl">2.13556026</span>  <span class="fl">2.21557931</span>  <span class="fl">2.04860435</span>  <span class="fl">1.94148161</span>]</span>
-<span id="cb8-9"><a href=""></a>  ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>ratings <span class="op">=</span>  [[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb9-2"><a href=""></a>            [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb9-3"><a href=""></a>            [<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb9-4"><a href=""></a>            [<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb9-5"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">4</span>],</span>
-<span id="cb9-6"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>],</span>
-<span id="cb9-7"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>]</span>
-<span id="cb9-8"><a href=""></a>           ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>np.dot(nP, nQ.T) <span class="op">=</span> [</span>
+<span id="cb5-2"><a href=""></a>    [ <span class="fl">1.01541991</span>  <span class="fl">1.00333129</span>  <span class="fl">0.97277743</span>  <span class="fl">1.06287968</span>  <span class="fl">1.04171324</span>]</span>
+<span id="cb5-3"><a href=""></a>        [ <span class="fl">3.01303945</span>  <span class="fl">2.99879446</span>  <span class="fl">2.96279189</span>  <span class="fl">3.09527589</span>  <span class="fl">3.0083412</span> ]</span>
+<span id="cb5-4"><a href=""></a>        [ <span class="fl">3.95992279</span>  <span class="fl">3.97901104</span>  <span class="fl">4.02726085</span>  <span class="fl">3.9655638</span>   <span class="fl">3.80912366</span>]</span>
+<span id="cb5-5"><a href=""></a>        [ <span class="fl">4.99247343</span>  <span class="fl">4.98812249</span>  <span class="fl">4.97712927</span>  <span class="fl">5.07657468</span>  <span class="fl">4.91104751</span>]</span>
+<span id="cb5-6"><a href=""></a>        [ <span class="fl">3.52001748</span>  <span class="fl">3.37358497</span>  <span class="fl">3.00347147</span>  <span class="fl">3.96773585</span>  <span class="fl">4.01098322</span>]</span>
+<span id="cb5-7"><a href=""></a>        [ <span class="fl">4.51837154</span>  <span class="fl">4.37142223</span>  <span class="fl">4.00000329</span>  <span class="fl">4.98195069</span>  <span class="fl">4.99170315</span>]</span>
+<span id="cb5-8"><a href=""></a>        [ <span class="fl">2.10390225</span>  <span class="fl">2.13556026</span>  <span class="fl">2.21557931</span>  <span class="fl">2.04860435</span>  <span class="fl">1.94148161</span>]</span>
+<span id="cb5-9"><a href=""></a>  ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>ratings <span class="op">=</span>  [[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb6-2"><a href=""></a>            [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb6-3"><a href=""></a>            [<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb6-4"><a href=""></a>            [<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb6-5"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">4</span>],</span>
+<span id="cb6-6"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>],</span>
+<span id="cb6-7"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>]</span>
+<span id="cb6-8"><a href=""></a>           ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="analysis-of-the-error-ii" class="slide level2">
 <h2>Analysis of the error, II</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>np.rint(np.dot(nP, nQ.T))<span class="op">=</span> [</span>
-<span id="cb10-2"><a href=""></a>      [ <span class="fl">1.</span>  <span class="fl">1.</span>  <span class="fl">1.</span>  <span class="fl">1.</span>  <span class="fl">1.</span>]</span>
-<span id="cb10-3"><a href=""></a>            [ <span class="fl">3.</span>  <span class="fl">3.</span>  <span class="fl">3.</span>  <span class="fl">3.</span>  <span class="fl">3.</span>]</span>
-<span id="cb10-4"><a href=""></a>            [ <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>]</span>
-<span id="cb10-5"><a href=""></a>            [ <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>]</span>
-<span id="cb10-6"><a href=""></a>            [ <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>]</span>
-<span id="cb10-7"><a href=""></a>            [ <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>]</span>
-<span id="cb10-8"><a href=""></a>            [ <span class="fl">2.</span>  <span class="fl">2.</span>  <span class="fl">2.</span>  <span class="fl">2.</span>  <span class="fl">2.</span>]</span>
-<span id="cb10-9"><a href=""></a>      ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>ratings <span class="op">=</span>  [[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb11-2"><a href=""></a>            [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb11-3"><a href=""></a>            [<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb11-4"><a href=""></a>            [<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb11-5"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">4</span>],</span>
-<span id="cb11-6"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>],</span>
-<span id="cb11-7"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>try <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html">Scikit-learn</a> on <a href="./src/scikit-learn-nmf.ipynb">the same instance</a> (right-click to save a local copy).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>np.rint(np.dot(nP, nQ.T))<span class="op">=</span> [</span>
+<span id="cb7-2"><a href=""></a>      [ <span class="fl">1.</span>  <span class="fl">1.</span>  <span class="fl">1.</span>  <span class="fl">1.</span>  <span class="fl">1.</span>]</span>
+<span id="cb7-3"><a href=""></a>            [ <span class="fl">3.</span>  <span class="fl">3.</span>  <span class="fl">3.</span>  <span class="fl">3.</span>  <span class="fl">3.</span>]</span>
+<span id="cb7-4"><a href=""></a>            [ <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>]</span>
+<span id="cb7-5"><a href=""></a>            [ <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>]</span>
+<span id="cb7-6"><a href=""></a>            [ <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>]</span>
+<span id="cb7-7"><a href=""></a>            [ <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>]</span>
+<span id="cb7-8"><a href=""></a>            [ <span class="fl">2.</span>  <span class="fl">2.</span>  <span class="fl">2.</span>  <span class="fl">2.</span>  <span class="fl">2.</span>]</span>
+<span id="cb7-9"><a href=""></a>      ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>ratings <span class="op">=</span>  [[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb8-2"><a href=""></a>            [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb8-3"><a href=""></a>            [<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb8-4"><a href=""></a>            [<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb8-5"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">4</span>],</span>
+<span id="cb8-6"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>],</span>
+<span id="cb8-7"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="analysis-of-the-result" class="slide level2">
 <h2>Analysis of the result</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a>W(user x topic) <span class="op">=</span> [</span>
-<span id="cb12-2"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">0.82037571</span>]</span>
-<span id="cb12-3"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">2.46112713</span>]</span>
-<span id="cb12-4"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">3.28150284</span>]</span>
-<span id="cb12-5"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">4.10187855</span>]</span>
-<span id="cb12-6"><a href=""></a>    [ <span class="fl">1.62445593</span>  <span class="fl">0.</span>        ]</span>
-<span id="cb12-7"><a href=""></a>    [ <span class="fl">2.03056992</span>  <span class="fl">0.</span>        ]</span>
-<span id="cb12-8"><a href=""></a>    [ <span class="fl">0.81222797</span>  <span class="fl">0.</span>        ]</span>
-<span id="cb12-9"><a href=""></a>    ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>H(topic x film) <span class="op">=</span></span>
-<span id="cb13-2"><a href=""></a>[[ <span class="fl">0.</span>          <span class="fl">0.</span>          <span class="fl">0.</span>          <span class="fl">2.46236289</span>  <span class="fl">2.46236289</span>]</span>
-<span id="cb13-3"><a href=""></a> [ <span class="fl">1.21895369</span>  <span class="fl">1.21895369</span>  <span class="fl">1.21895369</span>  <span class="fl">0.</span>          <span class="fl">0.</span>        ]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>W(user x topic) <span class="op">=</span> [</span>
+<span id="cb9-2"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">0.82037571</span>]</span>
+<span id="cb9-3"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">2.46112713</span>]</span>
+<span id="cb9-4"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">3.28150284</span>]</span>
+<span id="cb9-5"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">4.10187855</span>]</span>
+<span id="cb9-6"><a href=""></a>    [ <span class="fl">1.62445593</span>  <span class="fl">0.</span>        ]</span>
+<span id="cb9-7"><a href=""></a>    [ <span class="fl">2.03056992</span>  <span class="fl">0.</span>        ]</span>
+<span id="cb9-8"><a href=""></a>    [ <span class="fl">0.81222797</span>  <span class="fl">0.</span>        ]</span>
+<span id="cb9-9"><a href=""></a>    ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>H(topic x film) <span class="op">=</span></span>
+<span id="cb10-2"><a href=""></a>[[ <span class="fl">0.</span>          <span class="fl">0.</span>          <span class="fl">0.</span>          <span class="fl">2.46236289</span>  <span class="fl">2.46236289</span>]</span>
+<span id="cb10-3"><a href=""></a> [ <span class="fl">1.21895369</span>  <span class="fl">1.21895369</span>  <span class="fl">1.21895369</span>  <span class="fl">0.</span>          <span class="fl">0.</span>        ]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>W: users’ committment to a topic.</p>
 <p>H: films’ pertinence to a specific topic (binary, why?)</p>
 
-</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

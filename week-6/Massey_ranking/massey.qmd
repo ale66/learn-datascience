@@ -1,0 +1,443 @@
+---
+title: "Massey's ranking"
+lang: en
+author: AP 
+format:
+  pdf:
+    papersize: A4
+    number-sections: true
+    pdf-engine: pdflatex
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://github.com/ale66/learn-datascience/
+jupyter: python3
+---
+
+# Rating and Ranking
+
+## Motivations
+
+the ability to  
+
+- *rate* something (is this a warm day for June in London?), or to
+
+- *rank* a set of elements  (which is the coldest day of the month?)
+
+is part of Science and Engineering since before Data Science.
+
+. . .
+
+Rating & ranking is a good framework to introduce Data Science techniques of general value and wide applicability.
+
+Sports R&R is both fun and a huge Data Science market!
+
+
+-----
+
+## Definition
+
+A measure of value of the subject, as objective and replicable as possible.
+
+. . .
+
+E.g., temperature.
+
+
+-----
+
+Normally, abilities are
+
+- __latent__
+
+- hard to measure
+
+- time-dependent
+
+- place-dependent
+
+Exercise: take the [Prof or Hobo?](http://www.proforhobo.com/) quiz!
+
+
+-----
+
+yet, abilities are also
+
+- hard to *transcend* (revert-to-the-mean effect, RTTM)
+
+- relatively easy to perceive and project
+
+
+-----
+
+## Example: Football
+
+- hard to guess the single score $\Longrightarrow$ entertainment value
+
+. . .
+
+- easy for experts to guess the long-term effect $\Longrightarrow$ different levels of enjoyment; RTTM: Revert To The Mean effect
+
+. . .
+
+Low scoring creates __randomness__
+
+<!-- -------------------- -->
+# Formalisation
+
+## 1-dimensional ranking
+
+$P:$ players, $|P|=n$
+
+$T:$ time instants
+
+$r: P \times T \rightarrow \mathbb{R}$
+
+
+-----
+
+A given rating function $r$ creates a ranking ($\rho$) on a set:
+
+$$
+\rho: P \times T \rightarrow [1..n]
+$$
+
+$$
+\rho(p, t) = k \leftrightarrow |\{p_j: r(p_j, t) \leq r(p_i, t)\}| = k
+$$
+
+. . .
+
+$$
+\delta(p_i, p_j, t) = |r(p_i, t)-r(p_j, t)|
+$$
+
+$\delta$ captures both similarity and distance
+
+
+----
+
+## multi-dimensional ranking
+
+Multi-dim. rating:
+
+$$
+r_{multi}: P \times T \rightarrow \mathbb{R}^d
+$$
+
+. . .
+
+Often:
+
+$$
+r_{multi}(p_i,t) : f(r_1(p_i,t), \dots r_d(p_i,t))
+$$
+
+. . .
+
+*Pareto dominance:*
+
+$p_i$ dominates $p_j$ (at time t) if on every dimension $x$ 
+
+$$
+r_x(p_i,t) \ge r_x(p_j,t)
+$$
+
+<!-- -------------- -->
+# Rating in games
+
+
+-----
+
+## Ratings in games
+
+- score-based games are better-suited to create ratings
+
+. . .
+
+- yet effect of time and hardness of the proposed test match could be hard to assess.
+
+
+----
+
+## Should games keep user ratings?
+
+### Yes:
+
+- feeling of improvement
+
+. . .
+
+- a gauge for new features
+
+. . .
+
+- leads to rankings:
+
+  - better matchmaking $\Longrightarrow$ entertainment value
+
+  - fraud/anomaly detection?
+
+
+----
+
+## No: game prowness as social ranking?
+
+The spectacle is a social relation mediated by images, not a collection of images.
+
+«Le spectacle n'est pas un ensemble d'images, mais un rapport social entre des personnes, médiatisé par des images»
+
+[Guy Debord, La Société du spectacle (1967), Thèse 4]
+
+. . .
+
+- a reflection of US culture?
+
+. . .
+
+- a turn-off for people who don't feel competive?
+
+- turns-off casual users?
+
+<!-- ---------- -->
+# Sport ranking/estimation
+
+## Domain
+
+- n teams play each other in a tournament
+
+- final scores are recorded, e.g., Real Madrid--Borussia Dortmund: 2-0.
+
+- predict the score for a match in the future.
+
+. . .
+
+-focus on predicting the score difference (eg, 2-0=2)
+
+
+----
+
+## Running example
+
+![](./imgs/massey-1.png)
+
+the win-loss balance and the points balance are second-level performance measures
+
+they are not considered sufficient to create valuable ratings/rankings/predictions.
+
+
+-----
+
+## [In]credible Assumptions
+
+1. to each team a __latent__ variable for *strength* is assigned
+
+. . .
+
+numerical __ratings__ determine a __ranking__ among teams (at t=end, so we can drop it)
+
+and a prediction $Pr[a\rightarrow b] = \frac{\rho(a)}{\rho(a)+\rho(b)}$
+
+
+-----
+
+2. strength/rating is immutable during the tournament
+
+3. teams play each other exactly once during the tournament
+
+. . .
+
+Now, consider the score difference in each match, say $i$ vs. $j,$ defined as $s_i - s_j$
+
+Define $\mathbf{y}_{m\times 1}$ as the vector of all score differences in matches
+
+Assume (assumption 4) that strength/rating imbalance determines score difference:
+
+$$
+r_i - r_j = s_i - s_j
+$$
+
+
+-----
+
+$$
+X_{m\times n}\cdot \mathbf{r}_{n\times 1} = \mathbf{y}_{m\times 1}
+$$
+
+. . .
+
+\begin{equation*}
+\begin{bmatrix}
+ 0 & 0      & +1     & 0      & -1     & 0 \\
+   & 0      & \ddots & \ddots &        & \\
+   & \ddots & \ddots & \ddots & \ddots & \\
+   & \ddots & \ddots & \ddots & \ddots & \\
+   &        & \ddots & \ddots & \ddots & \\
+ 0 & -1     & 0      & +1     & 0      & 0
+\end{bmatrix}
+\end{equation*}
+
+$X_{m\times n}$ with $m>>n$ is overconstrained, no hope of finding a solution.
+
+<!-- --------------- -->
+# Massey's ratings
+
+
+-----
+
+## Data preparation
+
+Massey considered the equivalent formulation of
+
+$$
+X_{m\times n}\cdot \mathbf{r}_{n\times 1} = \mathbf{y}_{m\times 1}
+$$
+
+as
+
+$$
+X^T \cdot X \cdot \mathbf{r} = X^T \cdot \mathbf{y}
+$$
+
+Both sides are easier to work with.
+
+On the right-and side, $X^T \cdot \mathbf{y}$ is the all-season points difference vector, called $\mathbf{p}.$ 
+
+Notice that $\sum p_i=0$.
+
+
+-----
+
+On the left-hand side,
+
+$$M_{n\times n}\ =\ X^TX$$
+
+is squared, semidefinite and positive.
+
+However, the rows sum to 0 and cols. are not independent: 0/$\infty$ solutions ensue...
+
+M. also noticed that *M* has a fixed structure and does not need to be re-computed all the times.
+
+
+-----
+
+\begin{equation*}
+\begin{bmatrix}
+ n-1 & 0      & -x     & 0      & -y     & 0 \\
+	 & n-1    & \ddots & \ddots &        &   \\
+	 & \ddots & \ddots & \ddots & \ddots &    \\
+	 & \ddots & \ddots & \ddots & \ddots &   \\
+	 &        & \ddots & \ddots & \ddots & \\
+   0 & -z     & 0      & -w     & 0      & n-1
+\end{bmatrix}
+\end{equation*}
+
+$m_{i,i} = n-1$ is the numbers of games $i$ played, 
+
+$m_{i,j}$ is the negation of the no. of matches between $i$ and $j:$ here all values are set to -1.
+
+
+-----
+
+![](./imgs/massey-2.png)
+
+
+-----
+
+## Massey
+
+1. drops the last row/match
+
+2. replaces it with a row of 1s, and sets $p_n=0$
+
+ (all ratings, positive and negative, will sum to 0)
+
+$\overline{M} = M$ everywhere but for the last row which is full of  1s
+
+$\overline{\mathbf{p}}$ is $\mathbf{p}$ everywhere but for the last el. $p_n = 0$.
+
+
+-----
+
+1. now $\overline{M}$ is non-singular and invertible
+
+2. solves
+
+$$\overline{M} \mathbf{r} = \overline{\mathbf{p}}$$
+
+to obtain an approximated rating for the teams.
+
+The MSE solution to Massey's formula is a form of  __regression.__
+
+It can also be seen as $\mathbf{r} = (\overline{X^TX})^{-1} \overline{X^T \mathbf{y}}.$
+
+
+-----
+
+## Output
+
+ratings sum to zero
+
+values have no direct interpretation.
+
+however, they effectively generate __a hierarchy.__
+
+![](./imgs/massey-3.png)
+
+
+-----
+
+## Visualise the ranking
+
+Ratings are not necessarily meaningful, as a result of the matrix preparation.
+
+Rankings are meaningful:
+
+::::{.columns}
+:::{.column}
+![](./imgs/massey-3.png)  
+:::
+:::{.column}
+![](./imgs/massey-4.png)
+:::
+::::
+<!-- -------------------- -->
+# Conclusions
+
+
+-----
+
+## Points to focus on
+
+- rating and rating is the fun side of Data Science!
+
+. . .
+
+- *latent* variables that represent *non-measurable* skills
+
+- those leave in a __*feature space*__ possibly separated from the __*data space*__
+
+- yet they may get a numeric estimate, and inform our predictions
+
+- Massey regresses on the latent variables
+
+
+-----
+
+## Further readings
+
+[![](./imgs/book-cover.jpeg)](https://press.princeton.edu/titles/9661.html)

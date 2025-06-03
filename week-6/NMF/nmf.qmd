@@ -5,6 +5,7 @@ author: AP
 format:
   pdf:
     papersize: A4
+    mainfont: "Computer Modern"
     number-sections: true
     pdf-engine: pdflatex
   revealjs: 
@@ -19,6 +20,7 @@ format:
     # smaller: true
     scrollable: true
   html:
+    mainfont: "Computer Modern"
     toc: true
     code-fold: false
     anchor-sections: true
@@ -41,7 +43,7 @@ $U_{(m \times r)}$ is column-orthonormal: $u_i\cdot u_j^T=0$
 
 $V^T_{(r \times n)}$ is row-orthonormal: $v_i^T\cdot v_j=0$
 
-$\Sigma_{(r \times r)}$ is diagonal, $\sigma_{ij}$ are the singular values
+$\Sigma_{(r \times r)}$ (or $D\Sigma_{(r \times r)}$ is diagonal, $\sigma_{ij}$ are the singular values
 
 dimension __*r*__ will depend on the no. of singular values found
 
@@ -52,14 +54,22 @@ dimension __*r*__ will depend on the no. of singular values found
 
 ![](./imgs/mmds-svd-example.png)
 
-With negative values we cannot distinguish between i) lack of information, ii) lack of interest or ii) outright *repulsion.*
+-----
+
+With negative values from SVD we cannot distinguish between 
+
+i) lack of information, 
+
+ii) lack of interest or 
+
+ii) outright *repulsion.*
 
 
 -----
 
 A non-negative decomposition of the activity matrix would be *interpretable:*
 
-$$A_{(n\times d)} = P_{(n\times r)} \cdot Q_{(r\times d)}$$
+$$A_{(m\times n)} = P_{(m\times r)} \cdot Q_{(r\times n)}$$
 
 * $A$: activity
 
@@ -75,6 +85,31 @@ user/product profiling and reccommender sys. would be half-done already!
 <!-- ------------------- -->
 # Non-negative decomposition
 
+## Context
+
+Lee and Seung sought a new approach to the problem of learning images (how to recognise them) via visual patters:
+
+reduce a specific image to the combination of known patters: face $\approx$ eyes, eyebrows, nose, chin etc.
+
+Could each face be decomposed into basic, repeated visual patterns?
+
+In the neural network model of brain activity, firing rates of neurons cannot be negative: patterns are either activated or ignored
+
+Sparsity: only few patterns should be needed to re-create an image 
+
+. . . 
+
+Example dataset: faces (not Olivetti)
+
+2429 mugshots, each having $19\times 19=361$ pixels, rescaled to [0,1]: $V_{361\times 2429}$
+
+Lee-Seung fix $r=49$ and compute  $V_{361\times 2429} = W_{361\times 49} \times H_{49\times 2429}$
+
+For comparison, they also try PCA (diagonalisation of $VV^T$) and VQ
+
+
+-----
+
 ## The numerical problem
 
 Istance: a non-negative matrix V
@@ -87,6 +122,56 @@ $$
 
 with $w_{ij}, h_{rs}\ge 0$
 
+
+----
+
+## Example
+
+$$
+V_{3\times 3}  =  
+\begin{pmatrix}
+ 4 &  0 & 2\\
+ 0 &  3 & 1\\
+ 2 &  1 & 3
+\end{pmatrix}
+$$
+
+choose $r=2$
+
+. . . 
+
+$$
+V_{3\times 3} \approx W_{3\times 2} \times H_{2\times 3} =
+\begin{pmatrix}
+ 2 &  0 \\
+ 0 &  1.5 \\
+ 1 &  1 
+\end{pmatrix}
+\times
+\begin{pmatrix}
+ 2 &  0 & 1\\
+ 0 &  2 & 1
+\end{pmatrix}
+$$
+
+. . .
+
+$$
+\begin{pmatrix}
+ 4 &  0 & 2\\
+ 0 &  3 & 1\\
+ 2 &  1 & 3
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+ 4 &  0 & 2\\
+ 0 &  3 & 1.5 \\
+ 2 &  2 & 2 
+\end{pmatrix}
+$$
+
+
+-----
 
 ## Notation
 
@@ -111,7 +196,79 @@ $$
 $$
 
 
-## Interpretation
+-----
+
+## Example 
+
+$$
+\begin{pmatrix}
+ 4 &  0 & 2\\
+ 0 &  3 & 1\\
+ 2 &  1 & 3
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+ 2 &  0 \\
+ 0 &  1.5 \\
+ 1 &  1 
+\end{pmatrix}
+\times
+\begin{pmatrix}
+ 2 &  0 & 1\\
+ 0 &  2 & 1
+\end{pmatrix}
+$$
+
+. . .
+
+$$
+\begin{pmatrix}
+ 4 \\
+ 0 \\
+ 2 
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+ 2 &  0 \\
+ 0 &  1.5 \\
+ 1 &  1 
+\end{pmatrix}
+\times
+\begin{pmatrix}
+ 2 \\
+ 0 
+\end{pmatrix}
+$$
+
+. . .
+
+
+$$
+\begin{pmatrix}
+ 4 \\
+ 0 \\
+ 2 
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+ 2  \\
+ 0 \\
+ 1 
+\end{pmatrix}\cdot 2
++
+\begin{pmatrix}
+ 0 \\
+ 1.5 \\
+ 1 
+\end{pmatrix}\cdot 0
+$$
+
+
+<!-- ------------------------ -->
+
+# Interpretability of NMF
+
+## How we read NMF
 
 Let $\mathbf{v}_i$ be the i-th column of V.
 
@@ -172,7 +329,7 @@ __subject to__ $W,H \ge 0$.
 
 ----
 
-## Information-theoretic view  
+## Aside: information-theoretic view  
 
 If the input matrix can be (somehow) normalised then we see the search for the perfect non-negative decomposition in terms of minimizing *divergence:*
 
@@ -188,7 +345,9 @@ Recommended version for sparse counting data.
 
 The Kullback-Leibler divergence, $D_{KL},$ may also be used.
 
-## Gradient descent KO
+----
+
+## Gradient descent may not find the minimal-error solution
 
 > Although [error func.] are convex in W only or H only, they are not convex in both variables together.
 >
@@ -210,9 +369,12 @@ The Kullback-Leibler divergence, $D_{KL},$ may also be used.
 
 2. compute the error
 
-3. update W and H with the __multiplicative update__ rule:
+3. update W and H with the __multiplicative update__ rule
+   
+4. repeat normalisation of W: each column sum to 1
 
 ![](./imgs/iterative.png)
+
 
 -----
 
@@ -220,13 +382,12 @@ The Kullback-Leibler divergence, $D_{KL},$ may also be used.
 
 Classical Gradient descent: we *move around* by adding/subtracting some quantity
 
-NMF: we *move around* by multiplying by a *local* error measure
-
-$\frac{v_{i\mu}}{(wh)_{i\mu}}$
+NMF: we *move around* by multiplying by a *local* error measure $\frac{v_{i\mu}}{(wh)_{i\mu}}$
 
 . . .
 
 ![](./imgs/iterative.png)
+
 
 -----
 
@@ -234,24 +395,23 @@ $\frac{v_{i\mu}}{(wh)_{i\mu}}$
 
 * through iteration, the $\frac{v_{i\mu}}{(wh)_{i\mu}}$ factors vanish and we stop.
 
-* the update rules maintain non-negativity and force $\mathbf{w}_i$ to sum to 1.
+* the update rules maintain non-negativity and force the $\mathbf{w}_i$ columns to sum to 1.
 
 
 <!-- ------------------- -->
 # Interpretability of NMF
 
-## The 19x19 mugshots
+## Extracting common parts: facial features 
+
+Each column $V_i$ represent a 19x19 mugshots
+
+Lee-Seung render it as a linear combination of 49 common facial features, 
+
+each weighted by an entry in the H matrix.
+
 
 ![](./imgs/original.png)
------
 
-A probabilistic hidden-variables model:
-
-![](./imgs/interpretation.png)
-
-Cols. of W are *bases* that are combined to form the rec.
-
-The influence of $\mathbf{h}_a$ on $\mathbf{v}_i$ is represented by a connection __of strength__ $w_{ia}$
 
 -----
 
@@ -269,54 +429,67 @@ The *eigenfaces* might have negative values
 
 -----
 
-## The faces on Scikit-learn
-
-Check a [visual comparison of the methods](https://scikit-learn.org/stable/auto_examples/decomposition/plot_faces_decomposition.html) on `64x64=4096` mugshots: 40 classes for 400 samples.
-
-```{python}
-from sklearn.datasets import fetch_olivetti_faces
-
-olivetti_faces = fetch_olivetti_faces()
-
-olivetti_faces.images.shape
-```
 
 -----
 
+## A probabilistic hidden-variables model:
+
+The columns. of W are *bases* that are combined to form the reconstruction
+
+As in neural networks, the influence of $\mathbf{h}_a$ on $\mathbf{v}_i$ is represented by a connection __of strength__ $w_{ia}$
+
+
+![](./imgs/interpretation.png)
+
+
+<!-- --------------------------- -->
+
+# NMF in Scikit-learn
+
+
+## The Olivetti faces
+
+Today Lee-Seung method is implemented in Scikit-learn via the `mu` (multiplicative update) method
+
+try [sklearn.decomposition.NMF](http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html)
+
 
 ```python
-# ...
-from sklearn import decomposition
+faces = fetch_olivetti_faces()
 
-from numpy.random import RandomState
-
-faces, _ = fetch_olivetti_faces()
-```
-
-```python
 nmf_estimator = decomposition.NMF(solver='mu')
 
 nmf_estimator.fit(faces)
 ```
 
-<!-- ---------------------- -->
-# Activity-matrix decomposition
+For reference: a [visual comparison](https://scikit-learn.org/stable/auto_examples/decomposition/plot_faces_decomposition.html)  of the decomposition methods available in Scikit-learn
 
-## A simple ratings matrix
+
+<!-- ---------------------- -->
+# Coda: simple NMF example 
+
+## Decomposing the Netflix example 
+
+Another look at the running example with film ratings
+
+W: users' committment to a topic.
+
+H: films' pertinence to a specific topic (binary, why?)
 
 ![](./imgs/activity_matrix.png)
 
 -----
 
-N=7, M=5.
+Let $R$ be the film ratings matrix and compute $R=PQ$
 
-Fix K=2 and run NMF:
+
+$M=7$, $N=5$ and we fix $K=2$ to run NMF:
 
 ```python
 @INPUT:
-    R: a m. to be factorized, dim. N x M
-    P: an initial m. of dim. N x K
-    Q: an initial m. of dim. M x K
+    R: input matrix to be factorized, dim. M x N
+    P: an initial m. of dim. M x K
+    Q: an initial m. of dim. K x N
     K: the no. of latent features
     steps: the max no. of steps to perform the optimisation
     alpha: the learning rate
@@ -394,7 +567,6 @@ ratings =  [[1, 1, 1, 0, 0],
             [0, 0, 0, 2, 2]]
 ```
 
-try [Scikit-learn](http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html) on [the same instance](./src/scikit-learn-nmf.ipynb) (right-click to save a local copy).
 
 ## Analysis of the result
 
@@ -415,8 +587,6 @@ H(topic x film) =
 [[ 0.          0.          0.          2.46236289  2.46236289]
  [ 1.21895369  1.21895369  1.21895369  0.          0.        ]]
 ```
-
-. . .  
 
 W: users' committment to a topic.
 
