@@ -1,0 +1,333 @@
+---
+title: "Factorization Machines"
+lang: en
+author: AP 
+format:
+  pdf:
+    papersize: A4
+    number-sections: true
+    pdf-engine: pdflatex
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://github.com/ale66/learn-datascience
+jupyter: python3
+---
+
+
+<!-- --------------- -->
+# Factorization Machines
+
+## Genesis
+
+Invented by [Steffen Rendle](https://scholar.google.com/citations?user=yR-ugIoAAAAJ), now Google Research:
+
+* [2010 IEEE Int'l Conf. on Data Mining](https://www.computer.org/csdl/proceedings-article/icdm/2010/4256a995/12OmNwMFMfl)
+
+* [ACM Trans. on Intelligent Systems and Technology (TIST) 3 (3), 57](https://dl.acm.org/citation.cfm?id=2168771)
+
+## Problem statement
+
+__Instance:__ 
+
+* a collection (dataset) $\mathbf{D}$ of $m$ numerical datapoints (points in $\mathbb{R}^n$)
+
+* a classification system $C = \{c_1, c_2, \dots c_k\}$
+
+. . .
+
+__Solution:__  classification function $\gamma: \mathbf{X} \rightarrow C$
+
+__Measure:__ misclassification
+
+. . .
+
+[PF] "classification predicts whether something will happen, whereas regr. predicts how much something will happen."
+
+## Supervised version
+
+![](./imgs/fm-dataset-example.png)
+
+. . .
+
+Estimate the rating for the *new* user/film combination $\mathbf{x_8}$: most cells are 0, $y_8$ is unknown.
+
+. . .
+
+We face *sparsity.*
+
+-----
+
+$\mathbf{D}= \{(\mathbf{x}^{(1)}, y^{(1)}), (\mathbf{x}^{(2)}, y^{(2)}), \dots \}$
+
+Find rating estimate function  $Y: \mathbb{R}^n \rightarrow T$ s.t.
+
+. . .
+
+* $T=\mathbb{R}$ for regression,  
+
+* $T=\{+, -\}$ for classification.
+
+$\mathbf{\hat{D}}= \{(\mathbf{x}^{(m+1)}, Y(y^{(m+1)}), (\mathbf{x}^{(m+2)}, Y(y^{(m+2)}), \dots \}$
+
+Note: Rendle uses different letters; here *n=dimensions($\mathbf{D}$)*)
+
+## For reference: the constraints scenario
+
+$\mathbf{D}= \{\mathbf{x}^{(a)}, \mathbf{x}^{(b)}\dots \}$
+
+re-arrange the rows so that $\mathbf{x}^{(a)}$ *maps* higher than $\mathbf{x}^{(b)}$ and so on.
+
+Ideal for Top-k searchs and recommendations
+
+<!-- ---------------- -->
+# The Model
+
+## Intuition
+
+extend linear regression to capture *synergetic* effects between variables:
+
+introduce a minimal quadratic effect  $x_i x_j$
+
+fill the table by looking at values on the same row or column of the target cell
+
+## General estimation
+
+$$\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i
+$$
+
+an initial (fixed) bias + linear regression.
+
+-----
+
+To look at quadratic interactions, fix $d=2:$
+
+$$\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n}\sum_{j=i+1}^{n} w_{ij}x_i x_j
+$$
+
+. . .
+
+* lots of training to find out all $n^2$ coefficients $w_{ij}$
+
+* the $w_{ij}$'s may not even be significant (too close to 0)
+
+* computing even a single prediction costs $\Theta(n^2)$
+
+<!-- ---------------------- -->
+# A simpler model
+
+## In practice
+
+1. fix d=2 and a small integer k (e.g., \# of *genres*)
+
+2. build a model of how the $n$ dimensions relate to the $k$ *genres:* a $V_{n\times k}$ matrix
+
+. . .
+
+$$W =  V \cdot V^T \ \Rightarrow
+w_{ij} = \mathbf{v}^T_i\cdot \mathbf{v}_j = <\mathbf{v}_i, \mathbf{v}_j>
+$$
+
+__Key point:__ $W$ contains $\frac{n^2}{2}-\frac{n}{2}$ estimates while the equivaleny $V$ only has $n\cdot k$ (latent) estimates.
+
+-----
+
+$$\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n}\sum_{j=i+1}^{n} <\mathbf{v}_i, \mathbf{v}_j>x_i x_j
+$$
+
+Where the inner/dot product is
+
+$$
+<\mathbf{v}_i, \mathbf{v}_j> = \mathbf{v}^T_i\cdot \mathbf{v}_j = \sum_{f=1}^{k} v_{if} v_{jf}
+$$
+
+![](./imgs/overview.jpg)
+
+
+
+
+## [Rendle, 2010]
+
+$\hat{w}_{i,j} := <\mathbf{v}_i, \mathbf{v}_j>$ *models the interaction between the i-th and j-th variable.*  
+
+*Instead of using an own model parameter $w_{i,j}\in \mathbb{R}$ for each interaction, the FM models the interaction by factorizing it.*  
+
+*We will see later on, that this is the key point which allows high quality parameter
+estimates of higher-order interactions ($d \ge 2$) under
+sparsity.*
+
+<!-- ------------------- -->
+# Computational costs
+
+## Th: cost is linear in *n*
+
+$$\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n}\sum_{j=i+1}^{n} <\mathbf{v}_i, \mathbf{v}_j>x_i x_j
+$$
+
+where
+
+$$
+<\mathbf{v}_i, \mathbf{v}_j> = \mathbf{v}^T_i\cdot \mathbf{v}_j = \sum_{f=1}^{k} v_{if} v_{jf}
+$$
+
+-----
+
+How can this be computed in $\Theta(kn)=\Theta(n)$ iteration?
+
+$$\sum_{i=1}^{n}\sum_{j=i+1}^{n} <\mathbf{v}_i, \mathbf{v}_j>x_i x_j$$
+
+. . .
+
+Insight: $i$ and $j$ never appear *together:* their iteration can be separated.
+
+. . .
+
+Idea: iterate over $k$ outside, push $i$ and $j$ iterations inside.
+
+<!-- ------------ -->
+# Implementations
+
+## The LibFM source
+
+[libfm.org](http://libfm.org/) is the repository for the 'official' C++ implementation of FMs, which ended in 2014.  
+
+## FMs in Python  
+
+[PyFM](https://pythonawesome.com/factorization-machines-in-python/)
+
+provides a new environment for running FMs within Python.
+
+```bash
+pip install git+https://github.com/coreylynch/pyFM
+```
+
+. . .
+
+```python
+# Build and train a Factorization Machine
+myfm = pylibfm.FM(num_factors=10,
+                  num_iter=100,
+                  task="regression",
+                  ...)
+
+myfm.fit(X_train,y_train)
+...
+```
+
+## 1-Hot econding
+
+```python
+from pyfm import pylibfm
+from sklearn.feature_extraction import DictVectorizer
+import numpy as np
+
+train = [
+    {"user": "1", "item": "5", "age": 19},
+    {"user": "2", "item": "43", "age": 33},
+    ...
+]
+```
+
+four users, four items: 8 columns
+
+. . .
+
+```python
+v = DictVectorizer()
+X = v.fit_transform(train)
+print(X.toarray())
+[[ 19.   0.   0.   0.   1.   1.   0.   0.   0.]
+ [ 33.   0.   0.   1.   0.   0.   1.   0.   0.]
+ ...
+]
+```
+
+-----
+
+What is the estimated appreciation of user 1, aged 24 now, for item 10 once he or she buys it?
+
+```python
+y = np.repeat(1.0, X.shape[0])
+
+fm = pylibfm.FM()
+
+fm.fit(X, y)
+
+fm.predict(v.transform({"user": "1", "item": "10", "age": 24}))
+```
+
+# Coda: The time-efficency of MF
+
+## Computational aspects
+
+Rendle proved that an intrisically quadratic activity: compute all possible second-order, $x_i\cdot x_j$, effects, can be done in a time linear and not quadratic in n.
+
+$\hat{y}(\textbf{x}) = w_{0} + \sum_{i=1}^{n} w_{i} x_{i} +  \sum_{i=1}^n \sum_{j=i+1}^n w_{ij} x_{i} x_{j}$
+
+To do so, Rendle models feature interactions by learning $k$ latent factors:
+
+$\langle \textbf{v}_i, \textbf{v}_{j} \rangle = \sum_{f=1}^k v_{i,f} v_{j,f}$
+
+## Optimisation
+
+While computing the mathematical formula for polynomial regression takes $\Theta(n^2)$ ops., Rendle does it in $\Theta(kn)$.
+
+Notice how summing over different pairs is equivalent to summing over all pairs minus the self-interactions (divided by 2): 
+
+a correction factor $\frac{1}{2}$ is introduced from the beginning of the derivation.
+
+$\sum_{i=1}^n \sum_{j=i+1}^n \langle \textbf{v}_i, \textbf{v}_{j} \rangle x_{i} x_{j}$
+
+. . .
+
+$= \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \langle \textbf{v}_i, \textbf{v}_{j} \rangle x_{i} x_{j} - \frac{1}{2} \sum_{i=1}^n \langle \textbf{v}_i , \textbf{v}_{i} \rangle x_{i} x_{i}$
+
+-----
+
+## Steps
+
+$\sum_{i=1}^n \sum_{j=i+1}^n \langle \textbf{v}_i, \textbf{v}_{j} \rangle x_{i} x_{j}$
+
+$= \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \langle \textbf{v}_i, \textbf{v}_{j} \rangle x_{i} x_{j} - \frac{1}{2} \sum_{i=1}^n \langle \textbf{v}_i , \textbf{v}_{i} \rangle x_{i} x_{i}$
+
+. . .
+
+$= \frac{1}{2}\left(\sum_{i=1}^n \sum_{j=1}^n \sum_{f=1}^k v_{i,f} v_{j,f} x_{i} x_{j} \right) - \frac{1}{2}\left( \sum_{i=1}^n \sum_{f=1}^k v_{i,f} v_{i,f} x_{i} x_{i} \right)$
+
+. . .
+
+$= \frac{1}{2}\left(\sum_{i=1}^n \sum_{j=1}^n \sum_{f=1}^k v_{i,f} v_{j,f} x_{i} x_{j} - \sum_{i=1}^n \sum_{f=1}^k v_{i,f} v_{i,f} x_{i} x_{i} \right)$
+
+-----
+
+$= \frac{1}{2}\left(\sum_{i=1}^n \sum_{j=1}^n \sum_{f=1}^k v_{i,f} v_{j,f} x_{i} x_{j}  -  \sum_{i=1}^n \sum_{f=1}^k v_{i,f} v_{i,f} x_{i} x_{i} \right)$
+
+. . .
+
+$= \frac{1}{2} \sum_{f=1}^{k} \left( \left(\sum_{i=1}^n v_{i,f}x_{i} \right) \left( \sum_{j=1}^n v_{j,f}x_{j} \right) - \sum_{i=1}^{n} v_{i,f}^2 x_{i}^2 \right)$  
+
+. . .
+
+$= \frac{1}{2} \sum_{f=1}^{k} \left( \left( \sum_{i=1}^{n} v_{i,f}x_{i} \right)^2  - \sum_{i=1}^{n} v_{i,f}^2 x_{i}^2 \right)$
+
+Now the summations in *i* are inside the *k* summation but separated from each other.
+
+. . .
+
+Substituting back into the factorization machine formula:
+
+$\hat{y}(\textbf{x}) = w_{0} + \sum_{i=1}^{n} w_{i} x_{i} + \frac{1}{2} \sum_{f=1}^{k} \left( \left( \sum_{i=1}^{n} v_{i,f}x_{i} \right)^2  - \sum_{i=1}^{n} v_{i,f}^2 x_{i}^2 \right)$
