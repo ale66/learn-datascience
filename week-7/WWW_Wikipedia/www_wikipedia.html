@@ -260,29 +260,31 @@ AP
 </section>
 <section id="pagerank-idea" class="slide level2">
 <h2>PageRank idea</h2>
-<p>Assign a <strong>rank</strong> to each vertex (page) on the basis of its <em>importance</em> in the navigation of the network.</p>
-<div class="fragment">
-<p>Importance will then be captured by the relative value of the dominant Eigenvector of a new matrix P that represents <em>navigation</em></p>
-</div>
-</section>
+<p>Rank vertices (page) on the basis of their <em>importance</em> for network <em>navigation</em></p>
+<p>Importance is captured by the relative value in the dominant Eigenvector of a new matrix P that represents <em>navigation</em></p>
+
+<img data-src="./imgs/simple_oriented.png" class="r-stretch"></section>
 <section id="variables-used" class="slide level2">
 <h2>Variables used</h2>
-<p>A: directed adjacency matrix (admits <em>dangling</em> ends)</p>
+<p>A: the directed adjacency matrix (admits <em>dangling</em> ends)</p>
+<p><span class="math inline">\(K0^{-1}\)</span>: 0 everywhere but <span class="math inline">\(\frac{1}{k^{\mathrm{out}}_i}\)</span> on the main diagonal: <span class="math inline">\((K0^{-1})_{ii} = \frac{1}{k^{\mathrm{out}}_i}\)</span></p>
 <div class="fragment">
-<p><span class="math inline">\(K0^{-1}\)</span>: 0 everywhere but <span class="math inline">\(\frac{1}{k_j}\)</span> on the main diagonal</p>
+<p><span class="math inline">\(N = A\times K0^{-1}\)</span></p>
 </div>
 <div class="fragment">
-<p><span class="math inline">\(N = A\cdot K0^{-1}\)</span></p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(E\)</span>: 0 everywhere but <span class="math inline">\(\frac{1}{|V|}\)</span> on the main diagonal</p>
+<p>Matrix <span class="math inline">\(E\)</span>: it models <em>escape</em> from the navigation and <em>forces</em> irreducibility in the sense of Perron-Frobenius</p>
+<p>Set <span class="math inline">\(E_{ii} = \frac{1}{n}\)</span>, where <span class="math inline">\(n = |V|;\)</span> set 0 everywhere else</p>
+<p>(current versions put different values on the main diagonal of <span class="math inline">\(E\)</span>)</p>
 </div>
 </section>
 <section class="slide level2">
 
-<p><span class="math display">\[P = \alpha N + (1-\alpha)E\]</span></p>
-<p>Experimentally, set <span class="math inline">\(\alpha=0.85\)</span></p>
-<p>I.e., <span class="math inline">\(1-\alpha\)</span> times navigation will <em>jump out</em> of a path and into an arbitrary <em>restart</em> node.</p>
+<p><span class="math display">\[P = \alpha N + (1-\alpha) E\]</span></p>
+<p>Experimentally, Page and Brin set <span class="math inline">\(\alpha=0.85\)</span></p>
+<p>I.e., we assign a <span class="math inline">\(1-\alpha=0.15\)</span> probability to <em>jump out</em> of a navigation <em>path</em> and into an arbitrary <em>restart</em> node.</p>
+<p>Compute the dominant eigenvector <span class="math inline">\(\mathbf{r}_1\)</span> of <span class="math inline">\(P\)</span></p>
+<p>Perron-Frobenius applies so <span class="math inline">\(\mathbf{r}_1\)</span> will be a `proper’ vector of real, positive values</p>
+<p>Compute <span class="math inline">\(\mathbf{r}_1\)</span> by iterating the <span class="math inline">\(\mathbf{r}_1^{(t+1)} = P\mathbf{r}_1^{(t)}\)</span> eq. until it converges to a fixpoint value.</p>
 <!-- -------------------------- -->
 </section></section>
 <section>
@@ -292,7 +294,7 @@ AP
 </section>
 <section id="hits-idea" class="slide level2 scrollable">
 <h2>HITS idea</h2>
-<p>Hyperlink-Induced Topic Search [Kleinberg, 1999]</p>
+<p>Hyperlink-Induced Topic Search by [Kleinberg, 1999]</p>
 <p>Sees importance of a node in a more nuanced way:</p>
 <p>Pages that are important for consultation, e.g., train schedules, have <em>authority</em> and tend to be <em>terminal</em></p>
 <div class="fragment">

@@ -84,42 +84,53 @@ eu_DG = nx.DiGraph()
 
 ## PageRank idea
 
-Assign a __rank__ to each vertex (page) on the basis of its *importance* in the navigation of the network.
+Rank vertices (page) on the basis of their *importance* for network *navigation*
 
-. . .
+Importance is captured by the relative value in the dominant Eigenvector of a new matrix P that represents *navigation*
 
-Importance will then be captured by the relative value of the dominant Eigenvector of a new matrix P that represents *navigation*
+![](./imgs/simple_oriented.png)
+
 
 ## Variables used
 
-A: directed adjacency matrix (admits *dangling* ends)
+A: the directed adjacency matrix (admits *dangling* ends)
+
+$K0^{-1}$: 0 everywhere but $\frac{1}{k^{\mathrm{out}}_i}$ on the main diagonal: $(K0^{-1})_{ii} = \frac{1}{k^{\mathrm{out}}_i}$
 
 . . .
 
-$K0^{-1}$: 0 everywhere but $\frac{1}{k_j}$ on the main diagonal
+$N = A\times K0^{-1}$
 
 . . .
 
-$N = A\cdot K0^{-1}$
+Matrix $E$: it models *escape* from the navigation and *forces* irreducibility in the sense of Perron-Frobenius
 
-. . .
+Set $E_{ii} = \frac{1}{n}$, where $n = |V|;$ set 0 everywhere else 
 
-$E$: 0 everywhere but $\frac{1}{|V|}$ on the main diagonal
+(current versions put different values on the main diagonal of $E$)
+
 
 -----
 
-$$P = \alpha N + (1-\alpha)E$$
+$$P = \alpha N + (1-\alpha) E$$
 
-Experimentally, set $\alpha=0.85$
+Experimentally, Page and Brin set $\alpha=0.85$
 
-I.e., $1-\alpha$ times navigation will *jump out* of a path and into an arbitrary *restart* node.
+I.e., we assign a $1-\alpha=0.15$  probability to *jump out* of a navigation *path* and into an arbitrary *restart* node.
+
+Compute the dominant eigenvector $\mathbf{r}_1$ of $P$
+
+Perron-Frobenius applies so $\mathbf{r}_1$ will be a `proper' vector of real, positive values
+
+Compute $\mathbf{r}_1$ by iterating the $\mathbf{r}_1^{(t+1)} = P\mathbf{r}_1^{(t)}$ eq. until it converges to a fixpoint value.
+
 
 <!-- -------------------------- -->
 # Ranking Algorithms: HITS
 
 ## HITS idea
 
-Hyperlink-Induced Topic Search [Kleinberg, 1999]
+Hyperlink-Induced Topic Search by [Kleinberg, 1999]
 
 Sees importance of a node in a more nuanced way:
 
