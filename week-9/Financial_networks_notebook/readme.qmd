@@ -1,0 +1,61 @@
+---
+title: "Financial networks lab: instructions"
+lang: en
+author: DSTA 
+format:
+  pdf:
+    papersize: A4
+    number-sections: true
+    pdf-engine: pdflatex
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://ale66.github.io/dsta/
+jupyter: python3
+---
+
+# Lab sheet for the Financial networks lab
+
+
+## Getting Stearted
+
+Please download the notebooks associated with this lab from the usual class repository.
+
+for this lab a companion 'data' folder, local to the notebook, is required.
+
+Alternatively, change the file paths in the notebook accordingly.
+
+## Data
+
+Have a go at installing `yfinance,` a Python package that gets financial data from Yahoo's APIs.
+
+For those running Anaconda the command should be
+
+```bash
+C:\WINDOWS\system32>conda install -c ranaroussi yfinance
+```
+
+unfortunately, this may generate installation errors on some platforms, e.g., Win 10 LTS at Birkbeck.
+
+## Data, cont'd 
+
+To make the notebook more dynamic, we use `Yahoofinancials`:
+
+[github.com/JECSand/yahoofinancials](https://github.com/JECSand/yahoofinancials)
+
+The module may also be available from Anaconda.
+
