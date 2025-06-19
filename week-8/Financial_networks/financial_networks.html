@@ -6,8 +6,8 @@
 <script src="financial_networks_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="financial_networks_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="financial_networks_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="financial_networks_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="financial_networks_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="AP">
   <title>Financial networks</title>
@@ -181,26 +181,46 @@ r(\Delta t) = \frac{p(t_0 + \Delta t) - p(t_0)}{p(t_0)}
 <section class="slide level2">
 
 <p><span class="math display">\[
-r(\Delta t) = \frac{p(t_0 - \Delta t) - p(t_0)}{p(t_0)}
+r(\Delta t) = \frac{p(t_0 + \Delta t) - p(t_0)}{p(t_0)}
 \]</span></p>
-<div class="fragment">
-<p>in the limit <span class="math inline">\(\Delta t \rightarrow 0\)</span> it can be rewritten:</p>
+<p>as <span class="math inline">\(\Delta t \rightarrow 0\)</span> returns tend to 0</p>
+<p>We can apply the well-known Taylor expansion:</p>
+<p><span class="math display">\[
+\ln{(1+x)} = x + \frac{1}{2}x^2 -\frac{1}{3}x^3 + \dots
+\]</span></p>
+<p>take only the first element of the expansion, <span class="math inline">\(x\)</span>, and substitute:</p>
+<p><span class="math display">\[
+\ln{(1 + r(\Delta t))} \approx r(\Delta t)
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<p><span class="math display">\[
+r(\Delta t) \approx  \ln{(1+\frac{p(t_0 + \Delta t) - p(t_0)}{p(t_0)})}
+\]</span></p>
+<p><span class="math display">\[
+r(\Delta t) \approx \ln{\frac{p(t_0) + p(t_0 + \Delta t) - p(t_0)}{p(t_0)}}
+\]</span></p>
+<p><span class="math display">\[
+= \ln{\frac{p(t_0 + \Delta t)}{p(t_0)}} = \ln{p(t_0 + \Delta t)} - \ln{p(t_0)}
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>in conclusion,</p>
+<p><span class="math display">\[
+r(\Delta t) \approx \ln p(t_0 + \Delta t) - \ln p(t_0)
+\]</span></p>
+<p>Also, Quant Finance considers the <em>instantaneous</em> returns function as the derivative of the logged prices:</p>
 <p><span class="math display">\[
 r(t) \simeq  \frac{d \ln{p(t)}}{dt}
 \]</span></p>
-</div>
-<div class="fragment">
-<p>For discrete time:</p>
-<p><span class="math display">\[
-r = \ln p(t_0 + \Delta t) - \ln p(t_0)
-\]</span></p>
-</div>
 </section>
-<section id="correlation-of-prices" class="slide level2">
-<h2>Correlation of prices</h2>
+<section id="correlation-of-returns" class="slide level2">
+<h2>Correlation of returns</h2>
 <ul>
 <li><p>correlations in time series (or simply <em>comovements</em>) are valuable indicators</p></li>
-<li><p>Two shares are correlated if historically their price varied <em>in a similar way.</em></p></li>
+<li><p>Two shares are correlated if historically they <em>moved in a similar way.</em></p></li>
 <li><p>To qualify such a relation compute the correlation between their price returns over <span class="math inline">\(\Delta t\)</span>.</p></li>
 </ul>
 <div class="fragment">

@@ -68,30 +68,61 @@ $$
 -----
 
 $$
-r(\Delta t) = \frac{p(t_0 - \Delta t) - p(t_0)}{p(t_0)}
+r(\Delta t) = \frac{p(t_0 + \Delta t) - p(t_0)}{p(t_0)}
 $$
 
-. . .
 
-in the limit $\Delta t \rightarrow 0$ it can be rewritten:
+as $\Delta t \rightarrow 0$ returns tend to 0
+
+We can apply the well-known Taylor expansion:
+
+$$
+\ln{(1+x)} = x + \frac{1}{2}x^2 -\frac{1}{3}x^3 + \dots
+$$
+
+take only the first element of the expansion, $x$, and substitute:
+
+$$
+\ln{(1 + r(\Delta t))} \approx r(\Delta t) 
+$$
+
+-----
+
+
+$$
+r(\Delta t) \approx  \ln{(1+\frac{p(t_0 + \Delta t) - p(t_0)}{p(t_0)})}
+$$
+
+$$
+r(\Delta t) \approx \ln{\frac{p(t_0) + p(t_0 + \Delta t) - p(t_0)}{p(t_0)}}
+$$
+
+$$
+= \ln{\frac{p(t_0 + \Delta t)}{p(t_0)}} = \ln{p(t_0 + \Delta t)} - \ln{p(t_0)}
+$$
+
+-----
+
+in conclusion,
+
+$$
+r(\Delta t) \approx \ln p(t_0 + \Delta t) - \ln p(t_0)
+$$
+
+
+Also, Quant Finance considers the *instantaneous* returns function as the derivative of the logged prices:
 
 $$
 r(t) \simeq  \frac{d \ln{p(t)}}{dt}
 $$
 
-. . .
+-----
 
-For discrete time:
-
-$$
-r = \ln p(t_0 + \Delta t) - \ln p(t_0)
-$$
-
-## Correlation of prices
+## Correlation of returns
 
 - correlations in time series (or simply *comovements*) are valuable indicators
 
-- Two shares are correlated if historically their price varied *in a similar way.*
+- Two shares are correlated if historically they *moved in a similar way.*
 
 - To qualify such a relation compute the correlation between their price returns over $\Delta t$.
 
