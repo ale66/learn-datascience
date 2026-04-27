@@ -123,11 +123,11 @@ Help avoiding [inbox overflow](https://www.theguardian.com/technology/shortcuts/
 ![](./imgs/lotsofemails.png)
 
 
-<!--------------------------------------------------->
+<!-- ----------------------------------------------- -->
 # Assessment
 
 
-##
+-----
 
 Each week, a practice Moodle quiz appears in the respective Week tile.
 

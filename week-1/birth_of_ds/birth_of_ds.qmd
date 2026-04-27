@@ -1,5 +1,5 @@
 ---
-title: "The birth of DS"
+title: "Birth of DS"
 lang: en
 author: DSTA 
 format:
@@ -24,7 +24,14 @@ format:
 jupyter: python3
 ---
 
-# Flower Classification and the Birth of Data Science
+# Flower Classification
+
+##
+
+Two possible 'birthdates'
+
+* John Snow and the cholera pandemic [[history here]](https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak)
+* Ronald Fisher the Iris dataset [[history here]](https://en.wikipedia.org/wiki/Iris_flower_data_set)
 
 ## Classifying iris flowers
 
@@ -36,7 +43,7 @@ Can flower samples be assigned to their proper sub-family purely on the basis of
 
 * high-quality, annotated dataset
 
-technique and data are interwined!
+technique and data are intertwined!
 
 -----
 
@@ -64,15 +71,22 @@ that __respects__ the given classification.
 
 ## The Iris dataset
 
-n=150 samples manually assigned by Fisher.
+n=150 samples manually assigned by Fisher
 
-d=5 dimensions, four measurements (in cm) and the classification one
+d=5 dimensions: 4 four measurements (in cm) + the classif. 
 
-k=3 classes: Setosa, Versicolour and Virginica, 50 instances each, all available from [scikit-learn](https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html)
+. . .
+
+k=3 classes: *Setosa,* *Versicolour* and *Virginica,* 50 instances each, all available from [scikit-learn](https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html)
+
+
+<!-- --------------------------- -->
+-----
 
 ```bash
-pip install scikit-learn
+>pip install scikit-learn
 ```
+
 
 ```python
 from sklearn import datasets
@@ -88,11 +102,26 @@ print(iris['target'])
 
 ![](./imgs/iris-freqency-histograms.png)
 
------
 
-A linear classifier corresponds to to a line drawn on the data display which creates two classification areas; more than one line is possible.
+## Canonical discriminants
 
-Whereas Setosa can be linearly separated, e.g., *petal_lenght <2* in the third column, the other two classes can't be perfectly separated.
+A linear classifier corresponds to to a line drawn on the data display (an *axis) which creates two classification areas; more than one line is possible
+
+. . .
+
+find k-1 *axes* that separate the points by category
+
+Whereas Setosa can be linearly separated, e.g., *petal_length <2* in the third column, the other two classes can't be perfectly separated.
+
+
+## Fischer's discriminant
+
+binary case: compute means and co-variance of each: $\vec{\mu_a}$,$\Sigma_a$ and $\vec{\mu_b}$/$\Sigma_b$
+
+Define the discriminant axis with weights $\vec{w} = \frac{C}{\Sigma_a + \Sigma_b} (\vec{\mu_b} - \vec{\mu_a})$ 
+
+his choice of weights $\vec{w}$ maximises, intuitively, variance between classes wrt. variance within each one
+
 
 ## Quantify agreement?
 
@@ -116,26 +145,40 @@ prefer the one that *errs* less on the clear-cut cases.
 
 ignore the less informative dimensions
 
-## Idea: dimension reduction
+## Idea: dim. reduction
 
-Take a 2D scatterplot and map it to a line: does it improve visual classification?
+Take a 2D 'scatterplot' and map it to a line: does it improve visual classification?
 
-![](./imgs/projecting_2_to_1.png)
+![](./imgs/projecting_2_to_1.png){width=45%}
 
 ## Idea: shrinkage
 
-find a predictor where all predictors are used, but some are given less weight.
+find a predictor where 
+
+- all input dimensions are used, but 
+  
+- some are given less weight (possibly 0)
+
 
 ## Study plan
 
 This section, with the follow-up lab experience, is self-contained.
 
-If you want more background you may read the PDF excerpt from the advanced [Zaki-Meira textbook](https://dataminingbook.info/), which is available for download.
+For more background, read a PDF excerpt from the advanced [Zaki-Meira textbook](https://dataminingbook.info/), which is available from Moodle.
 
-## The birth of the new science of data
+## A new science of data
 
-Fisher did not practice Statistics per se as he didn't try to estimate the distribution of tiny flowers in Canada, nor did he estimate measurement errors.
+::::{.columns}
+
+::: {.column width="30%"}
+  ![](./imgs/miles_davies_birth_of_the_cool.png){width=100%}
+:::
+
+::: {.column width="70%"}
+
+F. did not practice Stats per se as he didn't try to estimate the distribution of tiny flowers in Canada, nor did he estimate measurement errors.
 
 Rather, he asked whether classification could become somehow __automatic__, without the need to actually *see* the flower.
+:::
 
-![](./imgs/miles_davies_birth_of_the_cool.png)
+::::
