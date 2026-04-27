@@ -82,11 +82,11 @@ so, units will be more 'seminar' than lecture.
 
 Standard Moodle/Teams provision
 
-![](./imgs/moodle.png){width=60%}
+![](./imgs/moodle.png){width=40%}
 
-Please check your email and MyBirkbeck calendar for (unlikely) time/place amendments.
+Please check your email and MyBirkbeck calendar for (unlikely) time/place changes.
 
-Extra: if you are familiar with the Markdown presentation language and the GitHub software repository you can sync materials as they get updated
+Extra: if familiar with Markdown+GitHub, you can sync materials as they get updated
 
 
 <!---------------------------------------------------------------->
@@ -129,11 +129,11 @@ Help avoiding [inbox overflow](https://www.theguardian.com/technology/shortcuts/
 
 ##
 
-Each week a Moodle quiz appears in the respective Week tile.
+Each week, a practice Moodle quiz appears in the respective Week tile.
 
-For assessment, Moodle quizzes appear/disappear also from the Assessment tile:
+For assessment, Moodle quizzes appear/disappear from the Assessment tile:
 
-![](./imgs/assessment-tile.png)
+![](./imgs/assessment-tile.png){width=50%}
 
 
 ## Past trends
