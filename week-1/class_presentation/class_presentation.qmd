@@ -92,15 +92,17 @@ Extra: if familiar with Markdown+GitHub, you can sync materials as they get upda
 <!---------------------------------------------------------------->
 ## Please see your
 
-* PG admins, Yeti Wang or Michael Bennett, for support in navigating school: [cs-pg@bbk.ac.uk]()
+* PG administrators, Yeti Wang or Michael Bennett, for support in 'navigating' your studies: 
+  
+:information_desk_person: [cs-pg@bbk.ac.uk]()
 
-![](./imgs/yeti.png) 
+![](./imgs/yeti.png) ![](./imgs/michael.jpg){width=19%} 
 
 
 <!---------------------------------------------------------------->
 ## Please see your
 
-* TAs, Dr. Ying Li or Paschalis Lagias, for support with lab experience
+* TAs, Dr. Ying Li or Paschalis Lagias, for support with lab experience :raising_hand:
   
 [![Ying](./imgs/ying.jpg)](https://orcid.org/0009-0000-2643-733X) [![Paschalis](./imgs/paschalis.png)](https://www.linkedin.com/in/paschalis-lagias-ab888057)
   
@@ -108,7 +110,7 @@ Extra: if familiar with Markdown+GitHub, you can sync materials as they get upda
 <!---------------------------------------------------------------->
 ## and finally, see your
 
-* module coordinator, Alessandro, about the study materials and general *'meaning of life'* questions
+* module coordinator, Alessandro Provetti, about the study materials and general *'meaning of life'* questions :man_teacher:
 
 [![Alessandro](./imgs/ale-caffe-lerici.png)](https://www.bbk.ac.uk/our-staff/profile/8920719/alessandro-provetti)
 
