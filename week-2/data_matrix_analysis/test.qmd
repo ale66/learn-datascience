@@ -75,7 +75,7 @@ There is a *space* in *n* dimensions
 
 Each point is represented by an n-dimensional vector $\mathbf{x}$ (or $\vec{x}$)
 
-A transformation: a *expansion/contraction* or a *rotation* or a combination thereof, is represented by a matrix, $A$
+*Transformation:* a *expansion* or a *contraction,* possibly combined with a *rotation,* is represented by a matrix, $A$
 
 The resulting point is computed as $A \mathbf{x}$.
 
@@ -137,7 +137,7 @@ In practice,
 
 ## Eigendecomposition
 
-The *effect* of A can be decomposed into translation + rotation thanks to the extraction of *eigenpairs* $\langle \lambda, \vec{v} \rangle$:
+The *effect* of A can be decomposed into translation + rotation thanks to the extraction of *eigenpairs* $\langle \lambda, \mathbf{e} \rangle$:
 
 $$
 A\mathbf{e} = \lambda \mathbf{e}
@@ -385,12 +385,12 @@ Google PageRank algorithm *is* spectral network anal.
 
 -----
 
+Web page importance $\approx$ eigenvector centrality:
 
-![](./imgs/google-page-rank.jpg){width="40%"}
+![](./imgs/google-page-rank.jpg){width="60%"}
+
 
 Early applications in Psychology, Social science, Bibliometrics, Economics, and Choice theory (seriously).
-
-
 
 
 -----
