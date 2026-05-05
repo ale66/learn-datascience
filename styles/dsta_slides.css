@@ -5,25 +5,40 @@ body {
     background-position: 3% 96%;
 }
 
+.reveal {
+    font-size: 9px;
+}
+
+.reveal .slides h1 {
+    font-size: 1.5em;
+}
+
+.reveal .slides h2 {
+    font-size: 1.3em;
+}
+
+.reveal .slides h3 {
+    font-size: 1.1em;
+}
+
+
+
 /* from Tammo's pandoc_test.css */
-
-.reveal h1 { font-size: 1.1em; } 
-
 
 @media screen and (max-width: 4000px), (max-height: 6000px) {
     .reveal .slides {
-        font-size: 0.8em;
+        font-size: 0.7em;
     }
 }
 
 @media screen and (max-width: 900px), (max-height: 600px) {
     .reveal .slides {
-        font-size: 0.75em;
+        font-size: 0.65em;
     }
 }
 
 @media screen and (max-width: 700px), (max-height: 400px) {
     .reveal .slides {
-        font-size: 0.75em;
+        font-size: 0.60em;
     }
 }

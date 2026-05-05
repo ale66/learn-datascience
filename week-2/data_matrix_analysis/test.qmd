@@ -51,7 +51,9 @@ Network science view: a weighted, binary relationship between users and films.
 
 Let's step back and see what Geometry gives us.
 
+
 -----
+
 ## Spectral Methods
 
 Most activity matrices represent the connections between n entities (e.g., subscribers) and m entities (e.g., films) with $n<>m$.
@@ -60,22 +62,22 @@ Sometimes the connections is between the same entities, such as endorsement, tea
 
 In such cases, the matrix is *square.*
 
-Standard Geometry holds and we can extract its __Eigenpairs__.
+Standard Geometry holds and we can extract its *eigenpairs*.
 
 
 # Matrices
 
 -----
+
 ## Traditional view
 
 There is a *space* in *n* dimensions
 
-Each point is represented by an n-dimensional vector __x__ (or $\vec{x}$)
+Each point is represented by an n-dimensional vector $\mathbf{x}$ (or $\vec{x}$)
 
 A transformation: a *expansion/contraction* or a *rotation* or a combination thereof, is represented by a matrix, $A$
 
-The resulting point is computed as $A \mathbf{x}$
-
+The resulting point is computed as $A \mathbf{x}$.
 
 -----
 
@@ -109,10 +111,10 @@ $$
 
 M does  anti-clockwise rotation and expansion at once.
 
-
 # Eigenpairs
 
 -----
+
 ## Definition
 
 If matrix $A$ has a real $\lambda$ and a vector $\mathbf{e}$ s.t.
@@ -165,10 +167,11 @@ $$
 
 solve $M\mathbf{e} = \lambda\mathbf{e}$ to find
 
-
 $\lambda_1 \approx 5.372$ and $\lambda_2 \approx -0.372$.
 
-. . . 
+-----
+
+$\lambda_1 \approx 5.372$ and $\lambda_2 \approx -0.372$.
 
 $$
 \mathbf{e_1} \approx
@@ -215,7 +218,6 @@ $$
 
 -----
 
-
 ## Finally
 
 $$
@@ -243,6 +245,7 @@ $$
 
 
 -----
+
 ## Example application
 
 $$M\mathbf{x}\, =
@@ -346,8 +349,7 @@ $$
 
 -----
 
-
-*A*  called *positive semidefinite* when, for any __x__, we have
+*A* is called *positive semidefinite* when, for any $\mathbf{x}$, we have
 
 $$\mathbf{x}^T A \mathbf{x} \ge 0$$
 
@@ -355,9 +357,9 @@ In such case its eigenvalues are guaranteed non-negative: $\lambda_i\ge 0$,
 
 this helps interpretation of activity matrices.
 
+-----
 
-<!------------------------------------------------------------->
-# Singular Value Decomposition
+## Singular Value Decomposition
 
 For rectangular matrices Eigendecomposition is not defined.
 
@@ -365,8 +367,10 @@ SVD will provide a similar decomposition for data matrices of any size.
 
 Details are in the [Goodfellow et al.] textbook and will be introduced later on.
 
-<!------------------------------------------------------------->
+
 # Applications
+
+-----
 
 ## Spectral properties
 
@@ -374,12 +378,22 @@ Adjacency matrices represent connections between entities in a network (graph), 
 
 The eigenvalues of adjacency matrices provide bounds for several network features.
 
-The Google PageRank algorithm *is* spectral network analysis.
+Google PageRank algorithm *is* spectral network anal.
 
-![](./imgs/google-page-rank.jpg)
+![](./imgs/google-page-rank.jpg){width="20%"}
+
+
+-----
+
+
+![](./imgs/google-page-rank.jpg){width="40%"}
 
 Early applications in Psychology, Social science, Bibliometrics, Economics, and Choice theory (seriously).
 
+
+
+
+-----
 
 ## Spectral ranking
 
@@ -410,8 +424,9 @@ i.e., $\mathbf{r}$ is a left eigenvector of M.
 This formula might have no solution, but matrix preprocessing can assure that one exists.
 
 
-<!------------------------------------------------------------------>
 # Study plan
+
+-----
 
 ## Background study
 
@@ -426,3 +441,5 @@ It can be read in the background.
 * Phase 1: read &sect;&sect; 2.1---2.7, then &sect; 2.11.
 
 * Phase 2: read &sect;&sect; 2.8---2.10
+
+
