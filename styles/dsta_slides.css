@@ -6,19 +6,19 @@ body {
 }
 
 .reveal {
-    font-size: 9px;
+    font-size: 30px;
 }
 
 .reveal .slides h1 {
-    font-size: 1.5em;
+    font-size: 2em;
 }
 
 .reveal .slides h2 {
-    font-size: 1.3em;
+    font-size: 1.6em;
 }
 
 .reveal .slides h3 {
-    font-size: 1.1em;
+    font-size: 1.3em;
 }
 
 
@@ -27,18 +27,18 @@ body {
 
 @media screen and (max-width: 4000px), (max-height: 6000px) {
     .reveal .slides {
-        font-size: 0.7em;
+        font-size: 0.9em;
     }
 }
 
 @media screen and (max-width: 900px), (max-height: 600px) {
     .reveal .slides {
-        font-size: 0.65em;
+        font-size: 0.8em;
     }
 }
 
 @media screen and (max-width: 700px), (max-height: 400px) {
     .reveal .slides {
-        font-size: 0.60em;
+        font-size: 0.7em;
     }
 }

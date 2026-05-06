@@ -30,10 +30,13 @@ jupyter: python3
 
 [Chapter 2](./provost-ch2.pdf) describes the core computational problems of Data Science
 
-![](./imgs/provost-cover.jpg){.nostretch fig-align="center" width="200px"}
+![](./imgs/provost-cover.jpg){.nostretch fig-align="center" width="25%"}
 
 
 In memoriam: [Tom Fawcett](https://link.springer.com/article/10.1007/s10994-020-05909-0)
+
+
+# The big 9
 
 -----
 
@@ -41,7 +44,7 @@ In memoriam: [Tom Fawcett](https://link.springer.com/article/10.1007/s10994-020-
 
 __Instance:__
 
-* a collection (dataset) of datapoints from $\mathbf{X}$
+* a collection (dataset) $\mathbf{D}$ of datapoints from $\mathbf{X}$, e.g., $\mathbb{R}^m$
 
 * a classification system $C = \{c_1, c_2, \dots c_k\}$
 
@@ -49,7 +52,7 @@ __Instance:__
 
 __Solution:__  classification function $\gamma: \mathbf{X} \rightarrow C$
 
-__Measure:__ misclassification
+__Measure:__ misclassification of datapoints in $\mathbf{D}$
 
 
 -----
@@ -58,18 +61,18 @@ __Measure:__ misclassification
 
 binary, only one class is important
 
-![](./imgs/false_positives_and_negatives.jpg){width="40%"}
+![](./imgs/false_positives_and_negatives.jpg){width="30%"}
 
 -----
 
 ## Misclassification: multi-class 
 
-![](./imgs/misclass-examples.png)
+![](./imgs/misclass-examples.png){width="80%"}
 
 
 -----
 
-![](./imgs/misclassification.png)
+![](./imgs/misclassification.png){width="60%"}
 
 
 [Source](https://www.researchgate.net/publication/322596493_A_PCA-CCA_network_for_RGB-D_object_recognition)
@@ -95,7 +98,7 @@ __Measure:__ error over the collection
 
 . . .
 
-[PF] "classification predicts whether something will happen, whereas regr. predicts how much something will happen."
+[PF] "classification predicts whether something will happen, whereas regression predicts how much something will happen."
 
 
 -----
@@ -106,7 +109,7 @@ Identify similar individuals based on data known about them.
 
 __Instance:__
 
-* a collection (dataset) of datapoints from $\mathbf{X}$, e.g., $\mathbb{R}^n$
+* a collection (dataset) $\mathbf{D}$ of datapoints from $\mathbf{X}$, e.g., $\mathbb{R}^m$
 
 * (distance functions for some of the dimensions)
 
@@ -135,7 +138,7 @@ group individuals in a population together by their similarity (but not driven b
 
 __Instance:__
 
-* a collection (dataset) $\mathbf{D}$ of datapoints from $\mathbf{X}$, e.g., $\mathbb{R}^n$
+* a collection (dataset) $\mathbf{D}$ of datapoints from $\mathbf{X}$, e.g., $\mathbb{R}^m$
 
 * a relational structure on $\mathbf{X}$ (a graph)
 
@@ -156,15 +159,15 @@ https://www.sciencedirect.com/science/article/pii/S0022000013000767)
 
 -----
 
-5. Co-occurence (frequent itemset mining)
+5. Co-occurrence (frequent itemset mining)
 
-similarity of objects based on their appearing together in transactions.
+detect similarities of objects on the basis on their appearing together in transactions.
 
 __Instance:__
 
-* a collection (dataset) $\mathbf{T}$ of itemsets (subsets of  $\mathbf{X}$) or sequences
+* a collection (dataset) $\mathbf{T}$ of *itemsets* (subsets of $\mathbf{X}$) (or sequences) 
 
-* a theshold $\tau$
+* a threshold $\tau$
 
 . . .
 
@@ -174,11 +177,12 @@ __Solution:__  All _frequent patterns:_ subsets that appear in $\mathbf{T}$ abov
 
 Detection version: $\tau$ is part of the output.
 
-Market-basket analysis, (some) recommendation systems
+Market-basket analysis, some recommendation systems
+
 
 -----
 
-6. Profiling (behaviour description)
+6. Profiling (behavior description)
 
 __Instance:__
 
@@ -196,7 +200,7 @@ __Solution:__  a functional reaction of __u__ to __a__, i.e., $\rho: \mathbf{U} 
 
 Application: anomaly/fraud detection.
 
-Example research work on [Social media profiling](https://ieeexplore.ieee.org/abstract/document/6994286)
+Example: [Social media profiling](https://ieeexplore.ieee.org/abstract/document/6994286) 
 
 -----
 
@@ -210,7 +214,7 @@ $<V, E^\prime=E+\{(u,v)\}>$,
 
 $<V, E^{\prime\prime}=E^\prime+\{(r,s)\}>\dots$
 
-![](./imgs/network.png)
+![](./imgs/network.png){width="25%"}
 
 -----
 
@@ -297,22 +301,22 @@ Only with clarity about the problem we can look for the algorithms.
 
 Previous instance/solution pairs are available and fed to the a.
 
-A. may 'memorise' past solutions and re-apply them, via some similarity criterion
+The a. may 'memorise' past solutions and re-apply them, via some similarity criterion.
 
-A. may also 'learn' a model and apply it to future inputs 
+Advanced a. may 'learn' a model and apply it to future inputs. 
 
 
 -----
 
 ## Method 
 
-* obtain a dataset of examples, inc. the  "target"  dimension, called *label*
+* obtain a dataset of *labeled* examples: the class assignment or the value are known; 
 
-* split it in training and test data
+* split it in training and test data;
 
-* run a. on the test data, find a putative solution
+* run a. on the test data, find a putative solution, and
 
-* test the quality/pred. power against test data
+* test the quality/pred. power against test data.
 
 . . .
 
