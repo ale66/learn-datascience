@@ -87,7 +87,7 @@ class="math inline">\(\mathbf{x}\)</span> (or <span
 class="math inline">\(\vec{x}\)</span>)</p>
 <p><em>Transformation:</em> a <em>expansion</em> or a
 <em>contraction,</em> possibly combined with a <em>rotation,</em> is
-represented by a matrix, <span class="math inline">\(A\)</span></p>
+represented by a matrix, <span class="math inline">\(A.\)</span></p>
 <p>The resulting point is computed as <span class="math inline">\(A
 \mathbf{x}\)</span>.</p>
 </section>
@@ -120,14 +120,8 @@ M\mathbf{x} =
 </section>
 <section id="more-examples" class="slide level2">
 <h2>More examples</h2>
-<p><span class="math display">\[
-\mathbf{x} =
-\begin{pmatrix}
-1 \\
-0.5
-\end{pmatrix}
-\]</span></p>
-<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
 <p>expand <span class="math inline">\(\mathbf{x}\)</span> to double its
 length:</p>
 <p><span class="math display">\[
@@ -138,12 +132,17 @@ length:</p>
 \begin{pmatrix} 2 \\ 1 \end{pmatrix}
 \end{equation}
 \]</span></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="./imgs/stretch.png" style="width:80.0%" /></p>
+</div>
 </div>
 </section>
 <section class="slide level2">
 
 <p>compress <span class="math inline">\(\mathbf{x}\)</span> to halve its
 length:</p>
+<div class="columns">
+<div class="column" style="width:65%;">
 <p><span class="math display">\[
 \begin{equation}
 \begin{pmatrix} 0.5 &amp; 0 \\ 0 &amp; 0.5 \end{pmatrix}
@@ -152,11 +151,17 @@ length:</p>
 \begin{pmatrix} 0.5 \\ 0.25 \end{pmatrix}
 \end{equation}
 \]</span></p>
+</div><div class="column" style="width:35%;">
+<p><img data-src="./imgs/compress.png" style="width:80.0%" /></p>
+</div>
+</div>
 </section>
 <section class="slide level2">
 
 <p>rotate <span class="math inline">\(\mathbf{x}\)</span>
 anticlockwise:</p>
+<div class="columns">
+<div class="column" style="width:65%;">
 <p><span class="math display">\[
 \begin{equation}
 \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix}
@@ -165,10 +170,16 @@ anticlockwise:</p>
 \begin{pmatrix} -0.5 \\ 1 \end{pmatrix}
 \end{equation}
 \]</span></p>
+</div><div class="column" style="width:35%;">
+<p><img data-src="./imgs/anticlockwise.png" style="width:80.0%" /></p>
+</div>
+</div>
 </section>
 <section class="slide level2">
 
 <p>rotate <span class="math inline">\(\mathbf{x}\)</span> clockwise:</p>
+<div class="columns">
+<div class="column" style="width:65%;">
 <p><span class="math display">\[
 \begin{equation}
 \begin{pmatrix} 0 &amp; 1 \\ -1 &amp; 0 \end{pmatrix}
@@ -177,16 +188,26 @@ anticlockwise:</p>
 \begin{pmatrix} 0.5 \\ -1 \end{pmatrix}
 \end{equation}
 \]</span></p>
+</div><div class="column" style="width:35%;">
+<p><img data-src="./imgs/clockwise.png" style="width:80.0%" /></p>
+</div>
+</div>
 </section>
 <section class="slide level2">
 
-<p>change sense:</p>
+<p>change sense/flip:</p>
+<div class="columns">
+<div class="column" style="width:65%;">
 <p><span class="math display">\[
 \begin{pmatrix} -1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}
 \begin{pmatrix} 1 \\ 0.5 \end{pmatrix}
 =
 \begin{pmatrix} -1 \\ -0.5 \end{pmatrix}
 \]</span></p>
+</div><div class="column" style="width:35%;">
+<p><img data-src="./imgs/flip.png" style="width:80.0%" /></p>
+</div>
+</div>
 </section></section>
 <section>
 <section id="eigenpairs" class="title-slide slide level1">
@@ -205,16 +226,32 @@ class="math inline">\(\mathbf{e}\)</span> s.t.</p>
 an <em>eigenvector</em> of A.</p>
 <div class="fragment">
 <p>If <em>A</em> has rank <em>n</em> then there could be up to
-<em>n</em> eigenpairs. In practice,</p>
+<em>n</em> eigenpairs.</p>
 <ul>
-<li><p>they might not be real, nor <span class="math inline">\(\neq
-0\)</span>, and</p></li>
-<li><p>are always <em>costly:</em> <span
-class="math inline">\(n^\alpha)\)</span> scalar multiplications, n being
-the size of the matrix and <span class="math inline">\(\alpha \approx
-2.81\)</span>.</p></li>
+<li><p>However, they might not be real, nor <span
+class="math inline">\(\neq 0\)</span>, and</p></li>
+<li><p>extracting them is <em>costly:</em> at least <span
+class="math inline">\(n^2\)</span> scalar multiplications, <span
+class="math inline">\(n\)</span> being the size of the matrix.</p></li>
 </ul>
 </div>
+</section>
+<section class="slide level2">
+
+<p>Example: the traditional 90-degrees rotation matrix:</p>
+<p><span class="math display">\[
+\begin{equation}
+  \begin{pmatrix}
+  0 &amp; -1 \\
+  1 &amp; 0
+  \end{pmatrix}
+\end{equation}
+\]</span></p>
+<p>has <em>unplayable</em> eigenpairs:</p>
+<p><span class="math display">\[\lambda_1 = i, \mathbf{e_1} = [1,
+-i]^T\]</span></p>
+<p><span class="math display">\[\lambda_2 = -i, \mathbf{e_2} = [1,
+i]^T\]</span></p>
 </section>
 <section id="eigendecomposition" class="slide level2">
 <h2>Eigendecomposition</h2>
@@ -267,14 +304,17 @@ M =
 -0.0566
 \end{pmatrix}
 \]</span></p>
-<p>M now can be re-defined as the product of simpler operations:</p>
+<p>Since its eigenpairs are real, M can be <em>diagonalised:</em>
+re-formulated as the product of simpler `operations’</p>
 </section>
 <section class="slide level2">
 
 <p><span class="math display">\[
 M = Q\Lambda Q^{-1}
 \]</span></p>
-<p>Stretching, followed by rotation followed by ‘stretching back’</p>
+<p>Stretching (<span class="math inline">\(Q^{-1}\)</span>), followed by
+rotation (<span class="math inline">\(\Lambda\)</span>) followed by
+‘stretching back’ (Q)</p>
 <p><span class="math display">\[
 Q =
 \begin{pmatrix}
@@ -315,82 +355,92 @@ Q =
 </section>
 <section id="example-application" class="slide level2">
 <h2>Example application</h2>
+<div style="font-size: 70%;">
 <p><span class="math display">\[M\mathbf{x}\, =
-\begin{pmatrix}
-1 &amp; 2\\
-3 &amp; 4
-\end{pmatrix}
-\begin{pmatrix}
-1 \\
-0.5
-\end{pmatrix}
-\]</span></p>
+  \begin{pmatrix}
+  1 &amp; 2\\
+  3 &amp; 4
+  \end{pmatrix}
+  \begin{pmatrix}
+  1 \\
+  0.5
+  \end{pmatrix}
+  \]</span></p>
+</div>
+<p>now becomes</p>
+<div style="font-size: 70%;">
 <p><span class="math display">\[
-\begin{pmatrix}
-0.416 &amp; 0.824\\
-0.909 &amp; -0.566
-\end{pmatrix}
-\begin{pmatrix}
-5.372 &amp; 0 \\
-0 &amp; -0.372
-\end{pmatrix}
-\begin{pmatrix}
-0.575 &amp; 0.837\\
-0.924 &amp; -0.423
-\end{pmatrix}
-\begin{pmatrix}
-1 \\
-0.5
-\end{pmatrix}
-\]</span></p>
+  \begin{pmatrix}
+  0.416 &amp; 0.824\\
+  0.909 &amp; -0.566
+  \end{pmatrix}
+  \begin{pmatrix}
+  5.372 &amp; 0 \\
+  0 &amp; -0.372
+  \end{pmatrix}
+  \begin{pmatrix}
+  0.575 &amp; 0.837\\
+  0.924 &amp; -0.423
+  \end{pmatrix}
+  \begin{pmatrix}
+  1 \\
+  0.5
+  \end{pmatrix}
+  \]</span></p>
+</div>
 </section>
 <section class="slide level2">
 
+<div style="font-size: 70%;">
 <p><span class="math display">\[
-M\mathbf{x} =
-\begin{pmatrix}
-0.416 &amp; 0.824\\
-0.909 &amp; -0.566
-\end{pmatrix}
-\begin{pmatrix}
-5.372 &amp; 0 \\
-0 &amp; -0.372
-\end{pmatrix}
-\begin{pmatrix}
-0.994 \\
-0.712
-\end{pmatrix}
-\]</span></p>
-</section>
-<section class="slide level2">
-
+  M\mathbf{x} =
+  \begin{pmatrix}
+  0.416 &amp; 0.824\\
+  0.909 &amp; -0.566
+  \end{pmatrix}
+  \begin{pmatrix}
+  5.372 &amp; 0 \\
+  0 &amp; -0.372
+  \end{pmatrix}
+  \begin{pmatrix}
+  0.994 \\
+  0.712
+  \end{pmatrix}
+  \]</span></p>
+</div>
+<div class="fragment">
+<div style="font-size: 70%;">
 <p><span class="math display">\[
-M\mathbf{x} =
-\begin{pmatrix}
-0.416 &amp; 0.824\\
-0.909 &amp; -0.566
-\end{pmatrix}
-\begin{pmatrix}
-5.340 \\
--0.265
-\end{pmatrix}
-\]</span></p>
-</section>
-<section class="slide level2">
-
+  =
+  \begin{pmatrix}
+  0.416 &amp; 0.824\\
+  0.909 &amp; -0.566
+  \end{pmatrix}
+  \begin{pmatrix}
+  5.340 \\
+  -0.265
+  \end{pmatrix}
+  \]</span></p>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 70%;">
 <p><span class="math display">\[
-M\mathbf{x} =
-\begin{pmatrix}
-2.003 \\
-5.004
-\end{pmatrix}
-\]</span></p>
+  =
+  \begin{pmatrix}
+  2.003 \\
+  5.004
+  \end{pmatrix}
+  \]</span></p>
+</div>
+<p>numerical issues start arising</p>
+</div>
 </section>
-<section id="interesting-square-matrices" class="slide level2">
-<h2>Interesting square matrices</h2>
+<section id="notable-square-m." class="slide level2">
+<h2>Notable square m.</h2>
 <p><em>A</em> is called <em>symmetric</em> when <span
 class="math inline">\(A=A^T\)</span></p>
-<p>Example matrix M is not symmetric:</p>
+<p>Our M is <em>not</em> symmetric:</p>
 <p><span class="math display">\[
 M =
 \begin{pmatrix}
@@ -404,6 +454,8 @@ M =
 \end{pmatrix}
 = M^T
 \]</span></p>
+<p>Theorem: symmetric m. have all eigenpairs real: they can always be
+diagonalised</p>
 </section>
 <section class="slide level2">
 
@@ -416,8 +468,8 @@ class="math inline">\(\lambda_i\ge 0\)</span>,</p>
 <p>this helps interpretation of activity matrices.</p>
 </section>
 <section id="singular-value-decomposition" class="slide level2">
-<h2>Singular Value Decomposition</h2>
-<p>For rectangular matrices Eigendecomposition is not defined.</p>
+<h2>Singular-Value Decomposition</h2>
+<p>Eigendecomposition is defined only for square matrices.</p>
 <p>SVD will provide a similar decomposition for data matrices of any
 size.</p>
 <p>Details are in the [Goodfellow et al.] textbook and will be
