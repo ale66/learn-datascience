@@ -5,6 +5,7 @@ author: AP
 format:
   revealjs: 
     theme: solarized
+    self-contained: true
     css: ../../styles/dsta_slides.css
     slide-number: true
     slide-level: 2
@@ -15,6 +16,14 @@ format:
     # smaller: true
     scrollable: true
     # auto-stretch: false
+    # mermaid is called by Quarto but wants an object
+    mermaid: # {}
+    # for the {mermaid} version  
+      fontSize: 16
+      flowchart:
+        nodeSpacing: 50
+        rankSpacing: 50
+  # 
   html:
     toc: true
     code-fold: false
@@ -289,11 +298,14 @@ Examples:
 
 Problem $\longrightarrow$ Algorithm $\longrightarrow$ Implementation (code)
 
-For a given problem, more than one algorithm may be available
+For a given problem, more than one algorithm may be available.
 
-For a given algorithm, more than one implementation is possible
+For a given algorithm, more than one implementation is possible.
 
-Only with clarity about the problem we can look for the algorithms.
+Clarity about the problem allows clarity about the algorithm.
+
+![](./imgs/the_triad.png){width="20%"}
+
 
 -----
 
