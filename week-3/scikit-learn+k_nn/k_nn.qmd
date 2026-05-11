@@ -163,4 +163,4 @@ Sometimes improving accuracy on the training data does not translate into improv
 
 1-NN is perfect on training but 0.7 on test. 
 
-Increasing k does not improve much and *overfitting* creeps in.
+Increasing k does not improve much.

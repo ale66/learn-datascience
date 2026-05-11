@@ -28,8 +28,10 @@ format:
 jupyter: python3
 ---
 
+# Background
 
-<!-- ----------- -->
+-----
+
 ## Spectral Methods: Traditional
 
 Eigenpairs
@@ -45,7 +47,8 @@ $$
 ![](./imgs/eigenpairs-caption.png)
 
 
-<!-- ----------- -->
+-----
+
 ## Eigendecomposition:
 
 $$
@@ -56,7 +59,8 @@ M is interpreted as the combination of three specific transformations
 
 Computing its inverse, $M^{-1}$, is now much simpler
 
-<!-- ----------- -->
+-----
+
 ## The importance of Matrix inversion
 
 M. inversion solves linear systems of linear equations
@@ -75,7 +79,8 @@ $$
 I\vec{x} = M^{-1}\vec{v}
 $$
 
-<!-- ----------- -->
+-----
+
 ## M. inversion underpins regression
 
 The solution $\vec{x} = M^{-1}\vec{v}$ gives us the regression coefficients that define the linear regression model. 
@@ -95,25 +100,27 @@ Advanced a. in Numpy run in $\Theta(n^2)$ (but check for numeric issues)
 Compute $M^{-1}$ once then store and re-use it for different $\vec{v}$
 
 
-<!-- ----------- -->
-## Matrix inversion 
+-----
+
+## Square matrix inversion 
 
 Thanks to properties of the Q matrix, where each column is an e-vector, inversion is simplified
 
-$M = Q\Lambda Q^{-1}$
+$M_{(m \times m)} = Q\Lambda Q^{-1}$
 
 . . . 
 
 $M^{-1} = (Q\Lambda Q^{-1})^{-1}$
 
-$M^{-1} = Q^{-1}\Lambda^{-1} (Q^{-1})^{-1}$
+inverse factor order: $M^{-1} = (Q^{-1})^{-1}\Lambda^{-1}  Q^{-1}$
 
-$M^{-1} = Q^{-1}\Lambda^{-1} Q$
+$M^{-1} = Q\Lambda^{-1} Q^{-1}$
 
-where $\Lambda^{-1}$ is obtained by simply substituing each $\lambda_i$ on the diagonal with $\frac{1}{\lambda_i}$
+where $\Lambda^{-1}$ is obtained by simply substituting each $\lambda_i$ on the diagonal with $\frac{1}{\lambda_i}$.
 
 
-<!------------------------------------------------------------->
+-----
+
 ## Singular-Value Decomposition
 
 For rectangular matrices $A_{(m \times n)}$ eigendecomposition is not defined
@@ -124,7 +131,8 @@ The procedure is more complex
 
 Until 1955, no general procedure for inverting rectangular m. was available
 
-<!------------------------------------------------------------->
+-----
+
 ## The data matrix
 
 $A_{(m \times n)}$
@@ -210,6 +218,9 @@ SVD generalises eigen-decomposition:
 - even non-square matrices admit one
 
 overconstrained systems (more rows than cols.) can now be solved
+
+
+# Worked-out example
 
 
 -----
@@ -304,8 +315,11 @@ $$A =
 
 Even though this formulation is far from the original and not easily interpreted, it has good properties.
 
-<!------------------------------------------------------------------>
+
+
 # Study plan
+
+-----
 
 ## Background study
 
