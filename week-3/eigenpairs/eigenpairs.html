@@ -6,8 +6,8 @@
 <script src="eigenpairs_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="eigenpairs_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="eigenpairs_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="eigenpairs_files/libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.30">
+<link href="eigenpairs_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="AP">
   <title>Computing eigenpairs</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="eigenpairs_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="eigenpairs_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -95,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="eigenpairs_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="eigenpairs_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="eigenpairs_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="eigenpairs_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -216,7 +219,6 @@ AP
 <p><a href="https://www.deeplearningbook.org/">Deep Learning, MIT Press, 2016</a>.</p>
 <p>J. Lescovec, A. Rajaraman, J. Ullmann, ch.&nbsp;11:</p>
 <p><a href="http://www.mmds.org/">Mining of Massive datasets, MIT Press, 2016</a>.</p>
-<!------------------------------------------------------------->
 </section></section>
 <section>
 <section id="spectral-analysis" class="title-slide slide level1 center">
@@ -225,10 +227,10 @@ AP
 </section>
 <section id="eigenpairs-1" class="slide level2">
 <h2>Eigenpairs</h2>
-<p>If, given a matrix <span class="math inline">\(A\)</span> we find a scalar <span class="math inline">\(\lambda\)</span> and a vector <span class="math inline">\(\vec{e}\)</span> s.t.</p>
-<p><span class="math display">\[A\vec{e} = \lambda \vec{e}\]</span></p>
-<p>then <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\vec{e}\)</span> will be an eigenpair of A.</p>
-<p>If <span class="math inline">\(rank(A)=n\)</span> then there could be up to <span class="math inline">\(n\)</span> such pairs.</p>
+<p>For a given matrix <span class="math inline">\(A,\)</span> find a scalar <span class="math inline">\(\lambda\)</span> and a vector <span class="math inline">\(\mathbf{e}\)</span> s.t.</p>
+<p><span class="math display">\[A\mathbf{e} = \lambda \mathbf{e}\]</span></p>
+<p>then <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mathbf{e}\)</span> will be an eigenpair of A.</p>
+<p>If <span class="math inline">\(rank(A)=n\)</span> then there could be up to <span class="math inline">\(n\)</span> distinct eigenpairs.</p>
 <div class="fragment">
 <p>In practice, eigenpairs</p>
 <ul>
@@ -236,6 +238,7 @@ AP
 <li><p>they might have <span class="math inline">\(\lambda=0\)</span>: no information, or</p></li>
 <li><p><span class="math inline">\(\lambda\)</span> might not be a real number: no interpretation.</p></li>
 </ul>
+<p>Notation: for column vectors the <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\vec{x}\)</span> notations are equivalent.</p>
 </div>
 </section>
 <section id="conditions-for-a-good-eigen-pair" class="slide level2">
@@ -256,10 +259,10 @@ AP
 </section>
 <section id="example-shear-mapping" class="slide level2">
 <h2>Example: shear mapping</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>A <span class="op">=</span> [[<span class="dv">1</span>, <span class="fl">.27</span>],</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>A <span class="op">=</span> [[<span class="dv">1</span>, <span class="fl">.27</span>],</span>
 <span id="cb1-2"><a href=""></a>     [<span class="dv">0</span>,   <span class="dv">1</span>]</span>
-<span id="cb1-3"><a href=""></a>    ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>deforms a vector by increading the first dimension by a quantity proportional to the value of the second dimension:</p>
+<span id="cb1-3"><a href=""></a>    ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>deforms a vector by increasing the first dimension by a quantity proportional to the value of the second dimension:</p>
 <p><span class="math display">\[
 \begin{bmatrix}
     x\\
@@ -284,7 +287,7 @@ AP
 </section>
 <section id="activity-matrices-i" class="slide level2">
 <h2>Activity matrices, I</h2>
-<p>Under certains conditions:</p>
+<p>Under certain conditions:</p>
 <p>-the eigenpairs exists,</p>
 <p>-e-values are real, non-negative numbers (0 is ok), and</p>
 <p>-e-vectors are orthogonal with each other:</p>
@@ -299,7 +302,6 @@ AP
 <p>each e-vector represents a <em>direction</em></p>
 <p>we interpret those directions as <em>topics</em> that hidden (latent) within the data.</p>
 <p>e-values <em>expand</em> one’s affiliation to a specific <em>topic</em>.</p>
-<!-- ------------------- -->
 </div>
 </section></section>
 <section>
@@ -309,11 +311,11 @@ AP
 </section>
 <section id="euclidean-norm" class="slide level2">
 <h2>Euclidean norm</h2>
-<p>Pythagora’s theorem, essentially.</p>
+<p>Pythagoras’s theorem, essentially.</p>
 <p><span class="math inline">\(||\vec{x}|| = \sqrt{\vec{x}^T\vec{x}} = \sqrt{\sum_{i=1}^m x_i^2}\)</span></p>
 <p><img data-src="./imgs/euclid-1.png" height="200"></p>
 <div class="fragment">
-<p>Generalisation:</p>
+<p>Generalisations:</p>
 <p><span class="math inline">\(||\vec{x}||_p = (|x_1|^p + |x_1|^p + \dots |x_m|^p)^\frac{1}{p} = (\sum_{i=1}^m |x_i|^p)^\frac{1}{p}\)</span></p>
 </div>
 </section>
@@ -338,7 +340,6 @@ AP
 <li><p><span class="math inline">\(\vec{u}\)</span> has the same direction of the original</p></li>
 <li><p>its norm is constructed to be 1.</p></li>
 </ul>
-<!--------------------------------------------------->
 </section></section>
 <section>
 <section id="computing-eigenpairs" class="title-slide slide level1 center">
@@ -357,7 +358,7 @@ M\vec{e} = \lambda \vec{e}
 \]</span></p>
 </div>
 <div class="fragment">
-<p>Either of the two factors should be 0. Hence, a non-zero vector <strong>e</strong> is associated to a solution of</p>
+<p>Either of the two factors should be 0. Hence, a non-zero vector <span class="math inline">\(\mathbf{e}\)</span> is associated to a solution of</p>
 <p><span class="math display">\[
 |M - \lambda I| = 0
 \]</span></p>
@@ -371,7 +372,7 @@ M\vec{e} = \lambda \vec{e}
 <p>In Numerical Analysis many methods are available.</p>
 <p>Their general algorithmic structure:</p>
 <p>-find the <span class="math inline">\(\lambda\)</span>s that make <span class="math inline">\(|\dots | = 0\)</span>, then</p>
-<p>-for each <span class="math inline">\(\lambda\)</span> find its associated vector <strong>e</strong>.</p>
+<p>-for each <span class="math inline">\(\lambda\)</span> find its associated vector <span class="math inline">\(\mathbf{e}\)</span>.</p>
 </section>
 <section id="with-computer-science" class="slide level2">
 <h2>With Computer Science</h2>
@@ -402,7 +403,6 @@ M^* = M - \lambda_1^\prime \vec{x}_1 \vec{x}_1^T
 <p>Now, we repeat the iteration on <span class="math inline">\(M^*\)</span> to find the second eigenpair.</p>
 <p>Times are in <span class="math inline">\(\Theta(dn^2)\)</span>.</p>
 <p>For better scalability, we will cover <a href="https://en.wikipedia.org/wiki/PageRank">Pagerank</a> later.</p>
-<!------------------------------------>
 </div>
 </section></section>
 <section>
@@ -412,14 +412,14 @@ M^* = M - \lambda_1^\prime \vec{x}_1 \vec{x}_1^T
 </section>
 <section id="e-pairs-with-numpy" class="slide level2">
 <h2>E-pairs with Numpy</h2>
-<div id="c53b01ff" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="e2b8161e" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href=""></a></span>
 <span id="cb2-3"><a href=""></a><span class="co"># this is the specific submodule</span></span>
-<span id="cb2-4"><a href=""></a><span class="im">from</span> numpy <span class="im">import</span> linalg <span class="im">as</span> la</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href=""></a><span class="im">from</span> numpy <span class="im">import</span> linalg <span class="im">as</span> la</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="74f4a707" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># create a 'blank' matrix</span></span>
+<div id="1fc916a1" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># create a 'blank' matrix</span></span>
 <span id="cb3-2"><a href=""></a>m <span class="op">=</span> np.zeros([<span class="dv">7</span>, <span class="dv">5</span>])</span>
 <span id="cb3-3"><a href=""></a></span>
 <span id="cb3-4"><a href=""></a>m <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
@@ -429,13 +429,13 @@ M^* = M - \lambda_1^\prime \vec{x}_1 \vec{x}_1^T
 <span id="cb3-8"><a href=""></a>     [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">4</span>],</span>
 <span id="cb3-9"><a href=""></a>     [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>],</span>
 <span id="cb3-10"><a href=""></a>     [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>]</span>
-<span id="cb3-11"><a href=""></a>    ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-11"><a href=""></a>    ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section class="slide level2">
 
-<div id="cd8e9f2a" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="kw">def</span> find_eigenpairs(mat):</span>
+<div id="3dccf264" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="kw">def</span> find_eigenpairs(mat):</span>
 <span id="cb4-2"><a href=""></a>    <span class="co">"""Test the quality of Numpy eigenpairs"""</span></span>
 <span id="cb4-3"><a href=""></a>    n <span class="op">=</span> <span class="bu">len</span>(mat)</span>
 <span id="cb4-4"><a href=""></a></span>
@@ -450,16 +450,16 @@ M^* = M - \lambda_1^\prime \vec{x}_1 \vec{x}_1^T
 <span id="cb4-13"><a href=""></a></span>
 <span id="cb4-14"><a href=""></a>    <span class="co"># they come in ascending order, take the last one on the right</span></span>
 <span id="cb4-15"><a href=""></a>    dominant_eig <span class="op">=</span> <span class="bu">abs</span>(eig_vals[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb4-16"><a href=""></a>    <span class="cf">return</span> dominant_eig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-16"><a href=""></a>    <span class="cf">return</span> dominant_eig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="older-versions" class="slide level2">
 <h2>Older versions:</h2>
-<p>E-values come normalized: <span class="math inline">\(\sqrt{\lambda_1^2 + \dots \lambda_n^2} = 1\)</span>; hence we later multiply them by <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span></p>
-<div id="fe98299f" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># lambda_1 = find_eigenpairs(m)</span></span>
+<p>E-values come normalized: <span class="math inline">\(\sqrt{\lambda_1^2 + \dots \lambda_n^2} = 1\)</span>; multiply them by <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span></p>
+<div id="52172067" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># lambda_1 = find_eigenpairs(m)</span></span>
 <span id="cb5-2"><a href=""></a></span>
-<span id="cb5-3"><a href=""></a><span class="co"># lambda_1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href=""></a><span class="co"># lambda_1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section></section>
@@ -652,7 +652,7 @@ M^* = M - \lambda_1^\prime \vec{x}_1 \vec{x}_1^T
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -726,13 +726,14 @@ M^* = M - \lambda_1^\prime \vec{x}_1 \vec{x}_1^T
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

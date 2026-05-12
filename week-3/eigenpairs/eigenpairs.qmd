@@ -28,6 +28,8 @@ jupyter: python3
 
 # Eigenpairs
 
+-----
+
 ## Study materials
 
 I. Goodfellow, Y. Bengio and A. Courville, ch. 2:
@@ -39,28 +41,31 @@ J. Lescovec, A. Rajaraman, J. Ullmann, ch. 11:
 [Mining of Massive datasets, MIT Press, 2016](http://www.mmds.org/).
 
 
-<!------------------------------------------------------------->
 # Spectral Analysis
+
+-----
 
 ##  Eigenpairs
 
-If, given a matrix $A$ we find a scalar $\lambda$ and a vector $\vec{e}$ s.t.
+For a given matrix $A,$ find a scalar $\lambda$ and a vector $\mathbf{e}$ s.t.
 
-$$A\vec{e} = \lambda \vec{e}$$
+$$A\mathbf{e} = \lambda \mathbf{e}$$
 
-then $\lambda$ and $\vec{e}$ will be an eigenpair of A.
+then $\lambda$ and $\mathbf{e}$ will be an eigenpair of A.
 
-If $rank(A)=n$ then there could be up to $n$ such pairs.
+If $rank(A)=n$ then there could be up to $n$ distinct eigenpairs.
 
 . . .
 
 In practice, eigenpairs
 
-* are always _costly_ to find.
+* are always *costly* to find.
 
 * they might have $\lambda=0$: no information, or
   
 * $\lambda$ might not be a real number: no interpretation.
+
+Notation: for column vectors the $\mathbf{x}$ and $\vec{x}$ notations are equivalent.
 
 
 -----
@@ -72,6 +77,8 @@ A square matrix $A$ is called _positive semidefinite_ when for any $\vec{x}$ we 
 $$\vec{x}^T A \vec{x} \ge 0$$
 
 In such case its eigenvalues are non-negative: $\lambda_i\ge 0$.
+
+-----
 
 ## Underlying idea, I
 
@@ -85,6 +92,9 @@ Eigenvectors, i.e., solutions to $A\vec{e} = \lambda \vec{e}$
 
 describe the direction along which matrix A operates an __expansion__
 
+
+-----
+
 ## Example: shear mapping
 
 ```python
@@ -93,7 +103,7 @@ A = [[1, .27],
     ]
 ```
 
-deforms a vector by increading the first dimension by a quantity proportional to the value of the second dimension:
+deforms a vector by increasing the first dimension by a quantity proportional to the value of the second dimension:
 
 $$
 \begin{bmatrix}
@@ -120,9 +130,11 @@ The blue line is unchanged:
 
 * corresponding to $\lambda=1$
 
+-----
+
 ## Activity matrices, I
 
-Under certains conditions:
+Under certain conditions:
 
 -the eigenpairs exists,
 
@@ -133,6 +145,8 @@ Under certains conditions:
 . . .
 
 User-activity matrices normally meet those conditions!
+
+-----
 
 ## Activity matrices, II
 
@@ -147,12 +161,14 @@ we interpret those directions as *topics* that hidden (latent) within the data.
 e-values *expand* one's affiliation to a specific *topic*.
 
 
-<!-- ------------------- -->
+
 # Norms and distances
+
+-----
 
 ## Euclidean norm
 
-Pythagora's theorem, essentially.
+Pythagoras's theorem, essentially.
 
 $||\vec{x}|| = \sqrt{\vec{x}^T\vec{x}} = \sqrt{\sum_{i=1}^m x_i^2}$
 
@@ -160,7 +176,7 @@ $||\vec{x}|| = \sqrt{\vec{x}^T\vec{x}} = \sqrt{\sum_{i=1}^m x_i^2}$
 
 . . .
 
-Generalisation:
+Generalisations:
 
 $||\vec{x}||_p = (|x_1|^p + |x_1|^p + \dots |x_m|^p)^\frac{1}{p} = (\sum_{i=1}^m |x_i|^p)^\frac{1}{p}$
 
@@ -181,6 +197,8 @@ $||\vec{x}||_0$ = \# of non-zero scalar values in $\vec{x}$
 $||\vec{x}||_\infty = max\{|x_{i}|\}$
 
 
+-----
+
 ## Normalization
 
 The *unit* or *normalized* vector  of $\vec{x}$
@@ -193,8 +211,11 @@ $$
 
 * its norm is constructed to be 1.  
 
-<!--------------------------------------------------->
+
 # Computing Eigenpairs
+
+
+-----
 
 ## With Maths
 
@@ -213,13 +234,13 @@ $$
 . . .
 
 Either of the two factors should be 0. 
-Hence, a non-zero vector __e__ is associated to a solution of
+Hence, a non-zero vector $\mathbf{e}$ is associated to a solution of
 
 $$
 |M - \lambda I| = 0
 $$
 
----
+-----
 
 $$
 |M - \lambda I| = 0
@@ -231,9 +252,9 @@ Their general algorithmic structure:
 
 -find the $\lambda$s that make $|\dots | = 0$, then
 
--for each $\lambda$ find its associated vector __e__.
+-for each $\lambda$ find its associated vector $\mathbf{e}$.
 
----
+-----
 
 ## With Computer Science
 
@@ -278,8 +299,12 @@ Times are in $\Theta(dn^2)$.
 For better scalability, we will cover [Pagerank](https://en.wikipedia.org/wiki/PageRank) later.
 
 
-<!------------------------------------>
+
+
 # Eigenpairs in Python
+
+
+-----
 
 ## E-pairs with Numpy
 
@@ -329,7 +354,7 @@ def find_eigenpairs(mat):
 
 ## Older versions:
 
-E-values come normalized: $\sqrt{\lambda_1^2 + \dots \lambda_n^2} = 1$; hence we later multiply them by $\frac{1}{\sqrt{n}}$
+E-values come normalized: $\sqrt{\lambda_1^2 + \dots \lambda_n^2} = 1$; multiply them by $\frac{1}{\sqrt{n}}$
 
 ```{python}
 # lambda_1 = find_eigenpairs(m)
