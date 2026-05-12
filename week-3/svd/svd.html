@@ -264,7 +264,7 @@ A_{(m \times n)} = U_{(m \times m)} D_{(m \times n)} V^T_{(n \times n)}
 <li><p>any real matrix has one</p></li>
 <li><p>even non-square matrices admit one</p></li>
 </ul>
-<p>overconstrained systems (more rows than cols.) can now be solved</p>
+<p>over-constrained systems (more rows than cols.) can now be solved</p>
 </section></section>
 <section>
 <section id="worked-out-example" class="title-slide slide level1 center">
@@ -298,9 +298,11 @@ A_{(m \times n)} = U_{(m \times m)} D_{(m \times n)} V^T_{(n \times n)}
 5 &amp; 11 &amp; 17\\
 11 &amp; 25 &amp; 39\\
 17 &amp; 39 &amp; 61
-\end{pmatrix}\]</span></p>
-<p>Extract the eigenpairs: <span class="math inline">\(\lambda_1 = 91\)</span>, <span class="math inline">\(v_1 = [0.15, 0.33, 0.52]\)</span></p>
-<p>Unfortunately, <span class="math inline">\(\lambda_1 = \lambda_2 = 0\)</span>: we need a couple more orthogonal vectors to make up our matrix U</p>
+\end{pmatrix}
+\]</span></p>
+<p>Extract the eigenpairs: <span class="math inline">\(\lambda_1 \approx 91\)</span>, <span class="math inline">\(\vec{e}_1 = [0.15, 0.33, 0.52]\)</span></p>
+<p>Unfortunately, <span class="math inline">\(\lambda_2 \approx \lambda_3 \approx 0\)</span>: orthogonal vectors are needed to make up our matrix U</p>
+<p>(the third row is almost the sum of the first two, i.e., almost dependent)</p>
 </section>
 <section class="slide level2">
 
@@ -317,9 +319,10 @@ A_{(m \times n)} = U_{(m \times m)} D_{(m \times n)} V^T_{(n \times n)}
 \begin{pmatrix}
 35 &amp; 44\\
 44 &amp; 56
-\end{pmatrix}\]</span></p>
+\end{pmatrix}
+\]</span></p>
 <p>The eigenvalues are <span class="math inline">\(\lambda_1 = 90.54\)</span> and <span class="math inline">\(\lambda_2 = 0.26\)</span></p>
-<p>The singular values are <span class="math inline">\(\sigma_1 = \sqrt(\lambda_1) = 9.54\)</span> and <span class="math inline">\(\sigma_2 = \sqrt(\lambda_2) = 0.51\)</span></p>
+<p>The singular values are <span class="math inline">\(\sigma_1 = \sqrt{\lambda_1} = 9.54\)</span> and <span class="math inline">\(\sigma_2 = \sqrt{\lambda_2} = 0.51\)</span></p>
 </section>
 <section class="slide level2">
 
@@ -328,7 +331,8 @@ A_{(m \times n)} = U_{(m \times m)} D_{(m \times n)} V^T_{(n \times n)}
 9.53 &amp; 0\\
 0 &amp; 0.51 \\
 0 &amp; 0
-\end{pmatrix}\]</span></p>
+\end{pmatrix}
+\]</span></p>
 <div class="fragment">
 <p>Putting it all together:</p>
 <p><span class="math display">\[A =
@@ -345,7 +349,8 @@ A_{(m \times n)} = U_{(m \times m)} D_{(m \times n)} V^T_{(n \times n)}
 \begin{pmatrix}
 0.62 &amp; 0.79\\
 -0.79 &amp; 0.62
-\end{pmatrix}\]</span></p>
+\end{pmatrix}
+\]</span></p>
 <p>Even though this formulation is far from the original and not easily interpreted, it has good properties.</p>
 </div>
 </section></section>

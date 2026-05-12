@@ -217,7 +217,7 @@ SVD generalises eigen-decomposition:
 
 - even non-square matrices admit one
 
-overconstrained systems (more rows than cols.) can now be solved
+over-constrained systems (more rows than cols.) can now be solved
 
 
 # Worked-out example
@@ -256,11 +256,14 @@ $$AA^T =
 5 & 11 & 17\\
 11 & 25 & 39\\
 17 & 39 & 61
-\end{pmatrix}$$
+\end{pmatrix}
+$$
 
-Extract the eigenpairs: $\lambda_1 = 91$, $v_1 = [0.15, 0.33, 0.52]$ 
+Extract the eigenpairs: $\lambda_1 \approx 91$, $\vec{e}_1 = [0.15, 0.33, 0.52]$ 
 
-Unfortunately, $\lambda_1 = \lambda_2 = 0$: we need a couple more orthogonal vectors to make up our matrix U
+Unfortunately, $\lambda_2 \approx \lambda_3 \approx 0$: orthogonal vectors are needed to make up our matrix U
+
+(the third row is almost the sum of the first two, i.e., almost dependent)
 
 -----
 
@@ -277,11 +280,12 @@ $$A^TA =
 \begin{pmatrix}
 35 & 44\\
 44 & 56
-\end{pmatrix}$$
+\end{pmatrix}
+$$
 
 The eigenvalues are $\lambda_1 = 90.54$ and $\lambda_2 = 0.26$
 
-The singular values are $\sigma_1 = \sqrt(\lambda_1) = 9.54$ and $\sigma_2 = \sqrt(\lambda_2) = 0.51$
+The singular values are $\sigma_1 = \sqrt{\lambda_1} = 9.54$ and $\sigma_2 = \sqrt{\lambda_2} = 0.51$
 
 -----
 
@@ -290,7 +294,8 @@ $$D =
 9.53 & 0\\
 0 & 0.51 \\
 0 & 0
-\end{pmatrix}$$
+\end{pmatrix}
+$$
 
 . . . 
 
@@ -310,7 +315,8 @@ $$A =
 \begin{pmatrix}
  0.62 & 0.79\\
 -0.79 & 0.62 
-\end{pmatrix}$$
+\end{pmatrix}
+$$
 
 
 Even though this formulation is far from the original and not easily interpreted, it has good properties.
@@ -349,9 +355,9 @@ $$
 
 for non-square (rectangular) matrices:
 
-- rows > columns: the problem is overconstrained (no solution?)
+- rows > columns: the problem is over-constrained (no solution?)
 
-- rows < columns: the problem is overparametrized (infinite sols.?)
+- rows < columns: the problem is over-parametrized (infinite sols.?)
 
 
 -----
