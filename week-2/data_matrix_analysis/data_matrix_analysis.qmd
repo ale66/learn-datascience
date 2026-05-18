@@ -75,7 +75,7 @@ There is a *space* in *n* dimensions
 
 Each point is represented by an n-dimensional vector $\mathbf{x}$ (or $\vec{x}$)
 
-*Transformation:* a *expansion* or a *contraction,* possibly combined with a *rotation,* is represented by a matrix, $A.$
+*Transformation:* combination of *expansion* (or a *contraction,*) and *rotation,* is represented by a matrix, $A.$
 
 The resulting point is computed as $A \mathbf{x}$.
 
@@ -280,7 +280,7 @@ $$\lambda_2 = -i, \mathbf{e_2} = [1, i]^T$$
 
 ## Eigendecomposition
 
-The *effect* of A can be decomposed into translation + rotation thanks to the extraction of *eigenpairs* $\langle \lambda, \mathbf{e} \rangle$:
+The *effect* of A can be decomposed into basic expansion/contraction and rotation thanks to the extraction of *eigenpairs* $\langle \lambda, \mathbf{e} \rangle$:
 
 $$
 A\mathbf{e} = \lambda \mathbf{e}
@@ -341,7 +341,7 @@ $$
 M = Q\Lambda Q^{-1}
 $$
 
-Stretching ($Q^{-1}$), followed by rotation ($\Lambda$) followed by 'stretching back' (Q)
+Rotation ($Q^{-1}$) followed by expansion ($\Lambda$) followed by 'rotation back' (Q)
 
 $$
 Q =
@@ -371,6 +371,7 @@ $$
  =
 $$
 
+::: {style="font-size: 70%;"}
 $$
 \begin{pmatrix}
 0.416 & 0.824\\
@@ -385,7 +386,7 @@ $$
 0.924 & -0.423 
 \end{pmatrix}
 $$
-
+:::
 
 -----
 
