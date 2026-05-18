@@ -159,11 +159,13 @@ Let's extract their respective eigenpairs.
 
 ## New matrix: U
 
-$U_{(m \times m)}$: columns made up of eigenvectors of $M_{(m \times m)} = A_{(m \times n)}\times A^T_{(n \times m)}$
+$U_{(m \times m)}$: columns made up of eigenvectors of $M_{(m \times m)} = A_{(m \times n)}\times A^T_{(n \times m)}.$
 
-notice that e-vectors are always orthogonal with each other: $\vec{U_i}^T \cdot \vec{U_j}=0\ (i\neq j)$
+Notation: let $\vec{U_i}$ be the i-th column of matrix $U.$
 
-this will simplify computation
+The e-vectors that make up $U$ are always orthogonal with each other: $\vec{U_i}^T \cdot \vec{U_j}=0\ (i\neq j).$
+
+this will simplify computation.
 
 However, some further orthogonal column will have to be introduced with external methods as only $min(m, n)$ non-zero eigenpairs can be obtained.
 
@@ -364,7 +366,7 @@ for non-square (rectangular) matrices:
 
 ## Reminder: the ideal procedure
 
-If A is squared (m=n) and non-singular ($|A|\neq 0$) then
+If A is square (m=n) and non-singular ($|A|\neq 0$) then
 
 $$
 A\vec{x} = \vec{v}
@@ -387,20 +389,20 @@ Compute $A^{-1}$ once, run for different values of $\vec{v}$
 
 ## The pseudo-inverse
 
-Given A_{(m \times n)}, Penrose seeks a matrix $A^+$ that would work the same as the left inverse: 
+Given $A_{m \times n}$, Penrose seeks a matrix $A^+$ that would work the same as the left inverse: 
 
 $A^+ A \approx I$
 
 . . . 
 
-strenghten up the main diagonal before inversion:
+Idea: strengthen up the main diagonal before inversion:
 
 $$
 A^+ = \lim_{\alpha\rightarrow 0} (A^TA + \alpha I)^{-1}A^T
 $$
 
 
-Thanks to $A^+$, over-constrained linear systems can now be solved (w. approximation)
+Thanks to $A^+$, over-constrained linear systems can now be solved (w. approximation): a new, general method for solving Phys/Eng. problems
 
 
 ## SVD leads to approx. inversion
@@ -415,7 +417,25 @@ $$
 A^+ = VD^+ U^T
 $$
 
-where $D^+$, such that $D^+D=I$ is easy to calculate: D is diagonal.
+where $D^+$, such that $D^+D=I$ is easy to calculate: if
+
+$$
+\mathbf{D} =
+\begin{pmatrix}
+a & 0 \\
+0 & b
+\end{pmatrix}
+$$
+
+then set
+
+$$
+\mathbf{D^+} =
+\begin{pmatrix}
+\frac{1}{a} & 0 \\
+0 & \frac{1}{b}
+\end{pmatrix}
+$$
 
 -----
 

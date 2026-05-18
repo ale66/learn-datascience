@@ -228,9 +228,10 @@ I\vec{x} = M^{-1}\vec{v}
 </section>
 <section id="new-matrix-u" class="slide level2">
 <h2>New matrix: U</h2>
-<p><span class="math inline">\(U_{(m \times m)}\)</span>: columns made up of eigenvectors of <span class="math inline">\(M_{(m \times m)} = A_{(m \times n)}\times A^T_{(n \times m)}\)</span></p>
-<p>notice that e-vectors are always orthogonal with each other: <span class="math inline">\(\vec{U_i}^T \cdot \vec{U_j}=0\ (i\neq j)\)</span></p>
-<p>this will simplify computation</p>
+<p><span class="math inline">\(U_{(m \times m)}\)</span>: columns made up of eigenvectors of <span class="math inline">\(M_{(m \times m)} = A_{(m \times n)}\times A^T_{(n \times m)}.\)</span></p>
+<p>Notation: let <span class="math inline">\(\vec{U_i}\)</span> be the i-th column of matrix <span class="math inline">\(U.\)</span></p>
+<p>The e-vectors that make up <span class="math inline">\(U\)</span> are always orthogonal with each other: <span class="math inline">\(\vec{U_i}^T \cdot \vec{U_j}=0\ (i\neq j).\)</span></p>
+<p>this will simplify computation.</p>
 <p>However, some further orthogonal column will have to be introduced with external methods as only <span class="math inline">\(min(m, n)\)</span> non-zero eigenpairs can be obtained.</p>
 </section>
 <section id="new-matrix-v" class="slide level2">
@@ -383,13 +384,13 @@ A\vec{x} = \vec{v}
 \]</span></p>
 <p>for non-square (rectangular) matrices:</p>
 <ul>
-<li><p>rows &gt; columns: the problem is overconstrained (no solution?)</p></li>
-<li><p>rows &lt; columns: the problem is overparametrized (infinite sols.?)</p></li>
+<li><p>rows &gt; columns: the problem is over-constrained (no solution?)</p></li>
+<li><p>rows &lt; columns: the problem is over-parametrized (infinite sols.?)</p></li>
 </ul>
 </section>
 <section id="reminder-the-ideal-procedure" class="slide level2">
 <h2>Reminder: the ideal procedure</h2>
-<p>If A is squared (m=n) and non-singular (<span class="math inline">\(|A|\neq 0\)</span>) then</p>
+<p>If A is square (m=n) and non-singular (<span class="math inline">\(|A|\neq 0\)</span>) then</p>
 <p><span class="math display">\[
 A\vec{x} = \vec{v}
 \]</span></p>
@@ -407,14 +408,14 @@ I\vec{x} = A^{-1} \vec{v}
 </section>
 <section id="the-pseudo-inverse" class="slide level2">
 <h2>The pseudo-inverse</h2>
-<p>Given A_{(m n)}, Penrose seeks a matrix <span class="math inline">\(A^+\)</span> that would work the same as the left inverse:</p>
+<p>Given <span class="math inline">\(A_{m \times n}\)</span>, Penrose seeks a matrix <span class="math inline">\(A^+\)</span> that would work the same as the left inverse:</p>
 <p><span class="math inline">\(A^+ A \approx I\)</span></p>
 <div class="fragment">
-<p>strenghten up the main diagonal before inversion:</p>
+<p>Idea: strengthen up the main diagonal before inversion:</p>
 <p><span class="math display">\[
 A^+ = \lim_{\alpha\rightarrow 0} (A^TA + \alpha I)^{-1}A^T
 \]</span></p>
-<p>Thanks to <span class="math inline">\(A^+\)</span>, over-constrained linear systems can now be solved (w. approximation)</p>
+<p>Thanks to <span class="math inline">\(A^+\)</span>, over-constrained linear systems can now be solved (w. approximation): a new, general method for solving Phys/Eng. problems</p>
 </div>
 </section>
 <section id="svd-leads-to-approx.-inversion" class="slide level2">
@@ -426,7 +427,22 @@ A = UDV^T
 <p><span class="math display">\[
 A^+ = VD^+ U^T
 \]</span></p>
-<p>where <span class="math inline">\(D^+\)</span>, such that <span class="math inline">\(D^+D=I\)</span> is easy to calculate: D is diagonal.</p>
+<p>where <span class="math inline">\(D^+\)</span>, such that <span class="math inline">\(D^+D=I\)</span> is easy to calculate: if</p>
+<p><span class="math display">\[
+\mathbf{D} =
+\begin{pmatrix}
+a &amp; 0 \\
+0 &amp; b
+\end{pmatrix}
+\]</span></p>
+<p>then set</p>
+<p><span class="math display">\[
+\mathbf{D^+} =
+\begin{pmatrix}
+\frac{1}{a} &amp; 0 \\
+0 &amp; \frac{1}{b}
+\end{pmatrix}
+\]</span></p>
 </section>
 <section class="slide level2">
 
