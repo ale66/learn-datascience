@@ -6,8 +6,8 @@
 <script src="food_webs_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="food_webs_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="food_webs_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="food_webs_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="food_webs_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="AP">
   <title>Food webs</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="food_webs_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="food_webs_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -95,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="food_webs_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="food_webs_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="food_webs_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="food_webs_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -214,7 +217,7 @@ AP
 <section id="basic-concepts" class="slide level2">
 <h2>Basic concepts</h2>
 <p>The study of how objects(entities) connect to each other and the properties of their connection.</p>
-<p>Possible understanding: a relationship istance.</p>
+<p>Possible understanding: a relationship instance.</p>
 </section>
 <section id="terminology" class="slide level2">
 <h2>Terminology</h2>
@@ -244,7 +247,7 @@ AP
 <h2>Paths, connectedness</h2>
 <ul>
 <li><p>A path <span class="math inline">\(u\rightarrow v\)</span> is a <em>sequence</em> of edges <span class="math inline">\(\langle (u, c_1), (c_1, c_2), \dots (c_k, v)\rangle\)</span></p></li>
-<li><p>its lenght (k+1) is the cardinatility of the path.</p></li>
+<li><p>its length (k+1) is the cardinality of the path.</p></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -256,7 +259,7 @@ AP
 <section id="distances-i" class="slide level2">
 <h2>Distances, I</h2>
 <ul>
-<li><p>Distance is the lenght of the (possibly non-unique) shortest path connecting them, <span class="math inline">\(\infty\)</span> otherwise.</p></li>
+<li><p>Distance is the length of the (possibly non-unique) shortest path connecting them, <span class="math inline">\(\infty\)</span> otherwise.</p></li>
 <li><p>The diameter of a graph is the maximum distance between any two pairs</p></li>
 </ul>
 </section>
@@ -300,18 +303,18 @@ AP
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-2"><a href=""></a></span>
 <span id="cb1-3"><a href=""></a>G <span class="op">=</span> nx.karate_club_graph()</span>
 <span id="cb1-4"><a href=""></a></span>
 <span id="cb1-5"><a href=""></a><span class="bu">print</span>(<span class="st">"Node Degree"</span>)</span>
 <span id="cb1-6"><a href=""></a></span>
 <span id="cb1-7"><a href=""></a><span class="cf">for</span> v <span class="kw">in</span> G:</span>
-<span id="cb1-8"><a href=""></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (v, G.degree(v)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href=""></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (v, G.degree(v)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="extra-visualizing-frequencies-by-graphs" class="slide level2">
 <h2>Extra: visualizing frequencies by graphs</h2>
-<p>Polisemy:</p>
+<p>Polysemy:</p>
 
 <!-- ------------------------------- -->
 <img data-src="./imgs/polisemy-graph.jpg" class="r-stretch"></section></section>
@@ -555,7 +558,7 @@ AP
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -629,13 +632,14 @@ AP
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

@@ -37,7 +37,7 @@ jupyter: python3
 
 The study of how objects(entities) connect to each other and the properties of their connection.
 
-Possible understanding: a relationship istance.
+Possible understanding: a relationship instance.
 
 ## Terminology
 
@@ -65,7 +65,7 @@ Possible understanding: a relationship istance.
 
 - A path $u\rightarrow v$ is a *sequence* of edges $\langle (u, c_1), (c_1, c_2), \dots (c_k, v)\rangle$
 
-- its lenght (k+1) is the cardinatility of the path.
+- its length (k+1) is the cardinality of the path.
 
 . . .
 
@@ -75,7 +75,7 @@ Possible understanding: a relationship istance.
 
 ## Distances, I
 
-- Distance is the lenght of the (possibly non-unique) shortest path connecting them, $\infty$ otherwise.
+- Distance is the length of the (possibly non-unique) shortest path connecting them, $\infty$ otherwise.
 
 - The diameter of a graph is the maximum distance between any two pairs
 
@@ -135,7 +135,7 @@ for v in G:
 
 ## Extra: visualizing frequencies by graphs
 
-Polisemy:
+Polysemy:
 
 ![](./imgs/polisemy-graph.jpg)
 

@@ -78,9 +78,9 @@ data points are row vectors
 
 - visualization is hard, we need projection. Which?
 
-- decision-making is impaired by the need of chosing which dimensions to operate on
+- decision-making is impaired by the need of choosing which dimensions to operate on
 
-- __sensitivity analyis__ or causal analysis: which dimension affects others?
+- __sensitivity analysis__ or causal analysis: which dimension affects others?
 
 <!-------------------------------------------------------------->
 # Issues with High-Dim. data
@@ -125,7 +125,7 @@ let type differences count for 1:
 
  d(red, rose) = 1
 
-take the alcohol strengh as integer tenths-of-degree: d(12, 12.5) = 5
+take the alcohol strength as integer tenths-of-degree: d(12, 12.5) = 5
 
 . . .
 
@@ -240,7 +240,7 @@ At high dimensions,
 
 - all diagonals strangely become orthogonal to the axes
   
-- points distributed along a diagonal gets *``compressed down''* to the origin of axes.
+- points distributed along a diagonal gets *`compressed down'* to the origin of axes.
 
 ![](./imgs/porcupine.png)
 
