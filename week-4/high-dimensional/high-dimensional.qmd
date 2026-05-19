@@ -87,7 +87,7 @@ data points are row vectors
 
 ## I: a false sense of sparsity
 
-adding dimensions makes points seems further apart:
+adding dimensions makes points seem further apart:
 
 <table>
 	<tr>

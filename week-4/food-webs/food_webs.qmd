@@ -77,7 +77,7 @@ Possible understanding: a relationship instance.
 
 - Distance is the length of the (possibly non-unique) shortest path connecting them, $\infty$ otherwise.
 
-- The diameter of a graph is the maximum distance between any two pairs
+- The diameter of a graph is the maximum distance between any two vertices
 
 ## Distances, II
 
@@ -92,7 +92,7 @@ Average distances are also important
 
 $G=\langle V, E, w\rangle$ where $w: E\rightarrow \mathbb{R}$
 
-Path lenght: sum of the weights of the arcs.
+Path length: sum of the weights of the arcs.
 
 . . .  
 
@@ -102,12 +102,12 @@ Out-neigh. and In-neigh.
 
 . . .
 
-$G=\langle V, E, D\rangle$ where $V$ are __nodes__ D are __dimensions/layers__ and $\langle u, v, d\rangle\in E$ are __arcs__  
+$G=\langle V, E, D\rangle$ where $V$ are __nodes,__ D are __dimensions/layers__ and $\langle u, v, d\rangle\in E$ are __arcs__  
 
 <!-- ------------------------------------ -->
 # Interesting questions
 
-## interesting questions I: paths and *oflow*
+## interesting questions I: paths and *flow*
 
 [![](./imgs/karate_club-unlabeled.jpg)](www.jstor.org/stable/3629752?seq=1#page_scan_tab_contents)
 
