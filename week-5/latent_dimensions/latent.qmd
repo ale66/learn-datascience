@@ -51,7 +51,7 @@ Example: genre identification in consumer behaviour analysis
 
 ## Example
 
-Olivetti faces are 64x64 binary matrices.
+Olivetti faces are 64x64 grayscale matrices.
 
 Through SVD we discovered that most singular values are in fact 0 or very small
 
@@ -110,21 +110,19 @@ The data axes (in red) are almost never the original measurement axes
 
 -----
 
-## Bankground: matrix rank
+## Background: matrix rank
 
-Rank is an important feature/descriptor of a data matrix
+Rank: the max number or columns (or rows) that are linearly independent.
 
-Rank is the maximum number or colums (or rows) that are linearly independent.
+Independent cols/rows are *candidates for the new, reduced reference system* (the red axes)
 
-Such independent cols/rows are *candidates for the new, reduced reference system* (the red axes)
-
-Rectangular matrices with SVD: $r \leq \min\{n,m\}$
+For rectangular matrices, SVD uses $r \leq \min\{n,m\}$
 
 . . .
 
-We can map data points is a completely-new, dataset-dependent representation!
+We can map data points into a completely-new, dataset-dependent representation!
 
-The dataset-depent representation will be compact
+The dataset-dependent representation will be compact
 
 Let's create a new, abstract *feature space* 
 
@@ -182,9 +180,9 @@ In real dataset mapping to a lower-dimensional space may introduce errors
 
 in the $2\rightarrow 1$ example below, instead of points we just take the measure (distance from the origin) of their projection on the red axis
 
-The red axis is chosen as to minimise the error introduced by the $2\rightarrow 1$ *projection.*
+The red axis is chosen to minimise the error introduced by the $2\*rightarrow 1$ *projection.*
 
-Data mining studies how to find such axes, called concepts
+Data mining studies how to find such axes, called *concepts*
 
 They capture some alignment which is inherent to the data.
 
@@ -242,7 +240,7 @@ Now A is represented as the sum of independent *factors* that were not explicit 
 
 ## Users-to-films becomes users-to-concepts-to-films
 
-(sligthy different data)
+(slightly different data)
 
 ![](./imgs/visual-svd-3.png)
 
@@ -298,7 +296,7 @@ The *singular vectors* that make up V (and U) are the new axes for projection
 
 The *singular vectors* that make up V (and U) are the new axes for projection
 
-They will minimise the *reconstruction error* ($z$ is the the value obtained by the reduced SVD)
+They will minimise the *reconstruction error* ($z$ is the value obtained by the reduced SVD)
 
 $$\epsilon = \sum_{i=1}^{m} \sum_{i=1}^{n} \left\lVert a_{ij} - z_{ij}\right\lVert$$
 
@@ -338,7 +336,7 @@ $UD$ project users onto the *concept* axes
 
 We see values that *look like* measures of the implicit user-to-topic affiliation
 
-Interpreting negative values is problematic, expecially for $V^T$
+Interpreting negative values is problematic, especially for $V^T$
 
 ::::{.colums}
 :::{.column}
@@ -415,7 +413,7 @@ __Interpretability:__
 
 $U$: user-to-concept affiliations/similarities
 
-$D$: strenght of each concept
+$D$: strength of each concept
 
 $V$: film-to-concept affiliations/similarities
 

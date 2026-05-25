@@ -36,7 +36,7 @@ jupyter: python3
 
 * weighted networks
 
-* sorts, and their quantitites
+* sorts, and their quantities
 
 * time
 
@@ -49,7 +49,7 @@ discover __multiplex networks__
 
 * reciprocity
 
-* assorativity
+* assortativity
 
 . . .
 
@@ -103,9 +103,9 @@ The average degree is denoted $\langle k \rangle.$
 
 ## Reciprocity
 
-For a given directed network, reciprocity is the probability that of having links in both directions between two vertices.
+For a given directed network, reciprocity is the probability of having links in both directions between two vertices.
 
-R measures how the economies of two countries become interconnected (or interdependent).
+Rec. measures how the economies of two countries become interconnected (or interdependent).
 
 $$
 r = \frac{L^\leftrightarrow}{L}
@@ -150,7 +150,7 @@ Does assortativity grow over time?
 
 ## Balassa's RCA 
 
-The export matrix $M$ is an adjacency matrix which reprents a bipartite graph.
+The export matrix $M$ is an adjacency matrix which represents a bipartite graph.
 
 Each scalar value $M_{cp}$ corresponds to the aggregated export of product $p$ by country $c.$
 

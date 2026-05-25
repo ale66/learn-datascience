@@ -6,8 +6,8 @@
 <script src="trade-networks_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="trade-networks_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="trade-networks_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="trade-networks_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="trade-networks_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="AP">
   <title>Trade Networks</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="trade-networks_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="trade-networks_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="trade-networks_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="trade-networks_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="trade-networks_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="trade-networks_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -149,7 +152,7 @@ AP
 <ul>
 <li><p>directed networks</p></li>
 <li><p>weighted networks</p></li>
-<li><p>sorts, and their quantitites</p></li>
+<li><p>sorts, and their quantities</p></li>
 <li><p>time</p></li>
 </ul>
 <div class="fragment">
@@ -160,7 +163,7 @@ AP
 <h2>Towards Clustering</h2>
 <ul>
 <li><p>reciprocity</p></li>
-<li><p>assorativity</p></li>
+<li><p>assortativity</p></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -202,8 +205,8 @@ P = M_{cp}^T\cdot M_{cp}
 </section>
 <section id="reciprocity" class="slide level2">
 <h2>Reciprocity</h2>
-<p>For a given directed network, reciprocity is the probability that of having links in both directions between two vertices.</p>
-<p>R measures how the economies of two countries become interconnected (or interdependent).</p>
+<p>For a given directed network, reciprocity is the probability of having links in both directions between two vertices.</p>
+<p>Rec. measures how the economies of two countries become interconnected (or interdependent).</p>
 <p><span class="math display">\[
 r = \frac{L^\leftrightarrow}{L}
 \]</span></p>
@@ -240,7 +243,7 @@ K_{nn}(d) = \frac{\sum_{i:k_i=d} K_{nn}(i)}{n_d}
 </section>
 <section id="balassas-rca" class="slide level2">
 <h2>Balassa’s RCA</h2>
-<p>The export matrix <span class="math inline">\(M\)</span> is an adjacency matrix which reprents a bipartite graph.</p>
+<p>The export matrix <span class="math inline">\(M\)</span> is an adjacency matrix which represents a bipartite graph.</p>
 <p>Each scalar value <span class="math inline">\(M_{cp}\)</span> corresponds to the aggregated export of product <span class="math inline">\(p\)</span> by country <span class="math inline">\(c.\)</span></p>
 <p>We can compute fractional ownership of export, product by product.</p>
 <p>Many countries export coffee, so none really controls it.</p>
@@ -444,7 +447,7 @@ K_{nn}(d) = \frac{\sum_{i:k_i=d} K_{nn}(i)}{n_d}
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -518,13 +521,14 @@ K_{nn}(d) = \frac{\sum_{i:k_i=d} K_{nn}(i)}{n_d}
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

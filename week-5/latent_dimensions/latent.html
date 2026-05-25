@@ -6,8 +6,8 @@
 <script src="latent_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="latent_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="latent_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="latent_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="latent_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="AP">
   <title>Latent dimensions</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="latent_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="latent_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -95,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="latent_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="latent_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="latent_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="latent_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -226,7 +229,7 @@ AP
 </section>
 <section id="example" class="slide level2">
 <h2>Example</h2>
-<p>Olivetti faces are 64x64 binary matrices.</p>
+<p>Olivetti faces are 64x64 grayscale matrices.</p>
 <p>Through SVD we discovered that most singular values are in fact 0 or very small</p>
 <p>by considering only the top 20 or so singular values we can obtain a very similar image with less data:</p>
 <ul>
@@ -268,15 +271,14 @@ AP
 <p>The data axes (in red) are almost never the original measurement axes</p>
 
 <img data-src="./imgs/from-3-to-2.png" class="r-stretch"></section>
-<section id="bankground-matrix-rank" class="slide level2">
-<h2>Bankground: matrix rank</h2>
-<p>Rank is an important feature/descriptor of a data matrix</p>
-<p>Rank is the maximum number or colums (or rows) that are linearly independent.</p>
-<p>Such independent cols/rows are <em>candidates for the new, reduced reference system</em> (the red axes)</p>
-<p>Rectangular matrices with SVD: <span class="math inline">\(r \leq \min\{n,m\}\)</span></p>
+<section id="background-matrix-rank" class="slide level2">
+<h2>Background: matrix rank</h2>
+<p>Rank: the max number or columns (or rows) that are linearly independent.</p>
+<p>Independent cols/rows are <em>candidates for the new, reduced reference system</em> (the red axes)</p>
+<p>For rectangular matrices, SVD uses <span class="math inline">\(r \leq \min\{n,m\}\)</span></p>
 <div class="fragment">
-<p>We can map data points is a completely-new, dataset-dependent representation!</p>
-<p>The dataset-depent representation will be compact</p>
+<p>We can map data points into a completely-new, dataset-dependent representation!</p>
+<p>The dataset-dependent representation will be compact</p>
 <p>Let’s create a new, abstract <em>feature space</em></p>
 </div>
 </section>
@@ -320,8 +322,8 @@ A^\prime_{3\times 2}  =
 <h2>Dimensionality reduction</h2>
 <p>In real dataset mapping to a lower-dimensional space may introduce errors</p>
 <p>in the <span class="math inline">\(2\rightarrow 1\)</span> example below, instead of points we just take the measure (distance from the origin) of their projection on the red axis</p>
-<p>The red axis is chosen as to minimise the error introduced by the <span class="math inline">\(2\rightarrow 1\)</span> <em>projection.</em></p>
-<p>Data mining studies how to find such axes, called concepts</p>
+<p>The red axis is chosen to minimise the error introduced by the <span class="math inline">\(2\*rightarrow 1\)</span> <em>projection.</em></p>
+<p>Data mining studies how to find such axes, called <em>concepts</em></p>
 <p>They capture some alignment which is inherent to the data.</p>
 
 <!-------------------------------------------------------------->
@@ -363,9 +365,9 @@ A_{(m \times n)} \approx \sum_i \sigma_i U_i \circ V^T_i
 <p>Now A is represented as the sum of independent <em>factors</em> that were not explicit in the original data</p>
 
 <img data-src="./imgs/visual-svd-2.png" class="r-stretch"></section>
-<section id="example-users-to-films-becomes-users-to-concepts-to-films" class="slide level2">
-<h2>Example: users to films becomes users to concepts to films</h2>
-<p>(sligthy different data)</p>
+<section id="users-to-films-becomes-users-to-concepts-to-films" class="slide level2">
+<h2>Users-to-films becomes users-to-concepts-to-films</h2>
+<p>(slightly different data)</p>
 
 <img data-src="./imgs/visual-svd-3.png" class="r-stretch"></section>
 <section class="slide level2">
@@ -405,7 +407,7 @@ A_{(m \times n)} \approx \sum_i \sigma_i U_i \circ V^T_i
 <section class="slide level2">
 
 <p>The <em>singular vectors</em> that make up V (and U) are the new axes for projection</p>
-<p>They will minimise the <em>reconstruction error</em> (<span class="math inline">\(z\)</span> is the the value obtained by the reduced SVD)</p>
+<p>They will minimise the <em>reconstruction error</em> (<span class="math inline">\(z\)</span> is the value obtained by the reduced SVD)</p>
 <p><span class="math display">\[\epsilon = \sum_{i=1}^{m} \sum_{i=1}^{n} \left\lVert a_{ij} - z_{ij}\right\lVert\]</span></p>
 <p>The sum of the green, orthogonal lines connecting the point to its compressed representation on the new axis is minimal</p>
 
@@ -432,7 +434,7 @@ A_{(m \times n)} \approx \sum_i \sigma_i U_i \circ V^T_i
 <section class="slide level2">
 
 <p>We see values that <em>look like</em> measures of the implicit user-to-topic affiliation</p>
-<p>Interpreting negative values is problematic, expecially for <span class="math inline">\(V^T\)</span></p>
+<p>Interpreting negative values is problematic, especially for <span class="math inline">\(V^T\)</span></p>
 <div class="colums">
 <div class="column">
 <p><img data-src="./imgs/svd-interpretation-3-a.png"></p>
@@ -487,7 +489,7 @@ A_{(m \times n)} \approx  \sigma_1 U_1 \circ V^T_1 + \sigma_1 U_1 \circ V^T_1 + 
 <p><span class="math inline">\(A=UDV^T\)</span> provides a unique decomposition that is <em>interpretable</em></p>
 <p><strong>Interpretability:</strong></p>
 <p><span class="math inline">\(U\)</span>: user-to-concept affiliations/similarities</p>
-<p><span class="math inline">\(D\)</span>: strenght of each concept</p>
+<p><span class="math inline">\(D\)</span>: strength of each concept</p>
 <p><span class="math inline">\(V\)</span>: film-to-concept affiliations/similarities</p>
 <p>SVD picks up linear dependencies</p>
 </section>
@@ -504,7 +506,7 @@ A_{(m \times n)} \approx  \sigma_1 U_1 \circ V^T_1 + \sigma_1 U_1 \circ V^T_1 + 
 <p>the core component requires <span class="math inline">\(\min\{nm^2, n^2m\}\)</span> ops.</p>
 <p><strong>Implementation:</strong></p>
 <p><code>truncatedSVD</code> in Scikit-learn</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> TruncatedSVD</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> TruncatedSVD</span>
 <span id="cb1-2"><a href=""></a></span>
 <span id="cb1-3"><a href=""></a>K<span class="op">=</span><span class="dv">2</span></span>
 <span id="cb1-4"><a href=""></a></span>
@@ -512,7 +514,7 @@ A_{(m \times n)} \approx  \sigma_1 U_1 \circ V^T_1 + \sigma_1 U_1 \circ V^T_1 + 
 <span id="cb1-6"><a href=""></a></span>
 <span id="cb1-7"><a href=""></a>svd <span class="op">=</span> TruncatedSVD(n_components<span class="op">=</span>K) </span>
 <span id="cb1-8"><a href=""></a></span>
-<span id="cb1-9"><a href=""></a>X_reduced <span class="op">=</span> svd.fit_transform(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href=""></a>X_reduced <span class="op">=</span> svd.fit_transform(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!-------------------------------------------------------------->
 
 </section></section>
@@ -705,7 +707,7 @@ A_{(m \times n)} \approx  \sigma_1 U_1 \circ V^T_1 + \sigma_1 U_1 \circ V^T_1 + 
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -779,13 +781,14 @@ A_{(m \times n)} \approx  \sigma_1 U_1 \circ V^T_1 + \sigma_1 U_1 \circ V^T_1 + 
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
