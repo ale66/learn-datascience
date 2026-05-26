@@ -178,9 +178,9 @@ The new points work as selectors of the new axes: it's easy to go back from this
 
 In real dataset mapping to a lower-dimensional space may introduce errors
 
-in the $2\rightarrow 1$ example below, instead of points we just take the measure (distance from the origin) of their projection on the red axis
+in the $2 \rightarrow 1$ example below, instead of points we just take the measure (distance from the origin) of their projection on the red axis
 
-The red axis is chosen to minimise the error introduced by the $2\*rightarrow 1$ *projection.*
+The red axis is chosen to minimise the error introduced by the $2 \rightarrow 1$ *projection.*
 
 Data mining studies how to find such axes, called *concepts*
 
@@ -364,9 +364,9 @@ Interpreting negative values is problematic, especially for $V^T$
 
 Let $A=UDV^T$ as before, with a ranking $r \le \min\{m,n\}$ 
 
-For a small integer $k$, define
+For a small integer $k \le r$, define $E$ as a *reduction* of $D$: 
 
-and let $E$ be a *reduction* of $D$: same everywhere but for $\sigma_{k+1}\dots \sigma_{r}$  set to 0.
+the same everywhere but for $\sigma_{k+1}\dots \sigma_{r}$ now set to 0.
 
 Theorem: $B=UEV^T$ with ranking $k$ is the best approximation of A with rank $k$: 
 

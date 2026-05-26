@@ -321,8 +321,8 @@ A^\prime_{3\times 2}  =
 <section id="dimensionality-reduction-1" class="slide level2">
 <h2>Dimensionality reduction</h2>
 <p>In real dataset mapping to a lower-dimensional space may introduce errors</p>
-<p>in the <span class="math inline">\(2\rightarrow 1\)</span> example below, instead of points we just take the measure (distance from the origin) of their projection on the red axis</p>
-<p>The red axis is chosen to minimise the error introduced by the <span class="math inline">\(2\*rightarrow 1\)</span> <em>projection.</em></p>
+<p>in the <span class="math inline">\(2 \rightarrow 1\)</span> example below, instead of points we just take the measure (distance from the origin) of their projection on the red axis</p>
+<p>The red axis is chosen to minimise the error introduced by the <span class="math inline">\(2 \rightarrow 1\)</span> <em>projection.</em></p>
 <p>Data mining studies how to find such axes, called <em>concepts</em></p>
 <p>They capture some alignment which is inherent to the data.</p>
 
@@ -455,8 +455,8 @@ A_{(m \times n)} \approx \sum_i \sigma_i U_i \circ V^T_i
 <section id="the-b-matrix" class="slide level2">
 <h2>The B matrix</h2>
 <p>Let <span class="math inline">\(A=UDV^T\)</span> as before, with a ranking <span class="math inline">\(r \le \min\{m,n\}\)</span></p>
-<p>For a small integer <span class="math inline">\(k\)</span>, define</p>
-<p>and let <span class="math inline">\(E\)</span> be a <em>reduction</em> of <span class="math inline">\(D\)</span>: same everywhere but for <span class="math inline">\(\sigma_{k+1}\dots \sigma_{r}\)</span> set to 0.</p>
+<p>For a small integer <span class="math inline">\(k \le r\)</span>, define <span class="math inline">\(E\)</span> as a <em>reduction</em> of <span class="math inline">\(D\)</span>:</p>
+<p>the same everywhere but for <span class="math inline">\(\sigma_{k+1}\dots \sigma_{r}\)</span> now set to 0.</p>
 <p>Theorem: <span class="math inline">\(B=UEV^T\)</span> with ranking <span class="math inline">\(k\)</span> is the best approximation of A with rank <span class="math inline">\(k\)</span>:</p>
 <p><span class="math inline">\(B \in \mathrm{argmin}_{X:\mathrm{rank}(X)=k}\{ ||A-X||_F \}\)</span></p>
 
