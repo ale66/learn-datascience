@@ -6,8 +6,8 @@
 <script src="massey_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="massey_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="massey_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="massey_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="massey_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="AP">
   <title>Massey’s ranking</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="massey_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="massey_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="massey_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="massey_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="massey_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="massey_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -196,12 +199,11 @@ AP
 </div>
 <div class="fragment">
 <p>Low scoring creates <strong>randomness</strong></p>
-<!-- -------------------- -->
 </div>
 </section></section>
 <section>
-<section id="formalisation" class="title-slide slide level1 center">
-<h1>Formalisation</h1>
+<section id="for-reference-formalisation" class="title-slide slide level1 center">
+<h1>For reference: formalisation</h1>
 
 </section>
 <section id="dimensional-ranking" class="slide level2">
@@ -217,7 +219,7 @@ AP
 \rho: P \times T \rightarrow [1..n]
 \]</span></p>
 <p><span class="math display">\[
-\rho(p, t) = k \leftrightarrow |\{p_j: r(p_j, t) \leq r(p_i, t)\}| = k
+\rho(p_i, t) = k \leftrightarrow |\{p_j: r(p_j, t) \leq r(p_i, t)\}| = k
 \]</span></p>
 <div class="fragment">
 <p><span class="math display">\[
@@ -244,7 +246,6 @@ r_{multi}(p_i,t) : f(r_1(p_i,t), \dots r_d(p_i,t))
 <p><span class="math display">\[
 r_x(p_i,t) \ge r_x(p_j,t)
 \]</span></p>
-<!-- -------------- -->
 </div>
 </section></section>
 <section>
@@ -267,14 +268,8 @@ r_x(p_i,t) \ge r_x(p_j,t)
 <h2>Should games keep user ratings?</h2>
 <h3 id="yes">Yes:</h3>
 <ul>
-<li>feeling of improvement</li>
-</ul>
-<p>. . .</p>
-<ul>
-<li>a gauge for new features</li>
-</ul>
-<p>. . .</p>
-<ul>
+<li><p>feeling of improvement</p></li>
+<li><p>a gauge for new features</p></li>
 <li><p>leads to rankings:</p>
 <ul>
 <li><p>better matchmaking <span class="math inline">\(\Longrightarrow\)</span> entertainment value</p></li>
@@ -282,8 +277,8 @@ r_x(p_i,t) \ge r_x(p_j,t)
 </ul></li>
 </ul>
 </section>
-<section id="no-game-prowness-as-social-ranking" class="slide level2">
-<h2>No: game prowness as social ranking?</h2>
+<section id="no-game-prowess-as-social-ranking" class="slide level2">
+<h2>No: game prowess as social ranking?</h2>
 <p>The spectacle is a social relation mediated by images, not a collection of images.</p>
 <p>«Le spectacle n’est pas un ensemble d’images, mais un rapport social entre des personnes, médiatisé par des images»</p>
 <p>[Guy Debord, La Société du spectacle (1967), Thèse 4]</p>
@@ -294,10 +289,9 @@ r_x(p_i,t) \ge r_x(p_j,t)
 </div>
 <div class="fragment">
 <ul>
-<li><p>a turn-off for people who don’t feel competive?</p></li>
+<li><p>a turn-off for people who don’t feel competitive?</p></li>
 <li><p>turns-off casual users?</p></li>
 </ul>
-<!-- ---------- -->
 </div>
 </section></section>
 <section>
@@ -310,17 +304,22 @@ r_x(p_i,t) \ge r_x(p_j,t)
 <ul>
 <li><p>n teams play each other in a tournament</p></li>
 <li><p>final scores are recorded, e.g., Real Madrid–Borussia Dortmund: 2-0.</p></li>
-<li><p>predict the score for a match in the future.</p></li>
 </ul>
-<div class="fragment">
-<p>-focus on predicting the score difference (eg, 2-0=2)</p>
-</div>
+<p>Focus on predicting</p>
+<ul>
+<li><p>the winner of a future match</p></li>
+<li><p>the score difference (eg, 2-0=2)</p></li>
+</ul>
 </section>
 <section id="running-example" class="slide level2">
 <h2>Running example</h2>
+<p>NCAA Atlantic Coast Conference</p>
+<ul>
+<li><p>win-loss balance and the points balance are second-level performance measures.</p></li>
+<li><p>they are not considered sufficient to create valuable ratings/rankings/predictions.</p></li>
+</ul>
 
-<img data-src="./imgs/massey-1.png" class="r-stretch"><p>the win-loss balance and the points balance are second-level performance measures</p>
-<p>they are not considered sufficient to create valuable ratings/rankings/predictions.</p>
+<img data-src="./imgs/massey-1b.png" class="r-stretch"><p>Ranking <em>blurs</em> rating: 3rd has has a much lower rating than the 2nd.</p>
 </section>
 <section id="incredible-assumptions" class="slide level2 scrollable">
 <h2>[In]credible Assumptions</h2>
@@ -363,8 +362,7 @@ X_{m\times n}\cdot \mathbf{r}_{n\times 1} = \mathbf{y}_{m\times 1}
 0 &amp; -1     &amp; 0      &amp; +1     &amp; 0      &amp; 0
 \end{bmatrix}
 \end{equation*}\]</span></p>
-<p><span class="math inline">\(X_{m\times n}\)</span> with <span class="math inline">\(m&gt;&gt;n\)</span> is overconstrained, no hope of finding a solution.</p>
-<!-- --------------- -->
+<p><span class="math inline">\(X_{m\times n}\)</span> with <span class="math inline">\(m&gt;&gt;n\)</span> is over-constrained, no hope of finding a solution.</p>
 </div>
 </section></section>
 <section>
@@ -383,7 +381,7 @@ X_{m\times n}\cdot \mathbf{r}_{n\times 1} = \mathbf{y}_{m\times 1}
 X^T \cdot X \cdot \mathbf{r} = X^T \cdot \mathbf{y}
 \]</span></p>
 <p>Both sides are easier to work with.</p>
-<p>On the right-and side, <span class="math inline">\(X^T \cdot \mathbf{y}\)</span> is the all-season points difference vector, called <span class="math inline">\(\mathbf{p}.\)</span></p>
+<p>Right-hand side: <span class="math inline">\(X^T \cdot \mathbf{y}\)</span> is the all-season points difference vector, called <span class="math inline">\(\mathbf{p}.\)</span></p>
 <p>Notice that <span class="math inline">\(\sum p_i=0\)</span>.</p>
 </section>
 <section class="slide level2">
@@ -407,12 +405,12 @@ n-1 &amp; 0      &amp; -x     &amp; 0      &amp; -y     &amp; 0 \\
 \end{bmatrix}
 \end{equation*}\]</span></p>
 <p><span class="math inline">\(m_{i,i} = n-1\)</span> is the numbers of games <span class="math inline">\(i\)</span> played,</p>
-<p><span class="math inline">\(m_{i,j}\)</span> is the negation of the no. of matches between <span class="math inline">\(i\)</span> and <span class="math inline">\(j:\)</span> here all values are set to -1.</p>
+<p><span class="math inline">\(m_{i,j}\)</span> is the negation of the no. of matches between <span class="math inline">\(i\)</span> and <span class="math inline">\(j:\)</span> all values are set to -1.</p>
 </section>
 <section class="slide level2">
 
 
-<img data-src="./imgs/massey-2.png" class="r-stretch"></section>
+<img data-src="./imgs/massey-2b.png" class="r-stretch"></section>
 <section id="massey" class="slide level2 scrollable">
 <h2>Massey</h2>
 <ol type="1">
@@ -440,16 +438,16 @@ n-1 &amp; 0      &amp; -x     &amp; 0      &amp; -y     &amp; 0 \\
 <p>values have no direct interpretation.</p>
 <p>however, they effectively generate <strong>a hierarchy.</strong></p>
 
-<img data-src="./imgs/massey-3.png" class="r-stretch"></section>
+<img data-src="./imgs/massey-3b.png" class="r-stretch"></section>
 <section id="visualise-the-ranking" class="slide level2">
 <h2>Visualise the ranking</h2>
 <p>Ratings are not necessarily meaningful, as a result of the matrix preparation.</p>
 <p>Rankings are meaningful:</p>
 <div class="columns">
 <div class="column">
-<p><img data-src="./imgs/massey-3.png"></p>
+<p><img data-src="./imgs/massey-3b.png"></p>
 </div><div class="column">
-<p><img data-src="./imgs/massey-4.png"></p>
+<p><img data-src="./imgs/massey-4b.png"></p>
 </div></div>
 <!-- -------------------- -->
 </section></section>
@@ -475,6 +473,9 @@ n-1 &amp; 0      &amp; -x     &amp; 0      &amp; -y     &amp; 0 \\
 <section id="further-readings" class="slide level2">
 <h2>Further readings</h2>
 <p><a href="https://press.princeton.edu/titles/9661.html"><img data-src="./imgs/book-cover.jpeg"></a></p>
+<p>[…] overview of the mathematical algorithms and methods used to rate and rank sports teams, political candidates, products, Web pages, and more.</p>
+<p>They survey and compare the different methods employed today, showing why their strengths and weaknesses depend on the underlying goal, and explaining why and when a given method should be considered.</p>
+<p>[…] describe what can and can’t be expected from the most widely used systems.</p>
 
 </section></section>
     </div>
@@ -666,7 +667,7 @@ n-1 &amp; 0      &amp; -x     &amp; 0      &amp; -y     &amp; 0 \\
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -740,13 +741,14 @@ n-1 &amp; 0      &amp; -x     &amp; 0      &amp; -y     &amp; 0 \\
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

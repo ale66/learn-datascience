@@ -30,6 +30,8 @@ jupyter: python3
 
 # Rating and Ranking
 
+-----
+
 ## Motivations
 
 the ability to  
@@ -96,8 +98,8 @@ yet, abilities are also
 
 Low scoring creates __randomness__
 
-<!-- -------------------- -->
-# Formalisation
+
+# For reference: formalisation
 
 ## 1-dimensional ranking
 
@@ -117,7 +119,7 @@ $$
 $$
 
 $$
-\rho(p, t) = k \leftrightarrow |\{p_j: r(p_j, t) \leq r(p_i, t)\}| = k
+\rho(p_i, t) = k \leftrightarrow |\{p_j: r(p_j, t) \leq r(p_i, t)\}| = k
 $$
 
 . . .
@@ -157,7 +159,7 @@ $$
 r_x(p_i,t) \ge r_x(p_j,t)
 $$
 
-<!-- -------------- -->
+
 # Rating in games
 
 
@@ -180,11 +182,7 @@ $$
 
 - feeling of improvement
 
-. . .
-
 - a gauge for new features
-
-. . .
 
 - leads to rankings:
 
@@ -193,9 +191,9 @@ $$
   - fraud/anomaly detection?
 
 
-----
+-----
 
-## No: game prowness as social ranking?
+## No: game prowess as social ranking?
 
 The spectacle is a social relation mediated by images, not a collection of images.
 
@@ -209,11 +207,12 @@ The spectacle is a social relation mediated by images, not a collection of image
 
 . . .
 
-- a turn-off for people who don't feel competive?
+- a turn-off for people who don't feel competitive?
 
 - turns-off casual users?
 
-<!-- ---------- -->
+
+
 # Sport ranking/estimation
 
 ## Domain
@@ -222,23 +221,26 @@ The spectacle is a social relation mediated by images, not a collection of image
 
 - final scores are recorded, e.g., Real Madrid--Borussia Dortmund: 2-0.
 
-- predict the score for a match in the future.
+Focus on predicting
 
-. . .
+- the winner of a future match
 
--focus on predicting the score difference (eg, 2-0=2)
+- the score difference (eg, 2-0=2)
 
 
-----
+-----
 
 ## Running example
 
-![](./imgs/massey-1.png)
+NCAA Atlantic Coast Conference
 
-the win-loss balance and the points balance are second-level performance measures
+- win-loss balance and the points balance are second-level performance measures.
 
-they are not considered sufficient to create valuable ratings/rankings/predictions.
+- they are not considered sufficient to create valuable ratings/rankings/predictions.
 
+![](./imgs/massey-1b.png)
+
+Ranking *blurs* rating: 3rd has has a much lower rating than the 2nd.
 
 -----
 
@@ -291,9 +293,10 @@ $$
 \end{bmatrix}
 \end{equation*}
 
-$X_{m\times n}$ with $m>>n$ is overconstrained, no hope of finding a solution.
+$X_{m\times n}$ with $m>>n$ is over-constrained, no hope of finding a solution.
 
-<!-- --------------- -->
+
+
 # Massey's ratings
 
 
@@ -315,7 +318,7 @@ $$
 
 Both sides are easier to work with.
 
-On the right-and side, $X^T \cdot \mathbf{y}$ is the all-season points difference vector, called $\mathbf{p}.$ 
+Right-hand side: $X^T \cdot \mathbf{y}$ is the all-season points difference vector, called $\mathbf{p}.$ 
 
 Notice that $\sum p_i=0$.
 
@@ -348,12 +351,12 @@ M. also noticed that *M* has a fixed structure and does not need to be re-comput
 
 $m_{i,i} = n-1$ is the numbers of games $i$ played, 
 
-$m_{i,j}$ is the negation of the no. of matches between $i$ and $j:$ here all values are set to -1.
+$m_{i,j}$ is the negation of the no. of matches between $i$ and $j:$ all values are set to -1.
 
 
 -----
 
-![](./imgs/massey-2.png)
+![](./imgs/massey-2b.png)
 
 
 -----
@@ -396,7 +399,7 @@ values have no direct interpretation.
 
 however, they effectively generate __a hierarchy.__
 
-![](./imgs/massey-3.png)
+![](./imgs/massey-3b.png)
 
 
 -----
@@ -409,10 +412,10 @@ Rankings are meaningful:
 
 ::::{.columns}
 :::{.column}
-![](./imgs/massey-3.png)  
+![](./imgs/massey-3b.png)  
 :::
 :::{.column}
-![](./imgs/massey-4.png)
+![](./imgs/massey-4b.png)
 :::
 ::::
 <!-- -------------------- -->
@@ -441,3 +444,10 @@ Rankings are meaningful:
 ## Further readings
 
 [![](./imgs/book-cover.jpeg)](https://press.princeton.edu/titles/9661.html)
+
+
+[...] overview of the mathematical algorithms and methods used to rate and rank sports teams, political candidates, products, Web pages, and more. 
+
+They survey and compare the different methods employed today, showing why their strengths and weaknesses depend on the underlying goal, and explaining why and when a given method should be considered. 
+
+[...] describe what can and can’t be expected from the most widely used systems.

@@ -6,8 +6,8 @@
 <script src="nmf_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="nmf_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="nmf_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="nmf_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="nmf_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="AP">
   <title>Non-negative Matrix factorization</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="nmf_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="nmf_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -95,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="nmf_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="nmf_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="nmf_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="nmf_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -206,20 +209,20 @@ AP
 </div>
 
 </section>
-<section class="slide level2">
-
-<!-- ------------------------ -->
-</section>
 <section>
 <section id="review-of-spectral-analysissvd" class="title-slide slide level1 center">
 <h1>Review of Spectral Analysis/SVD</h1>
-<p>Decompose the data matrix and interpret its ‘first’ eigenvalues as concepts/topics for user and activity classification:</p>
+
+</section>
+<section id="from-decomposition-to-data-comprehension" class="slide level2">
+<h2>From decomposition to data comprehension</h2>
+<p>Decompose the data matrix and interpret its ‘top’ eigenpairs as concepts/topics for user and activity classification:</p>
 <p><span class="math display">\[M = U \Sigma V^T\]</span></p>
 <div class="fragment">
-<p><span class="math inline">\(U_{(m \times r)}\)</span> is column-orthonormal: <span class="math inline">\(u_i\cdot u_j^T=0\)</span></p>
-<p><span class="math inline">\(V^T_{(r \times n)}\)</span> is row-orthonormal: <span class="math inline">\(v_i^T\cdot v_j=0\)</span></p>
-<p><span class="math inline">\(\Sigma_{(r \times r)}\)</span> (or <span class="math inline">\(D_{(r \times r)}\)</span>) is diagonal, <span class="math inline">\(\sigma_{ij}\)</span> are the singular values</p>
-<p>dimension <span class="math inline">\(r\leq \min\{m,n\}\)</span> also depends on the no. of singular values found; it can be further reduced by dropping 0 and very low <span class="math inline">\(\sigma\)</span>s</p>
+<p><span class="math inline">\(U_{(m \times r)}\)</span> is column-orthonormal: if <span class="math inline">\(\mathbf{u_i}\)</span> and <span class="math inline">\(\mathbf{u_j}\)</span> are columns of U, then <span class="math inline">\(\mathbf{u_i}^T\cdot \mathbf{u_j}=0\)</span></p>
+<p><span class="math inline">\(V^T_{(r \times n)}\)</span> is row-orthonormal: <span class="math inline">\(\mathbf{v_i}^T\cdot \mathbf{v_j}=0\)</span></p>
+<p><span class="math inline">\(\Sigma_{(r \times r)}\)</span> (or <span class="math inline">\(D_{(r \times r)}\)</span>) is diagonal, with the <span class="math inline">\(\sigma_{i}\)</span>s on the main diagonal.</p>
+<p>dimension <span class="math inline">\(r\leq \min\{m,n\}\)</span> also depends on the no. of singular values found; reduce it further by dropping 0/very low <span class="math inline">\(\sigma\)</span>s</p>
 </div>
 </section>
 <section id="hurdle-interpretation-of-negative-values" class="slide level2">
@@ -245,7 +248,7 @@ AP
 <li><p><span class="math inline">\(Q\)</span>: quantity of the topic in product</p></li>
 </ul>
 <div class="fragment">
-<p>user/product profiling and reccommender sys. would be half-done already!</p>
+<p>user/product profiling and recommender sys. would be half-done already!</p>
 <p><span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span> are of independent interest</p>
 <!-- ------------------- -->
 </div>
@@ -257,21 +260,23 @@ AP
 </section>
 <section id="context" class="slide level2">
 <h2>Context</h2>
-<p>Lee and Seung sought a new approach to the problem of learning images (how to recognise them) via visual patters:</p>
-<p>reduce a specific image to the combination of known patters: face <span class="math inline">\(\approx\)</span> eyes, eyebrows, nose, chin etc.</p>
+<p>Lee and Seung sought a new approach to the problem of learning images (how to recognise them) via visual patterns:</p>
+<p>reduce a specific image to the combination of known patterns: face <span class="math inline">\(\approx\)</span> eyes, eyebrows, nose, chin etc.</p>
 <p>Could each face be decomposed into basic, repeated visual patterns?</p>
 <p>In the neural network model of brain activity, firing rates of neurons cannot be negative: patterns are either activated or ignored</p>
 <p>Sparsity: only few patterns should be needed to re-create an image</p>
-<div class="fragment">
-<p>Example dataset: faces (not Olivetti)</p>
+</section>
+<section class="slide level2">
+
+<p>Example dataset: faces from ‘the wild’ <a href="https://dl.acm.org/doi/abs/10.1023/A%3A1008162616689">[Papageorgiou-Poggio]</a> (not Olivetti)</p>
 <p>2429 mugshots, each having <span class="math inline">\(19\times 19=361\)</span> pixels, rescaled to [0,1]: <span class="math inline">\(V_{361\times 2429}\)</span></p>
 <p>Lee-Seung fix <span class="math inline">\(r=49\)</span> and compute <span class="math inline">\(V_{361\times 2429} = W_{361\times 49} \times H_{49\times 2429}\)</span></p>
 <p>For comparison, they also try PCA (diagonalisation of <span class="math inline">\(VV^T\)</span>) and VQ</p>
-</div>
-</section>
+
+<img data-src="./imgs/nmf-dataset.jpg" class="r-stretch"></section>
 <section id="the-numerical-problem" class="slide level2">
 <h2>The numerical problem</h2>
-<p>Istance: a non-negative matrix V</p>
+<p>Instance: a non-negative matrix V</p>
 <p>Solution: non-negative matrix factors W and H s.t.</p>
 <p><span class="math display">\[
 V \approx W \cdot H
@@ -412,7 +417,7 @@ A = B \cdot C
 <p>If V is an activity m., <span class="math inline">\(\mathbf{v}_i\)</span> represent the <em>consumption</em> of <span class="math inline">\(i\)</span></p>
 <div class="fragment">
 <p><span class="math display">\[
-v_i \approx W\cdot h_i
+\mathbf{v}_i \approx W\cdot h_i
 \]</span></p>
 <p>Consumption of i is given by a linear combination of the cols. of W, with <span class="math inline">\(h_i\)</span> supplying the weights.</p>
 <p>Each <span class="math inline">\(\mathbf{w}_i\)</span> is interpretable as a pattern (or mask)</p>
@@ -483,7 +488,6 @@ v_i \approx W\cdot h_i
 <p>However, there are many techniques from numerical optimization for finding local minima.</p>
 <p>Gradient descent is perhaps the simplest technique to implement, but convergence can be slow.</p>
 </blockquote>
-<!-- ----------------------- -->
 </section></section>
 <section>
 <section id="lee-seungs-method" class="title-slide slide level1 center">
@@ -519,7 +523,6 @@ v_i \approx W\cdot h_i
 <li><p>through iteration, the <span class="math inline">\(\frac{v_{i\mu}}{(wh)_{i\mu}}\)</span> factors vanish and we stop.</p></li>
 <li><p>the update rules maintain non-negativity and force the <span class="math inline">\(\mathbf{w}_i\)</span> columns to sum to 1.</p></li>
 </ul>
-<!-- ------------------- -->
 </section></section>
 <section>
 <section id="interpretability-of-nmf-1" class="title-slide slide level1 center">
@@ -542,9 +545,6 @@ v_i \approx W\cdot h_i
 <p>The <em>eigenfaces</em> might have negative values</p>
 
 <img data-src="./imgs/pca.png" class="r-stretch"></section>
-<section class="slide level2">
-
-</section>
 <section id="a-probabilistic-hidden-variables-model" class="slide level2">
 <h2>A probabilistic hidden-variables model:</h2>
 <p>The columns. of W are <em>bases</em> that are combined to form the reconstruction</p>
@@ -561,11 +561,11 @@ v_i \approx W\cdot h_i
 <h2>The Olivetti faces</h2>
 <p>Today Lee-Seung method is implemented in Scikit-learn via the <code>mu</code> (multiplicative update) method</p>
 <p>try <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html">sklearn.decomposition.NMF</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>faces <span class="op">=</span> fetch_olivetti_faces()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>faces <span class="op">=</span> fetch_olivetti_faces()</span>
 <span id="cb1-2"><a href=""></a></span>
 <span id="cb1-3"><a href=""></a>nmf_estimator <span class="op">=</span> decomposition.NMF(solver<span class="op">=</span><span class="st">'mu'</span>)</span>
 <span id="cb1-4"><a href=""></a></span>
-<span id="cb1-5"><a href=""></a>nmf_estimator.fit(faces)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href=""></a>nmf_estimator.fit(faces)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For reference: a <a href="https://scikit-learn.org/stable/auto_examples/decomposition/plot_faces_decomposition.html">visual comparison</a> of the decomposition methods available in Scikit-learn</p>
 <!-- ---------------------- -->
 </section></section>
@@ -577,7 +577,7 @@ v_i \approx W\cdot h_i
 <section id="decomposing-the-netflix-example" class="slide level2">
 <h2>Decomposing the Netflix example</h2>
 <p>Another look at the running example with film ratings</p>
-<p>W: users’ committment to a topic.</p>
+<p>W: users’ commitment to a topic.</p>
 <p>H: films’ pertinence to a specific topic (binary, why?)</p>
 
 <img data-src="./imgs/activity_matrix.png" class="r-stretch"></section>
@@ -585,7 +585,7 @@ v_i \approx W\cdot h_i
 
 <p>Let <span class="math inline">\(R\)</span> be the film ratings matrix and compute <span class="math inline">\(R=PQ\)</span></p>
 <p><span class="math inline">\(M=7\)</span>, <span class="math inline">\(N=5\)</span> and we fix <span class="math inline">\(K=2\)</span> to run NMF:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="at">@INPUT</span>:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="at">@INPUT</span>:</span>
 <span id="cb2-2"><a href=""></a>    R: <span class="bu">input</span> matrix to be factorized, dim. M x N</span>
 <span id="cb2-3"><a href=""></a>    P: an initial m. of dim. M x K</span>
 <span id="cb2-4"><a href=""></a>    Q: an initial m. of dim. K x N</span>
@@ -595,25 +595,25 @@ v_i \approx W\cdot h_i
 <span id="cb2-8"><a href=""></a>    beta: the regularization parameter</span>
 <span id="cb2-9"><a href=""></a></span>
 <span id="cb2-10"><a href=""></a><span class="at">@OUTPUT</span>:</span>
-<span id="cb2-11"><a href=""></a>    the final matrices P <span class="kw">and</span> Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-11"><a href=""></a>    the final matrices P <span class="kw">and</span> Q</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="direct-implementation-1-run" class="slide level2">
 <h2>Direct implementation (1 run)</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>nP<span class="op">=</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>nP<span class="op">=</span></span>
 <span id="cb3-2"><a href=""></a>[[ <span class="fl">0.33104196</span>  <span class="fl">0.39332058</span>]</span>
 <span id="cb3-3"><a href=""></a> [ <span class="fl">1.08079793</span>  <span class="fl">1.08397306</span>]</span>
 <span id="cb3-4"><a href=""></a> [ <span class="fl">1.59267325</span>  <span class="fl">1.27929568</span>]</span>
 <span id="cb3-5"><a href=""></a> [ <span class="fl">1.87852789</span>  <span class="fl">1.72209575</span>]</span>
 <span id="cb3-6"><a href=""></a> [ <span class="fl">0.67146598</span>  <span class="fl">1.76523621</span>]</span>
 <span id="cb3-7"><a href=""></a> [ <span class="fl">1.04872774</span>  <span class="fl">2.10824903</span>]</span>
-<span id="cb3-8"><a href=""></a> [ <span class="fl">0.94419145</span>  <span class="fl">0.59698619</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>nQ.T<span class="op">=</span></span>
+<span id="cb3-8"><a href=""></a> [ <span class="fl">0.94419145</span>  <span class="fl">0.59698619</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>nQ.T<span class="op">=</span></span>
 <span id="cb4-2"><a href=""></a>[[ <span class="fl">1.27381876</span>  <span class="fl">1.3870236</span>   <span class="fl">1.67315614</span>  <span class="fl">0.9855609</span>   <span class="fl">0.81578369</span>]</span>
-<span id="cb4-3"><a href=""></a> [ <span class="fl">1.50953822</span>  <span class="fl">1.38352352</span>  <span class="fl">1.06501557</span>  <span class="fl">1.87281749</span>  <span class="fl">1.96189735</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href=""></a> [ <span class="fl">1.50953822</span>  <span class="fl">1.38352352</span>  <span class="fl">1.06501557</span>  <span class="fl">1.87281749</span>  <span class="fl">1.96189735</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="analysis-of-the-error-i" class="slide level2">
 <h2>Analysis of the error, I</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>np.dot(nP, nQ.T) <span class="op">=</span> [</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>np.dot(nP, nQ.T) <span class="op">=</span> [</span>
 <span id="cb5-2"><a href=""></a>    [ <span class="fl">1.01541991</span>  <span class="fl">1.00333129</span>  <span class="fl">0.97277743</span>  <span class="fl">1.06287968</span>  <span class="fl">1.04171324</span>]</span>
 <span id="cb5-3"><a href=""></a>        [ <span class="fl">3.01303945</span>  <span class="fl">2.99879446</span>  <span class="fl">2.96279189</span>  <span class="fl">3.09527589</span>  <span class="fl">3.0083412</span> ]</span>
 <span id="cb5-4"><a href=""></a>        [ <span class="fl">3.95992279</span>  <span class="fl">3.97901104</span>  <span class="fl">4.02726085</span>  <span class="fl">3.9655638</span>   <span class="fl">3.80912366</span>]</span>
@@ -621,19 +621,19 @@ v_i \approx W\cdot h_i
 <span id="cb5-6"><a href=""></a>        [ <span class="fl">3.52001748</span>  <span class="fl">3.37358497</span>  <span class="fl">3.00347147</span>  <span class="fl">3.96773585</span>  <span class="fl">4.01098322</span>]</span>
 <span id="cb5-7"><a href=""></a>        [ <span class="fl">4.51837154</span>  <span class="fl">4.37142223</span>  <span class="fl">4.00000329</span>  <span class="fl">4.98195069</span>  <span class="fl">4.99170315</span>]</span>
 <span id="cb5-8"><a href=""></a>        [ <span class="fl">2.10390225</span>  <span class="fl">2.13556026</span>  <span class="fl">2.21557931</span>  <span class="fl">2.04860435</span>  <span class="fl">1.94148161</span>]</span>
-<span id="cb5-9"><a href=""></a>  ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>ratings <span class="op">=</span>  [[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb5-9"><a href=""></a>  ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>ratings <span class="op">=</span>  [[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
 <span id="cb6-2"><a href=""></a>            [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
 <span id="cb6-3"><a href=""></a>            [<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
 <span id="cb6-4"><a href=""></a>            [<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
 <span id="cb6-5"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">4</span>],</span>
 <span id="cb6-6"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>],</span>
 <span id="cb6-7"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>]</span>
-<span id="cb6-8"><a href=""></a>           ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-8"><a href=""></a>           ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="analysis-of-the-error-ii" class="slide level2">
 <h2>Analysis of the error, II</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>np.rint(np.dot(nP, nQ.T))<span class="op">=</span> [</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>np.rint(np.dot(nP, nQ.T))<span class="op">=</span> [</span>
 <span id="cb7-2"><a href=""></a>      [ <span class="fl">1.</span>  <span class="fl">1.</span>  <span class="fl">1.</span>  <span class="fl">1.</span>  <span class="fl">1.</span>]</span>
 <span id="cb7-3"><a href=""></a>            [ <span class="fl">3.</span>  <span class="fl">3.</span>  <span class="fl">3.</span>  <span class="fl">3.</span>  <span class="fl">3.</span>]</span>
 <span id="cb7-4"><a href=""></a>            [ <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>]</span>
@@ -641,18 +641,18 @@ v_i \approx W\cdot h_i
 <span id="cb7-6"><a href=""></a>            [ <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>  <span class="fl">4.</span>]</span>
 <span id="cb7-7"><a href=""></a>            [ <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>  <span class="fl">5.</span>]</span>
 <span id="cb7-8"><a href=""></a>            [ <span class="fl">2.</span>  <span class="fl">2.</span>  <span class="fl">2.</span>  <span class="fl">2.</span>  <span class="fl">2.</span>]</span>
-<span id="cb7-9"><a href=""></a>      ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>ratings <span class="op">=</span>  [[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb7-9"><a href=""></a>      ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>ratings <span class="op">=</span>  [[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
 <span id="cb8-2"><a href=""></a>            [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
 <span id="cb8-3"><a href=""></a>            [<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
 <span id="cb8-4"><a href=""></a>            [<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
 <span id="cb8-5"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">4</span>],</span>
 <span id="cb8-6"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>],</span>
-<span id="cb8-7"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-7"><a href=""></a>            [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="analysis-of-the-result" class="slide level2">
 <h2>Analysis of the result</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>W(user x topic) <span class="op">=</span> [</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>W(user x topic) <span class="op">=</span> [</span>
 <span id="cb9-2"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">0.82037571</span>]</span>
 <span id="cb9-3"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">2.46112713</span>]</span>
 <span id="cb9-4"><a href=""></a>    [ <span class="fl">0.</span>          <span class="fl">3.28150284</span>]</span>
@@ -660,11 +660,11 @@ v_i \approx W\cdot h_i
 <span id="cb9-6"><a href=""></a>    [ <span class="fl">1.62445593</span>  <span class="fl">0.</span>        ]</span>
 <span id="cb9-7"><a href=""></a>    [ <span class="fl">2.03056992</span>  <span class="fl">0.</span>        ]</span>
 <span id="cb9-8"><a href=""></a>    [ <span class="fl">0.81222797</span>  <span class="fl">0.</span>        ]</span>
-<span id="cb9-9"><a href=""></a>    ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>H(topic x film) <span class="op">=</span></span>
+<span id="cb9-9"><a href=""></a>    ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>H(topic x film) <span class="op">=</span></span>
 <span id="cb10-2"><a href=""></a>[[ <span class="fl">0.</span>          <span class="fl">0.</span>          <span class="fl">0.</span>          <span class="fl">2.46236289</span>  <span class="fl">2.46236289</span>]</span>
-<span id="cb10-3"><a href=""></a> [ <span class="fl">1.21895369</span>  <span class="fl">1.21895369</span>  <span class="fl">1.21895369</span>  <span class="fl">0.</span>          <span class="fl">0.</span>        ]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>W: users’ committment to a topic.</p>
+<span id="cb10-3"><a href=""></a> [ <span class="fl">1.21895369</span>  <span class="fl">1.21895369</span>  <span class="fl">1.21895369</span>  <span class="fl">0.</span>          <span class="fl">0.</span>        ]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>W: users’ commitment to a topic.</p>
 <p>H: films’ pertinence to a specific topic (binary, why?)</p>
 
 </section></section>
@@ -857,7 +857,7 @@ v_i \approx W\cdot h_i
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -931,13 +931,14 @@ v_i \approx W\cdot h_i
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

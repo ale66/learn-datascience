@@ -30,22 +30,24 @@ format:
 jupyter: python3
 ---
 
-<!-- ------------------------ -->
+
 # Review of Spectral Analysis/SVD
 
-Decompose the data matrix and interpret its 'first' eigenvalues as concepts/topics for user and activity classification:
+## From decomposition to data comprehension
+
+Decompose the data matrix and interpret its 'top' eigenpairs as concepts/topics for user and activity classification:
 
 $$M = U \Sigma V^T$$
 
 . . .  
 
-$U_{(m \times r)}$ is column-orthonormal: $u_i\cdot u_j^T=0$
+$U_{(m \times r)}$ is column-orthonormal: if $\mathbf{u_i}$ and $\mathbf{u_j}$ are columns of U, then $\mathbf{u_i}^T\cdot \mathbf{u_j}=0$
 
-$V^T_{(r \times n)}$ is row-orthonormal: $v_i^T\cdot v_j=0$
+$V^T_{(r \times n)}$ is row-orthonormal: $\mathbf{v_i}^T\cdot \mathbf{v_j}=0$
 
-$\Sigma_{(r \times r)}$ (or $D_{(r \times r)}$) is diagonal, $\sigma_{ij}$ are the singular values
+$\Sigma_{(r \times r)}$ (or $D_{(r \times r)}$) is diagonal, with the $\sigma_{i}$s on the main diagonal.
 
-dimension $r\leq \min\{m,n\}$ also depends on the no. of singular values found; it can be further reduced by dropping 0 and very low $\sigma$s
+dimension $r\leq \min\{m,n\}$ also depends on the no. of singular values found; reduce it further by dropping 0/very low $\sigma$s
 
 
 -----
@@ -81,7 +83,7 @@ $$A_{(m\times n)} = P_{(m\times r)} \cdot Q_{(r\times n)}$$
 
 . . .
 
-user/product profiling and reccommender sys. would be half-done already!
+user/product profiling and recommender sys. would be half-done already!
 
 $P$ and $Q$ are of independent interest
 
@@ -91,9 +93,9 @@ $P$ and $Q$ are of independent interest
 
 ## Context
 
-Lee and Seung sought a new approach to the problem of learning images (how to recognise them) via visual patters:
+Lee and Seung sought a new approach to the problem of learning images (how to recognise them) via visual patterns:
 
-reduce a specific image to the combination of known patters: face $\approx$ eyes, eyebrows, nose, chin etc.
+reduce a specific image to the combination of known patterns: face $\approx$ eyes, eyebrows, nose, chin etc.
 
 Could each face be decomposed into basic, repeated visual patterns?
 
@@ -101,9 +103,9 @@ In the neural network model of brain activity, firing rates of neurons cannot be
 
 Sparsity: only few patterns should be needed to re-create an image 
 
-. . . 
+-----
 
-Example dataset: faces (not Olivetti)
+Example dataset: faces from 'the wild' [[Papageorgiou-Poggio]](https://dl.acm.org/doi/abs/10.1023/A%3A1008162616689) (not Olivetti)
 
 2429 mugshots, each having $19\times 19=361$ pixels, rescaled to [0,1]: $V_{361\times 2429}$
 
@@ -111,12 +113,14 @@ Lee-Seung fix $r=49$ and compute  $V_{361\times 2429} = W_{361\times 49} \times 
 
 For comparison, they also try PCA (diagonalisation of $VV^T$) and VQ
 
+![](./imgs/nmf-dataset.jpg)
+
 
 -----
 
 ## The numerical problem
 
-Istance: a non-negative matrix V
+Instance: a non-negative matrix V
 
 Solution: non-negative matrix factors W and H s.t.
 
@@ -281,7 +285,7 @@ If V is an activity m., $\mathbf{v}_i$ represent the *consumption* of $i$
 . . .
 
 $$
-v_i \approx W\cdot h_i
+\mathbf{v}_i \approx W\cdot h_i
 $$
 
 Consumption of i is given by a linear combination of the cols. of W, with $h_i$ supplying the weights.
@@ -364,7 +368,7 @@ The Kullback-Leibler divergence, $D_{KL},$ may also be used.
 > Gradient descent is  perhaps the simplest technique to implement, but convergence can be slow.  
 
 
-<!-- ----------------------- -->
+
 # Lee-Seung's Method
 
 ## Iterated __error balancing__
@@ -402,12 +406,12 @@ NMF: we *move around* by multiplying by a *local* error measure $\frac{v_{i\mu}}
 
 ![](./imgs/iterative-emphasised.png)
 
+
 * through iteration, the $\frac{v_{i\mu}}{(wh)_{i\mu}}$ factors vanish and we stop.
 
 * the update rules maintain non-negativity and force the $\mathbf{w}_i$ columns to sum to 1.
 
 
-<!-- ------------------- -->
 # Interpretability of NMF
 
 ## Extracting common parts: facial features 
@@ -434,9 +438,6 @@ each weighted by an entry in the H matrix.
 The *eigenfaces* might have negative values
 
 ![](./imgs/pca.png)
-
-
------
 
 
 -----
@@ -481,7 +482,7 @@ For reference: a [visual comparison](https://scikit-learn.org/stable/auto_exampl
 
 Another look at the running example with film ratings
 
-W: users' committment to a topic.
+W: users' commitment to a topic.
 
 H: films' pertinence to a specific topic (binary, why?)
 
@@ -597,6 +598,6 @@ H(topic x film) =
  [ 1.21895369  1.21895369  1.21895369  0.          0.        ]]
 ```
 
-W: users' committment to a topic.
+W: users' commitment to a topic.
 
 H: films' pertinence to a specific topic (binary, why?)
