@@ -6,8 +6,8 @@
 <script src="keener_ranking_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="keener_ranking_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="keener_ranking_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="keener_ranking_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="keener_ranking_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="AP">
   <title>Keener’s method</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="keener_ranking_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="keener_ranking_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="keener_ranking_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="keener_ranking_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="keener_ranking_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="keener_ranking_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -153,7 +156,7 @@ AP
 <h2>Massey’s vision</h2>
 <p>Ratings are a unit quantity distributed among tournament participants.</p>
 <p><strong>The data that drives ratings is point difference.</strong></p>
-<p>The difference in strenght is latent but revealed by the points difference in a direct match.</p>
+<p>The difference in strength is latent but revealed by the points difference in a direct match.</p>
 <p>By definition, points difference sums to 0; the natural linear algebra formalisation has a singular matrix and is not actionable.</p>
 <p>Massey <em>alters</em> the matrix to guarantee that a solution exists, if approximate.</p>
 </section>
@@ -184,12 +187,12 @@ AP
 </section>
 <section id="keeners-view-3" class="slide level2">
 <h2>Keener’s view, 3</h2>
-<p>K. believes that strengh, which is <em>manifest,</em> and rating, which is <em>latent,</em> should be connected by a scaling factor <span class="math inline">\(\lambda\)</span>, which is to be determined for each league/turnament:</p>
+<p>K. believes that strength, which is <em>manifest,</em> and rating, which is <em>latent,</em> should be connected by a scaling factor <span class="math inline">\(\lambda\)</span>, which is to be determined for each league/tournament:</p>
 <p><span class="math inline">\(s_i = \lambda r_i\)</span></p>
 <div class="fragment">
 <p>So, in vector notation:</p>
 <p><span class="math inline">\(\mathbf{s} = \lambda \mathbf{r}\)</span></p>
-<p>At the moment we know neither of the three… let’s start with strenght.</p>
+<p>At the moment we know neither of the three… let’s start with strength.</p>
 </div>
 </section>
 <section id="the-input-data" class="slide level2">
@@ -207,15 +210,16 @@ AP
 <h2>Example Stats: points</h2>
 <p>Points scored against:</p>
 <p><span class="math inline">\(a_{ij} = S_{ij}\)</span></p>
-<p>Points is considered a <em>crude</em> measure of strength.</p>
-<p>Avoid high-scoring matches to have a disproportionate effect by means of relative scoring:</p>
+<p>points are considered a <em>crude</em> measure of strength.</p>
+<p>avoid high-scoring matches to have a disproportionate effect by means of relative scoring:</p>
 <p><span class="math display">\[a_{ij} = \frac{S_{ij}}{S_{ij} + S_{ji}}
 \]</span></p>
 </section>
 <section id="the-laplace-correction" class="slide level2">
 <h2>The Laplace correction</h2>
-<p>There is a <em>cold start</em> problems that is often found in Data Science: at the start, lack of data makes the rating not meaningful or even impossible.</p>
-<p>Laplace set stats to 0.5, with minimal alteration of subsequent measures</p>
+<p>a <em>cold start</em> problem that is often encountered in Data Science:</p>
+<p>at the start, lack of data makes the rating not meaningful or even impossible.</p>
+<p>Laplace sets stats to 0.5, with minimal alteration of subsequent measures</p>
 <p><span class="math display">\[a_{ij} = \frac{S_{ij} + 1}{S_{ij} + S_{ji} + 2}
 \]</span></p>
 <div class="fragment">
@@ -226,7 +230,7 @@ AP
 <h2>Skewing</h2>
 <ul>
 <li><p>it mitigates convergence to <span class="math inline">\(\frac{1}{2}\)</span> over time</p></li>
-<li><p>it sterilises the effect of exteme scores</p></li>
+<li><p>it sterilises the effect of extreme scores</p></li>
 </ul>
 
 <img data-src="./imgs/skew-example.png" class="r-stretch"><div class="fragment">
@@ -236,14 +240,14 @@ AP
 </section>
 <section id="keeners-strength" class="slide level2">
 <h2>keener’s strength</h2>
-<p>Strenght revealed by performance (scoring) but tempered by the strength of the opponent themselves.</p>
+<p>Strength revealed by performance (scoring) but tempered by the strength of the opponent themselves.</p>
 <p><strong>Relative s. of <em>i</em> when playing against <em>j:</em></strong></p>
 <p><span class="math display">\[s_{ij} = a_{ij}\cdot r_j\]</span></p>
 <p>(N.B. <em>scoring</em> is <span class="math inline">\(S_{ij}\)</span> while <em>strength</em> is <span class="math inline">\(s_{ij}\)</span>)</p>
 </section>
-<section id="cumulative-strenght" class="slide level2">
-<h2>Cumulative strenght</h2>
-<p>Cumulative/absolute strenght of team <em>i:</em></p>
+<section id="cumulative-strength" class="slide level2">
+<h2>Cumulative strength</h2>
+<p>Cumulative/absolute strength of team <em>i:</em></p>
 <p><span class="math display">\[s_i = \sum_{j=1}^{m} s_{ij}\]</span></p>
 </section>
 <section class="slide level2">
@@ -587,7 +591,7 @@ a_{ik_1}&gt; 0, a_{k_1 k_2}&gt; 0, \dots a_{k_p j}&gt; 0
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -661,13 +665,14 @@ a_{ik_1}&gt; 0, a_{k_1 k_2}&gt; 0, \dots a_{k_p j}&gt; 0
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

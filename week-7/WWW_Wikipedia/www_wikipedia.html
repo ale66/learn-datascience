@@ -6,8 +6,8 @@
 <script src="www_wikipedia_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="www_wikipedia_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="www_wikipedia_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="www_wikipedia_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="www_wikipedia_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="AP">
   <title>WWW, Wikipedia and OSNs</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="www_wikipedia_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="www_wikipedia_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -95,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="www_wikipedia_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="www_wikipedia_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="www_wikipedia_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="www_wikipedia_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -213,9 +216,9 @@ AP
 <div class="fragment">
 <p>look at how they connect and when</p>
 <p>Direction of communication is important</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> networkx <span class="im">as</span> nx </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> networkx <span class="im">as</span> nx </span>
 <span id="cb1-2"><a href=""></a></span>
-<span id="cb1-3"><a href=""></a>eu_DG <span class="op">=</span> nx.DiGraph()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href=""></a>eu_DG <span class="op">=</span> nx.DiGraph()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!-- ------ -->
 </div>
 </section>
@@ -227,25 +230,23 @@ AP
 <section id="www" class="slide level2">
 <h2>WWW</h2>
 <ul>
-<li><p>a Networkx digraph will represent connectivity</p></li>
+<li><p>a Networkx <em>digraph</em> will represent connectivity</p></li>
 <li><p>a companion dictionary maps vertices to URLs of the relative pages</p></li>
 <li><p>source: a <em>scrape</em> of the 2005 “.eu” domain</p></li>
 </ul>
 </section>
-<section id="twitter" class="slide level2">
-<h2>Twitter</h2>
+<section id="xtwitter" class="slide level2">
+<h2>X/Twitter</h2>
 <ul>
-<li><p>supported by the Twython module</p></li>
-<li><p>requires Twitter registration/API token</p></li>
-<li><p>alternative platforms exist, e.g.&nbsp;Tweety (+NLTK)</p></li>
-<li><p>interesting: the network of mentions as a voting system</p></li>
+<li><p>today supported by the Python <a href="https://www.tweepy.org/">Tweepy</a> module</p></li>
+<li><p>mentions create a network and a <em>a voting system.</em></p></li>
 </ul>
 </section>
 <section id="wikipedia" class="slide level2">
 <h2>Wikipedia</h2>
 <ul>
 <li><p>a network of concepts (lemmas/lemmata) maintained by humans (and some bot)</p></li>
-<li><p>time-stamped evolution of the network is available <a href="https://dumps.wikimedia.org/">[here]</a></p></li>
+<li><p>time-stamped evolution of the network is available <a href="https://dumps.wikimedia.org/">[dumps.wikimedia.org]</a></p></li>
 <li><p>contrary to <em>curated</em> taxonomies, e.g., [Linnaeus, 1735], this is not a tree</p></li>
 </ul>
 <div class="fragment">
@@ -261,31 +262,58 @@ AP
 <section id="pagerank-idea" class="slide level2">
 <h2>PageRank idea</h2>
 <p>Rank vertices (page) on the basis of their <em>importance</em> for network <em>navigation</em></p>
-<p>Importance is captured by the relative value in the dominant Eigenvector of a new matrix P that represents <em>navigation</em></p>
+<p>Importance is captured by the relative value in the dominant Eigenvector of a new matrix, P for ‘Page,’ that represents <em>navigation</em></p>
+<p>Navigation includes a certain prob. of frustration and restart: modeled as a small, uniform prob. to <em>jump out</em> to a random node.</p>
 
 <img data-src="./imgs/simple_oriented.png" class="r-stretch"></section>
-<section id="variables-used" class="slide level2">
-<h2>Variables used</h2>
-<p>A: the directed adjacency matrix (admits <em>dangling</em> ends)</p>
-<p><span class="math inline">\(K0^{-1}\)</span>: 0 everywhere but <span class="math inline">\(\frac{1}{k^{\mathrm{out}}_i}\)</span> on the main diagonal: <span class="math inline">\((K0^{-1})_{ii} = \frac{1}{k^{\mathrm{out}}_i}\)</span></p>
+<section id="pagerank-as-matrix-operations" class="slide level2">
+<h2>PageRank as Matrix operations</h2>
+<p><span class="math inline">\(A:\)</span> the directed adjacency matrix of web pages</p>
+<ul>
+<li><p>it admits <em>dangling</em> (or <em>sink</em>) pages that link nowhere</p></li>
+<li><p>Brin/Page drop internal links</p></li>
+</ul>
 <div class="fragment">
-<p><span class="math inline">\(N = A\times K0^{-1}\)</span></p>
+<p><span class="math inline">\(K_0:\)</span> has the out-degree of each node on the main diagonal.</p>
+<p><span class="math inline">\(k^{out}_i = \sum_j A_{ij}\)</span>.</p>
+<p><span class="math inline">\(K_0 = \operatorname{diag}(k^{out}_0, k^{out}_1, \ldots, k^{out}_{n-1}).\)</span></p>
 </div>
 <div class="fragment">
-<p>Matrix <span class="math inline">\(E\)</span>: it models <em>escape</em> from the navigation and <em>forces</em> irreducibility in the sense of Perron-Frobenius</p>
-<p>Set <span class="math inline">\(E_{ii} = \frac{1}{n}\)</span>, where <span class="math inline">\(n = |V|;\)</span> set 0 everywhere else</p>
-<p>(current versions put different values on the main diagonal of <span class="math inline">\(E\)</span>)</p>
+<p><span class="math inline">\(K_0^{-1}\)</span> will have <span class="math inline">\(\frac{1}{k^{out}_i}\)</span> on the main diagonal, 0 elsewhere</p>
 </div>
 </section>
-<section class="slide level2">
-
+<section id="the-normalised-matrix" class="slide level2">
+<h2>The normalised matrix</h2>
+<p><span class="math inline">\(N = K_0^{-1} A\)</span></p>
+<ul>
+<li><p>similar to A</p></li>
+<li><p>all rows sum to 1: they represent the prob. of transitioning (‘surfing’).</p></li>
+</ul>
+</section>
+<section id="the-escape-matrix" class="slide level2">
+<h2>The escape matrix</h2>
+<p><span class="math inline">\(E = \frac{1}{n} \mathbf{1} \mathbf{1}^T\)</span></p>
+<ul>
+<li><p><span class="math inline">\(\frac{1}{n}\)</span> everywhere, <span class="math inline">\(n = |V|;\)</span></p></li>
+<li><p>rows still sum to 1.</p></li>
+<li><p>it forces <em>irreducibility</em> (see Perron-Frobenius): any two pages are certainly connected</p></li>
+<li><p>(current versions may put different values on the main diagonal)</p></li>
+</ul>
+</section>
+<section id="the-page-matrix" class="slide level2">
+<h2>The Page matrix</h2>
 <p><span class="math display">\[P = \alpha N + (1-\alpha) E\]</span></p>
-<p>Experimentally, Page and Brin set <span class="math inline">\(\alpha=0.85\)</span></p>
-<p>I.e., we assign a <span class="math inline">\(1-\alpha=0.15\)</span> probability to <em>jump out</em> of a navigation <em>path</em> and into an arbitrary <em>restart</em> node.</p>
-<p>Compute the dominant eigenvector <span class="math inline">\(\mathbf{r}_1\)</span> of <span class="math inline">\(P\)</span></p>
-<p>Perron-Frobenius applies so <span class="math inline">\(\mathbf{r}_1\)</span> will be a `proper’ vector of real, positive values</p>
-<p>Compute <span class="math inline">\(\mathbf{r}_1\)</span> by iterating the <span class="math inline">\(\mathbf{r}_1^{(t+1)} = P\mathbf{r}_1^{(t)}\)</span> eq. until it converges to a fixpoint value.</p>
-<!-- -------------------------- -->
+<p>Page and Brin empirically set <span class="math inline">\(\alpha=0.85\)</span></p>
+<p><span class="math inline">\(1-\alpha=0.15:\)</span> probability of <em>jumping out</em> of a navigation <em>path</em> and into an arbitrary <em>restart</em> node.</p>
+<p>Compute the dominant eigenvector <span class="math inline">\(\mathbf{r}_1\)</span> of <span class="math inline">\(P.\)</span></p>
+<div class="fragment">
+<p>Perron-Frobenius applies so <span class="math inline">\(\mathbf{r}_1\)</span> will be a ‘proper’ vector of real, positive values.</p>
+<p>Compute <span class="math inline">\(\mathbf{r}_1\)</span> by the power method seen earlier:</p>
+<ul>
+<li><p>iterate the <span class="math inline">\(\mathbf{r}_1^{(t+1)} = P\mathbf{r}_1^{(t)}\)</span> followed by normalisation;</p></li>
+<li><p>until it converges to a fixpoint value.</p></li>
+</ul>
+</div>
 </section></section>
 <section>
 <section id="ranking-algorithms-hits" class="title-slide slide level1 center">
@@ -294,7 +322,7 @@ AP
 </section>
 <section id="hits-idea" class="slide level2 scrollable">
 <h2>HITS idea</h2>
-<p>Hyperlink-Induced Topic Search by [Kleinberg, 1999]</p>
+<p>Hyperlink-Induced Topic Search by <a href="https://dl.acm.org/doi/10.1145/324133.324140">[Kleinberg, 1999]</a></p>
 <p>Sees importance of a node in a more nuanced way:</p>
 <p>Pages that are important for consultation, e.g., train schedules, have <em>authority</em> and tend to be <em>terminal</em></p>
 <div class="fragment">
@@ -356,21 +384,27 @@ AP
 </ul>
 <div class="fragment">
 <p>For homogeneous networks, eg., country-to-county of Ch. 2</p>
-<p>Community: nodes that are closely connected with each other by <em>strenght</em> or <em>density</em></p>
+<p>Community: nodes that are closely connected with each other by <em>strength</em> or <em>density</em></p>
 <p>Resolution limit: communities with less than <span class="math inline">\(\sqrt{|V|}\)</span> members cannot be properly identified.</p>
 </div>
 </section>
-<section id="givan-newman" class="slide level2 scrollable">
-<h2>Givan-Newman</h2>
+<section id="karate-club-examples" class="slide level2">
+<h2>Karate club examples</h2>
+
+<img data-src="./imgs/sia_etal-karate_club-examples.png" class="r-stretch"><p>Ground truth vs.&nbsp;community detection in <a href="https://www.nature.com/articles/s41598-019-46079-x">[Sia et al., Sc. Rep.&nbsp;2019]</a></p>
+</section>
+<section id="girvan-newman" class="slide level2 scrollable">
+<h2>Girvan-Newman</h2>
+<p>Hyp: Betweenness centrality captures <em>help to connectivity</em></p>
+<p>but removing betwenness we reveal the actual underlying community structure</p>
 <ol type="1">
 <li><p>Rank edges by their <em>help to connectivity</em></p></li>
 <li><p>remove the top-ranking edge</p></li>
 <li><p>repeat until loss of connection</p></li>
 <li><p>now-isolated areas are called communities</p></li>
 </ol>
-<p>Hyp: Betweenness centrality captures <em>help to connectivity</em></p>
-<!-- ---------- -->
-</section></section>
+
+<img data-src="./imgs/girvan-neumann-example.jpg" class="r-stretch"></section></section>
 <section>
 <section id="modularity" class="title-slide slide level1 center">
 <h1>Modularity</h1>
@@ -378,7 +412,7 @@ AP
 </section>
 <section id="as-an-optimization-prob." class="slide level2">
 <h2>As an optimization prob.</h2>
-<p><strong>Istance:</strong> an adj. matrix A, a small integer <span class="math inline">\(g\)</span></p>
+<p><strong>Instance:</strong> an adj. matrix A, a small integer <span class="math inline">\(g\)</span></p>
 <p><strong>Solution:</strong> a partition of <span class="math inline">\(V\)</span> into <span class="math inline">\(g\)</span> <em>groups</em></p>
 <div class="fragment">
 <p><strong>Measure:</strong> maximise <span class="math inline">\(Q\)</span>: the overall modularity measure</p>
@@ -387,14 +421,14 @@ AP
 </section>
 <section id="the-q-factor" class="slide level2">
 <h2>The Q factor</h2>
-<p>Let <span class="math inline">\(E_{g \times g}\)</span> be the cross-group matrix and <span class="math inline">\(f_i\)</span> the sum of col.&nbsp;<span class="math inline">\(i\)</span></p>
+<p>Let <span class="math inline">\(E_{g \times g}\)</span> be the cross-group matrix and <span class="math inline">\(f_i\)</span> the sum of col.&nbsp;<span class="math inline">\(i.\)</span></p>
 <div class="fragment">
 <p>Electrical conductance:</p>
 <p><span class="math display">\[Q =\sum_{i=1}^g e_{ii}-f_i^2\]</span></p>
 </div>
 <div class="fragment">
-<p>Complexity: NP-complete</p>
-<p>Even random networks might exibit densifications that might look as c.</p>
+<p>Complexity: NP-complete: it won’t scale up</p>
+<p>Even random networks might exhibit ‘densifications’ that might look as communities.</p>
 
 </div>
 </section></section>
@@ -587,7 +621,7 @@ AP
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -661,13 +695,14 @@ AP
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

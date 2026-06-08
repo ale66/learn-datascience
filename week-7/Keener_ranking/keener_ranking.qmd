@@ -37,7 +37,7 @@ Ratings are a unit quantity distributed among tournament participants.
 
 __The data that drives ratings is point difference.__
 
-The difference in strenght is latent but revealed by the points difference in a direct match. 
+The difference in strength is latent but revealed by the points difference in a direct match. 
 
 By definition, points difference sums to 0; the natural linear algebra formalisation has a singular matrix and is not actionable. 
 
@@ -74,7 +74,7 @@ Later, ratings will determine rankings and winning probabilities.
 
 ## Keener's view, 3
 
-K. believes that strengh, which is *manifest,* and rating, which is *latent,* should be connected by a scaling factor $\lambda$, which is to be determined for each league/turnament:
+K. believes that strength, which is *manifest,* and rating, which is *latent,* should be connected by a scaling factor $\lambda$, which is to be determined for each league/tournament:
 
 $s_i = \lambda r_i$
 
@@ -84,7 +84,7 @@ So, in vector notation:
 
 $\mathbf{s} = \lambda \mathbf{r}$
 
-At the moment we know neither of the three... let's start with strenght.
+At the moment we know neither of the three... let's start with strength.
 
 ## The input data
 
@@ -106,19 +106,20 @@ Points scored against:
 
 $a_{ij} = S_{ij}$
 
-Points is considered a *crude* measure of strength.
+points are considered a *crude* measure of strength.
 
-Avoid high-scoring matches to have a disproportionate effect by means of relative scoring:
+avoid high-scoring matches to have a disproportionate effect by means of relative scoring:
 
 $$a_{ij} = \frac{S_{ij}}{S_{ij} + S_{ji}}
 $$
 
 ## The Laplace correction
 
-There is a *cold start* problems that is often found in Data Science: 
+a *cold start* problem that is often encountered in Data Science: 
+
 at the start, lack of data makes the rating not meaningful or even impossible.
 
-Laplace set stats to 0.5, with minimal alteration of subsequent measures
+Laplace sets stats to 0.5, with minimal alteration of subsequent measures
 
 $$a_{ij} = \frac{S_{ij} + 1}{S_{ij} + S_{ji} + 2}
 $$
@@ -131,7 +132,7 @@ if $S_{ij} \approx S_{ji}$ and both are large then $a_{ij} \approx \frac{1}{2}$ 
 
 - it mitigates convergence to $\frac{1}{2}$ over time
 
-- it sterilises the effect of exteme scores
+- it sterilises the effect of extreme scores
 
 ![](./imgs/skew-example.png)
 
@@ -143,7 +144,7 @@ additionally, $a_{ij} \leftarrow \frac{a_{ij}}{n_i}$ to balance no. of games.
 
 ## keener's strength
 
-Strenght revealed by performance (scoring) but tempered by the strength of the opponent themselves.
+Strength revealed by performance (scoring) but tempered by the strength of the opponent themselves.
 
 __Relative s. of *i* when playing against *j:*__
 
@@ -151,9 +152,9 @@ $$s_{ij} = a_{ij}\cdot r_j$$
 
 (N.B. *scoring* is $S_{ij}$ while *strength* is $s_{ij}$)
 
-## Cumulative strenght 
+## Cumulative strength 
 
-Cumulative/absolute strenght of team *i:*
+Cumulative/absolute strength of team *i:*
 
 $$s_i = \sum_{j=1}^{m} s_{ij}$$
 

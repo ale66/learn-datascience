@@ -5,6 +5,7 @@ author: AP
 format:
   pdf:
     papersize: A4
+    mainfont: "Computer Modern"
     number-sections: true
     pdf-engine: pdflatex
   revealjs: 
@@ -19,6 +20,7 @@ format:
     # smaller: true
     scrollable: true
   html:
+    mainfont: "Computer Modern"
     toc: true
     code-fold: false
     anchor-sections: true
@@ -51,27 +53,24 @@ eu_DG = nx.DiGraph()
 
 ## WWW
 
-- a Networkx digraph will represent connectivity
+- a Networkx *digraph* will represent connectivity
 
 - a companion dictionary maps vertices to URLs of the relative pages
 
 - source: a *scrape* of the 2005 ".eu" domain
 
-## Twitter
+## X/Twitter
 
-- supported by the Twython module
+- today supported by the Python [Tweepy](https://www.tweepy.org/) module
 
-- requires Twitter registration/API token
+- mentions create a network and a *a voting system.*
 
-- alternative platforms exist, e.g. Tweety (+NLTK)
-
-- interesting: the network of mentions as a voting system
 
 ## Wikipedia
 
 - a network of concepts (lemmas/lemmata) maintained by humans (and some bot)
 
-- time-stamped evolution of the network is available [[here]](https://dumps.wikimedia.org/)
+- time-stamped evolution of the network is available [[dumps.wikimedia.org]](https://dumps.wikimedia.org/)
 
 - contrary to *curated* taxonomies, e.g., [Linnaeus, 1735], this is not a tree
 
@@ -86,51 +85,93 @@ eu_DG = nx.DiGraph()
 
 Rank vertices (page) on the basis of their *importance* for network *navigation*
 
-Importance is captured by the relative value in the dominant Eigenvector of a new matrix P that represents *navigation*
+Importance is captured by the relative value in the dominant Eigenvector of a new matrix, P for 'Page,' that represents *navigation*
+
+Navigation includes a certain prob. of frustration and restart: modeled as a small, uniform prob. to *jump out* to a random node.
+
 
 ![](./imgs/simple_oriented.png)
 
 
-## Variables used
 
-A: the directed adjacency matrix (admits *dangling* ends)
+## PageRank as Matrix operations
 
-$K0^{-1}$: 0 everywhere but $\frac{1}{k^{\mathrm{out}}_i}$ on the main diagonal: $(K0^{-1})_{ii} = \frac{1}{k^{\mathrm{out}}_i}$
+$A:$ the directed adjacency matrix of web pages
+
+- it admits *dangling* (or *sink*) pages that link nowhere
+
+- Brin/Page drop internal links 
 
 . . .
 
-$N = A\times K0^{-1}$
+$K_0:$ has the out-degree of each node on the main diagonal.
+
+$k^{out}_i = \sum_j A_{ij}$.
+
+$K_0 = \operatorname{diag}(k^{out}_0, k^{out}_1, \ldots, k^{out}_{n-1}).$
 
 . . .
 
-Matrix $E$: it models *escape* from the navigation and *forces* irreducibility in the sense of Perron-Frobenius
 
-Set $E_{ii} = \frac{1}{n}$, where $n = |V|;$ set 0 everywhere else 
+$K_0^{-1}$ will have $\frac{1}{k^{out}_i}$ on the main diagonal, 0 elsewhere
 
-(current versions put different values on the main diagonal of $E$)
+-----
+
+## The normalised matrix
+
+$N = K_0^{-1} A$ 
+
+- similar to A
+
+- all rows sum to 1: they represent the prob. of transitioning ('surfing').
 
 
 -----
 
+## The escape matrix
+
+$E = \frac{1}{n} \mathbf{1} \mathbf{1}^T$
+
+- $\frac{1}{n}$ everywhere, $n = |V|;$
+  
+  
+- rows still sum to 1.
+
+- it forces *irreducibility* (see Perron-Frobenius): any two pages are certainly connected
+
+- (current versions may put different values on the main diagonal)
+
+
+
+-----
+
+## The Page matrix
+
 $$P = \alpha N + (1-\alpha) E$$
 
-Experimentally, Page and Brin set $\alpha=0.85$
+Page and Brin empirically set $\alpha=0.85$
 
-I.e., we assign a $1-\alpha=0.15$  probability to *jump out* of a navigation *path* and into an arbitrary *restart* node.
+$1-\alpha=0.15:$ probability of *jumping out* of a navigation *path* and into an arbitrary *restart* node.
 
-Compute the dominant eigenvector $\mathbf{r}_1$ of $P$
+Compute the dominant eigenvector $\mathbf{r}_1$ of $P.$
 
-Perron-Frobenius applies so $\mathbf{r}_1$ will be a `proper' vector of real, positive values
+. . .
 
-Compute $\mathbf{r}_1$ by iterating the $\mathbf{r}_1^{(t+1)} = P\mathbf{r}_1^{(t)}$ eq. until it converges to a fixpoint value.
+Perron-Frobenius applies so $\mathbf{r}_1$ will be a 'proper' vector of real, positive values.
+
+Compute $\mathbf{r}_1$ by the power method seen earlier:
+
+- iterate the $\mathbf{r}_1^{(t+1)} = P\mathbf{r}_1^{(t)}$ followed by normalisation; 
+
+- until it converges to a fixpoint value.
 
 
-<!-- -------------------------- -->
+
 # Ranking Algorithms: HITS
 
 ## HITS idea
 
-Hyperlink-Induced Topic Search by [Kleinberg, 1999]
+Hyperlink-Induced Topic Search by [[Kleinberg, 1999]](https://dl.acm.org/doi/10.1145/324133.324140)
 
 Sees importance of a node in a more nuanced way:
 
@@ -206,11 +247,26 @@ this is an example of Provost-Fawcett's problems
 
 For homogeneous networks, eg., country-to-county of Ch. 2
 
-Community: nodes that are closely connected with each other by *strenght* or *density*
+Community: nodes that are closely connected with each other by *strength* or *density*
 
 Resolution limit: communities with less than $\sqrt{|V|}$ members cannot be properly identified.
 
-## Givan-Newman
+-----
+
+## Karate club examples
+
+![](./imgs/sia_etal-karate_club-examples.png)
+
+
+Ground truth vs. community detection in [[Sia et al., Sc. Rep. 2019]](https://www.nature.com/articles/s41598-019-46079-x)
+
+
+
+## Girvan-Newman
+
+Hyp: Betweenness centrality captures *help to connectivity*
+
+but removing betwenness we reveal the actual underlying community structure
 
 1. Rank edges by their *help to connectivity*
 
@@ -220,14 +276,14 @@ Resolution limit: communities with less than $\sqrt{|V|}$ members cannot be prop
 
 4. now-isolated areas are called communities
 
-Hyp: Betweenness centrality captures *help to connectivity*
+![](./imgs/girvan-neumann-example.jpg)
 
-<!-- ---------- -->
+
 # Modularity
 
 ## As an optimization prob.
 
-__Istance:__ an adj. matrix A, a small integer $g$
+__Instance:__ an adj. matrix A, a small integer $g$
 
 __Solution:__ a partition of $V$ into $g$ *groups*
 
@@ -237,9 +293,10 @@ __Measure:__ maximise $Q$: the overall modularity measure
 
 Interpretation: how likely is a random walker to leave the community?
 
+
 ## The Q factor
 
-Let $E_{g \times g}$ be the cross-group matrix and $f_i$ the sum of col. $i$
+Let $E_{g \times g}$ be the cross-group matrix and $f_i$ the sum of col. $i.$
 
 . . .
 
@@ -249,6 +306,6 @@ $$Q =\sum_{i=1}^g e_{ii}-f_i^2$$
 
 . . .
 
-Complexity: NP-complete
+Complexity: NP-complete: it won't scale up
 
-Even random networks might exibit densifications that might look as c.
+Even random networks might exhibit 'densifications' that might look as communities.
