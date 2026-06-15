@@ -52,7 +52,7 @@ When markets are *calm,* investment becomes somewhat `mathematical'
 
 ![](./imgs/stock-volume.png)
 
-<!-- ----------- -->
+
 # Price time series
 
 ## Proportional return on investment
@@ -120,7 +120,7 @@ $$
 
 ## Correlation of returns
 
-- correlations in time series (or simply *comovements*) are valuable indicators
+- correlations in time series (or simply *co-movements*) are valuable indicators
 
 - Two shares are correlated if historically they *moved in a similar way.*
 
@@ -138,11 +138,11 @@ $$
 
 - high $\rho$'s might uncover hidden links between stocks.
 
-- however, monitoring $n(n-1)$ correlations quickly becomes unfeseable
+- however, monitoring $n(n-1)$ correlations quickly becomes unfeasible 
   
 - we focus on high $\rho$ values.
 
-<!-- -------------------------------- -->
+
 # The Spanning tree of stocks
 
 ## Similar-behaviour shares
@@ -159,9 +159,14 @@ it describes a complete, weighted network!
 
 . . .
 
-*Prune* it to create its Mimimum Spanning Tree (MST)
+*Prune* it to create its Minimum Spanning Tree (MST)
 
 The MST has only n-1 *heavy* connections while maintaining connectivity.
+
+
+[![](./imgs/mst-example.png){width=30%}](https://en.wikipedia.org/wiki/Minimum_spanning_tree)
+
+
 
 ## Resulting model
 
@@ -173,7 +178,7 @@ Some shares are *hubs* for local clusters of highly-correlated shares.
 
 ## Consequences
 
-- Network analysis helps indentifying local clusters
+- Network analysis helps identifying local clusters
 
 - Each clusters will have a *hub share* at its center
 

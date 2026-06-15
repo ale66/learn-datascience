@@ -92,7 +92,7 @@ $\mathbf{D}= \{\mathbf{x}^{(a)}, \mathbf{x}^{(b)}\dots \}$
 
 re-arrange the rows so that $\mathbf{x}^{(a)}$ *maps* higher than $\mathbf{x}^{(b)}$ and so on.
 
-Ideal for Top-k searchs and recommendations
+Ideal for Top-k searches and recommendations
 
 <!-- ---------------- -->
 # The Model
@@ -142,7 +142,7 @@ $$W =  V \cdot V^T \ \Rightarrow
 w_{ij} = \mathbf{v}^T_i\cdot \mathbf{v}_j = <\mathbf{v}_i, \mathbf{v}_j>
 $$
 
-__Key point:__ $W$ contains $\frac{n^2}{2}-\frac{n}{2}$ estimates while the equivaleny $V$ only has $n\cdot k$ (latent) estimates.
+__Key point:__ $W$ contains $\frac{n^2}{2}-\frac{n}{2}$ estimates while the equivalent $V$ only has $n\cdot k$ (latent) estimates.
 
 -----
 
@@ -207,7 +207,7 @@ Idea: iterate over $k$ outside, push $i$ and $j$ iterations inside.
 
 ## FMs in Python  
 
-[PyFM](https://pythonawesome.com/factorization-machines-in-python/)
+[PyFM](https://github.com/coreylynch/pyFM)
 
 provides a new environment for running FMs within Python.
 
@@ -270,11 +270,11 @@ fm.fit(X, y)
 fm.predict(v.transform({"user": "1", "item": "10", "age": 24}))
 ```
 
-# Coda: The time-efficency of MF
+# Coda: The time-efficiency of MF
 
 ## Computational aspects
 
-Rendle proved that an intrisically quadratic activity: compute all possible second-order, $x_i\cdot x_j$, effects, can be done in a time linear and not quadratic in n.
+Rendle proved that an intrinsically quadratic activity: compute all possible second-order, $x_i\cdot x_j$, effects, can be done in a time linear and not quadratic in n.
 
 $\hat{y}(\textbf{x}) = w_{0} + \sum_{i=1}^{n} w_{i} x_{i} +  \sum_{i=1}^n \sum_{j=i+1}^n w_{ij} x_{i} x_{j}$
 

@@ -33,6 +33,8 @@ Ch. 6 of Langville-Meyer's textbook is dedicated to Markov chains in sport predi
 
 We learn a new key concept of Data Science
 
+[![](./imgs/book-cover.jpeg)](https://press.princeton.edu/titles/9661.html)
+
 <!-- ---------------- -->
 # Notation
 
@@ -61,7 +63,7 @@ As a result:
 <!-- ---------------- -->
 # The Markov method
 
-## The fairwheather fan
+## The fairweather fan
 
 switches their allegiance to the winning team __of the moment.__  
 
@@ -87,21 +89,21 @@ The Miami row sums to 0: not stochastic!
 
 -----
 
-As with PageRank, substitue all $\mathbf{0}^T$ rows with $\frac{1}{n}\mathbf{1}^T$
+As with PageRank, substitute all $\mathbf{0}^T$ rows with $\frac{1}{n}\mathbf{1}^T$
 
 ![](./imgs/S.png)
 
 -----
 
-Now the fair-wheather fan takes a long, random walk along this *Markov graph:*
+Now the fair-weather fan takes a long, random walk along this *Markov graph:*
 
 ![](./imgs/61-fair_wheather_random_walk.png)
 
 -----
 
-We record the number of times the random walker passess each vertex.
+We record the number of times the random walker passes each vertex.
 
-After a while, the proportion of visits to each node stabiles.
+After a while, the proportion of visits to each node stabilizes.
 
 . . .  
 
@@ -166,7 +168,7 @@ $\mathbf{r}$ corresponds to the dominant e-vector of the Markov-chain matrix!
 
 $$\mathbf{S} = \alpha_1 \mathbf{S_{points}} + \alpha_2 \mathbf{S_{yard.}} + \alpha_3 \mathbf{S_{turn.}} + \alpha_4 \mathbf{S_{poss.}}$$
 
-If weights are all non-negative and sum to 1, also $\mathbf{S}$ will be stocastic.
+If weights are all non-negative and sum to 1, also $\mathbf{S}$ will be stochastic.
 
 Weights are assigned by experts or...
 
@@ -197,7 +199,7 @@ A random walker soon get stuck with Miami!
 
 Assign a probability to escape:
 
-$\mathbf{\overline{S}} = \beta \mathbf{S} + \frac{(1-\beta)}{n} \mathbf{1}$ (1 everywhere)
+$\mathbf{\overline{S}} = \beta \mathbf{S} + (1-\beta)[\frac{1}{n} \mathbf{1^T1}]$ (a matrix with $\frac{1}{n}$ everywhere)
 
 . . .  
 
@@ -234,17 +236,10 @@ Massey graph for the same season
 
 ## Further applications
 
-Let's hire fairwheater fans to do random walks:
+Let's hire fairweather fans to do random walks:
 
 by accumulation and stabilisation of the frequencies we will find out the dominant e-vector of $\mathbf{S}$ *without engaging in matrix operations.*
 
-## Trivia: The Maths genalogy project:
-
-[Markov](https://mathgenealogy.org/id.php?id=13982) begot [Shanin](https://mathgenealogy.org/id.php?id=106671), Shanin begot [Gelfond](https://mathgenealogy.org/id.php?id=79318), and Gelfond begot [me](https://mathgenealogy.org/id.php?id=74862).
-
-![](./imgs/math-genealogy.png)
-
-I begot [Han](https://www.mathgenealogy.org/id.php?id=279556), [Prifti](https://www.mathgenealogy.org/id.php?id=295084) and [Matuozzo](https://mathgenealogy.org/id.php?id=320374) who ...
 
 # Coda: random walks for Machine vision
 
@@ -264,15 +259,16 @@ A photos (bitmap) can be seen as
 
 - a m x n matrix, each value, the pixel being an RGB encoding over [0..255]
 
-- a m x n x 3 tensor where each layer, sometimes called *channel* containe [0..255] intensitites of the respective color
+- a m x n x 3 tensor where each layer, sometimes called *channel* contain [0..255] intensities of the respective color
 
 . . .
 
-a network of pixel nodes joint in a mesh: each node is connected rectilinearly with 2 (corner), 3 (border) or 4 (inner) neighbour pixels.
+a network of pixel nodes joint in a mesh: each node is connected rectilinearly with 2 (corner), 3 (border) or 4 (inner) neighbor pixels.
+
 
 # Mapping
 
-RGB values can be normalised to [0..1] by mapping the three values into *intensities,* i.e, the lenght of the vector over $N^3$
+RGB values can be normalised to [0..1] by mapping the three values into *intensities,* i.e, the length of the vector over $N^3$
 
 - total black: $[0][0][0] \rightarrow 0$
 
@@ -294,11 +290,12 @@ For a total-brown pixel:
 
 $|p_{ij}|_3 = \frac{1}{\sqrt{3}} \sqrt{\frac{255+0+255}{255}} = \frac{1}{\sqrt{3}}\sqrt{2} \approx \frac{1.4142}{1.732}\approx 0.8165.$
 
+
 # The random walk model
 
 Let random walkers to prefer to remain on the same likely surface/object, i.e., not cross-through density *slopes* 
 
-make the prob. to move to a neighbour pixel inverse-proportional to the difference in intensity between the origin and destination pixels.
+make the prob. to move to a neighbor pixel inverse-proportional to the difference in intensity between the origin and destination pixels.
 
 ![](./imgs/B29-all.png)
 

@@ -6,8 +6,8 @@
 <script src="financial_networks_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="financial_networks_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="financial_networks_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="financial_networks_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="financial_networks_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="AP">
   <title>Financial networks</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="financial_networks_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="financial_networks_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="financial_networks_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="financial_networks_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="financial_networks_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="financial_networks_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -161,7 +164,6 @@ AP
 <h2>Important assumption</h2>
 <p>When markets are <em>calm,</em> investment becomes somewhat `mathematical’</p>
 
-<!-- ----------- -->
 <img data-src="./imgs/stock-volume.png" class="r-stretch"></section></section>
 <section>
 <section id="price-time-series" class="title-slide slide level1 center">
@@ -219,7 +221,7 @@ r(t) \simeq  \frac{d \ln{p(t)}}{dt}
 <section id="correlation-of-returns" class="slide level2">
 <h2>Correlation of returns</h2>
 <ul>
-<li><p>correlations in time series (or simply <em>comovements</em>) are valuable indicators</p></li>
+<li><p>correlations in time series (or simply <em>co-movements</em>) are valuable indicators</p></li>
 <li><p>Two shares are correlated if historically they <em>moved in a similar way.</em></p></li>
 <li><p>To qualify such a relation compute the correlation between their price returns over <span class="math inline">\(\Delta t\)</span>.</p></li>
 </ul>
@@ -234,10 +236,9 @@ r(t) \simeq  \frac{d \ln{p(t)}}{dt}
 \]</span></p>
 <ul>
 <li><p>high <span class="math inline">\(\rho\)</span>’s might uncover hidden links between stocks.</p></li>
-<li><p>however, monitoring <span class="math inline">\(n(n-1)\)</span> correlations quickly becomes unfeseable</p></li>
+<li><p>however, monitoring <span class="math inline">\(n(n-1)\)</span> correlations quickly becomes unfeasible</p></li>
 <li><p>we focus on high <span class="math inline">\(\rho\)</span> values.</p></li>
 </ul>
-<!-- -------------------------------- -->
 </section></section>
 <section>
 <section id="the-spanning-tree-of-stocks" class="title-slide slide level1 center">
@@ -253,8 +254,9 @@ d_{ij}(\Delta t) = \sqrt{2(1-\rho_{ij}(\Delta t))}
 <p>Let <span class="math inline">\(D(\Delta t)\)</span> be the complete matrix of pairwise distances:</p>
 <p>it describes a complete, weighted network!</p>
 <div class="fragment">
-<p><em>Prune</em> it to create its Mimimum Spanning Tree (MST)</p>
+<p><em>Prune</em> it to create its Minimum Spanning Tree (MST)</p>
 <p>The MST has only n-1 <em>heavy</em> connections while maintaining connectivity.</p>
+<p><a href="https://en.wikipedia.org/wiki/Minimum_spanning_tree"><img data-src="./imgs/mst-example.png" style="width:30.0%"></a></p>
 </div>
 </section>
 <section id="resulting-model" class="slide level2">
@@ -266,7 +268,7 @@ d_{ij}(\Delta t) = \sqrt{2(1-\rho_{ij}(\Delta t))}
 <section id="consequences" class="slide level2">
 <h2>Consequences</h2>
 <ul>
-<li><p>Network analysis helps indentifying local clusters</p></li>
+<li><p>Network analysis helps identifying local clusters</p></li>
 <li><p>Each clusters will have a <em>hub share</em> at its center</p></li>
 <li><p>Hub shares can <em>signal</em> the beaviour of the whole cluster:</p></li>
 <li><p>they provide leads in forecasting how sections of the market will move.</p></li>
@@ -462,7 +464,7 @@ d_{ij}(\Delta t) = \sqrt{2(1-\rho_{ij}(\Delta t))}
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -536,13 +538,14 @@ d_{ij}(\Delta t) = \sqrt{2(1-\rho_{ij}(\Delta t))}
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

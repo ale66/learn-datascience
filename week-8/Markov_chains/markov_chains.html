@@ -6,8 +6,8 @@
 <script src="markov_chains_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="markov_chains_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="markov_chains_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="markov_chains_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="markov_chains_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="AP">
   <title>Ranking and Rating: Markov chains</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="markov_chains_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="markov_chains_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="markov_chains_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="markov_chains_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="markov_chains_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="markov_chains_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -144,6 +147,7 @@ AP
 
 <p>Ch. 6 of Langville-Meyer’s textbook is dedicated to Markov chains in sport prediction</p>
 <p>We learn a new key concept of Data Science</p>
+<p><a href="https://press.princeton.edu/titles/9661.html"><img data-src="./imgs/book-cover.jpeg"></a></p>
 <!-- ---------------- -->
 </section>
 <section>
@@ -176,8 +180,8 @@ AP
 <h1>The Markov method</h1>
 
 </section>
-<section id="the-fairwheather-fan" class="slide level2">
-<h2>The fairwheather fan</h2>
+<section id="the-fairweather-fan" class="slide level2">
+<h2>The fairweather fan</h2>
 <p>switches their allegiance to the winning team <strong>of the moment.</strong></p>
 <p>If they support <span class="math inline">\(i\)</span>, what is the prob. that they switch to <span class="math inline">\(j\)</span>?</p>
 
@@ -196,18 +200,18 @@ AP
 </section>
 <section class="slide level2">
 
-<p>As with PageRank, substitue all <span class="math inline">\(\mathbf{0}^T\)</span> rows with <span class="math inline">\(\frac{1}{n}\mathbf{1}^T\)</span></p>
+<p>As with PageRank, substitute all <span class="math inline">\(\mathbf{0}^T\)</span> rows with <span class="math inline">\(\frac{1}{n}\mathbf{1}^T\)</span></p>
 
 <img data-src="./imgs/S.png" class="r-stretch"></section>
 <section class="slide level2">
 
-<p>Now the fair-wheather fan takes a long, random walk along this <em>Markov graph:</em></p>
+<p>Now the fair-weather fan takes a long, random walk along this <em>Markov graph:</em></p>
 
 <img data-src="./imgs/61-fair_wheather_random_walk.png" class="r-stretch"></section>
 <section class="slide level2">
 
-<p>We record the number of times the random walker passess each vertex.</p>
-<p>After a while, the proportion of visits to each node stabiles.</p>
+<p>We record the number of times the random walker passes each vertex.</p>
+<p>After a while, the proportion of visits to each node stabilizes.</p>
 <div class="fragment">
 <p>The vector <span class="math inline">\(\mathbf{r}\)</span> with the frequencies is a <em>stationary vector</em></p>
 <p><span class="math inline">\(\mathbf{r}\)</span> corresponds to the dominant e-vector of the Markov-chain matrix!</p>
@@ -271,7 +275,7 @@ AP
 <section id="with-linear-combinations-of-features" class="slide level2">
 <h2>With linear combinations of features</h2>
 <p><span class="math display">\[\mathbf{S} = \alpha_1 \mathbf{S_{points}} + \alpha_2 \mathbf{S_{yard.}} + \alpha_3 \mathbf{S_{turn.}} + \alpha_4 \mathbf{S_{poss.}}\]</span></p>
-<p>If weights are all non-negative and sum to 1, also <span class="math inline">\(\mathbf{S}\)</span> will be stocastic.</p>
+<p>If weights are all non-negative and sum to 1, also <span class="math inline">\(\mathbf{S}\)</span> will be stochastic.</p>
 <p>Weights are assigned by experts or…</p>
 <p>could be learned by an outer ML system running on historical data.</p>
 </section>
@@ -299,7 +303,7 @@ AP
 <section class="slide level2">
 
 <p>Assign a probability to escape:</p>
-<p><span class="math inline">\(\mathbf{\overline{S}} = \beta \mathbf{S} + \frac{(1-\beta)}{n} \mathbf{1}\)</span> (1 everywhere)</p>
+<p><span class="math inline">\(\mathbf{\overline{S}} = \beta \mathbf{S} + (1-\beta)[\frac{1}{n} \mathbf{1^T1}]\)</span> (a matrix with <span class="math inline">\(\frac{1}{n}\)</span> everywhere)</p>
 <div class="fragment">
 <p>PageRank: <span class="math inline">\(\beta = 0.85\)</span></p>
 <p>NFL: <span class="math inline">\(\beta = 0.6\)</span></p>
@@ -333,14 +337,8 @@ AP
 <img data-src="./imgs/f63-massey-identical.png" class="r-stretch"></section>
 <section id="further-applications" class="slide level2">
 <h2>Further applications</h2>
-<p>Let’s hire fairwheater fans to do random walks:</p>
+<p>Let’s hire fairweather fans to do random walks:</p>
 <p>by accumulation and stabilisation of the frequencies we will find out the dominant e-vector of <span class="math inline">\(\mathbf{S}\)</span> <em>without engaging in matrix operations.</em></p>
-</section>
-<section id="trivia-the-maths-genalogy-project" class="slide level2">
-<h2>Trivia: The Maths genalogy project:</h2>
-<p><a href="https://mathgenealogy.org/id.php?id=13982">Markov</a> begot <a href="https://mathgenealogy.org/id.php?id=106671">Shanin</a>, Shanin begot <a href="https://mathgenealogy.org/id.php?id=79318">Gelfond</a>, and Gelfond begot <a href="https://mathgenealogy.org/id.php?id=74862">me</a>.</p>
-
-<img data-src="./imgs/math-genealogy.png" class="r-stretch"><p>I begot <a href="https://www.mathgenealogy.org/id.php?id=279556">Han</a>, <a href="https://www.mathgenealogy.org/id.php?id=295084">Prifti</a> and <a href="https://mathgenealogy.org/id.php?id=320374">Matuozzo</a> who …</p>
 </section></section>
 <section>
 <section id="coda-random-walks-for-machine-vision" class="title-slide slide level1 center">
@@ -360,16 +358,16 @@ AP
 <p>A photos (bitmap) can be seen as</p>
 <ul>
 <li><p>a m x n matrix, each value, the pixel being an RGB encoding over [0..255]</p></li>
-<li><p>a m x n x 3 tensor where each layer, sometimes called <em>channel</em> containe [0..255] intensitites of the respective color</p></li>
+<li><p>a m x n x 3 tensor where each layer, sometimes called <em>channel</em> contain [0..255] intensities of the respective color</p></li>
 </ul>
 <div class="fragment">
-<p>a network of pixel nodes joint in a mesh: each node is connected rectilinearly with 2 (corner), 3 (border) or 4 (inner) neighbour pixels.</p>
+<p>a network of pixel nodes joint in a mesh: each node is connected rectilinearly with 2 (corner), 3 (border) or 4 (inner) neighbor pixels.</p>
 </div>
 </section></section>
 <section>
 <section id="mapping" class="title-slide slide level1 center">
 <h1>Mapping</h1>
-<p>RGB values can be normalised to [0..1] by mapping the three values into <em>intensities,</em> i.e, the lenght of the vector over <span class="math inline">\(N^3\)</span></p>
+<p>RGB values can be normalised to [0..1] by mapping the three values into <em>intensities,</em> i.e, the length of the vector over <span class="math inline">\(N^3\)</span></p>
 <ul>
 <li><p>total black: <span class="math inline">\([0][0][0] \rightarrow 0\)</span></p></li>
 <li><p>total white: <span class="math inline">\([255][255][255] \rightarrow 1\)</span></p></li>
@@ -388,7 +386,7 @@ AP
 <section id="the-random-walk-model" class="title-slide slide level1 center">
 <h1>The random walk model</h1>
 <p>Let random walkers to prefer to remain on the same likely surface/object, i.e., not cross-through density <em>slopes</em></p>
-<p>make the prob. to move to a neighbour pixel inverse-proportional to the difference in intensity between the origin and destination pixels.</p>
+<p>make the prob. to move to a neighbor pixel inverse-proportional to the difference in intensity between the origin and destination pixels.</p>
 
 
 <img data-src="./imgs/B29-all.png" class="r-stretch"></section>
@@ -581,7 +579,7 @@ AP
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -655,13 +653,14 @@ AP
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
