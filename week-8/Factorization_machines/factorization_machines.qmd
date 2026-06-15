@@ -207,7 +207,7 @@ Idea: iterate over $k$ outside, push $i$ and $j$ iterations inside.
 
 ## FMs in Python  
 
-[PyFM](https://pythonawesome.com/factorization-machines-in-python/)
+[PyFM](https://github.com/coreylynch/pyFM)
 
 provides a new environment for running FMs within Python.
 
