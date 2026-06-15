@@ -6,8 +6,8 @@
 <script src="factorization_machines_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="factorization_machines_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="factorization_machines_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="factorization_machines_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="factorization_machines_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="AP">
   <title>Factorization Machines</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="factorization_machines_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="factorization_machines_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -95,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="factorization_machines_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link rel="stylesheet" href="factorization_machines_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../../styles/dsta_slides.css">
   <link href="factorization_machines_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="factorization_machines_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -265,7 +268,7 @@ AP
 <h2>For reference: the constraints scenario</h2>
 <p><span class="math inline">\(\mathbf{D}= \{\mathbf{x}^{(a)}, \mathbf{x}^{(b)}\dots \}\)</span></p>
 <p>re-arrange the rows so that <span class="math inline">\(\mathbf{x}^{(a)}\)</span> <em>maps</em> higher than <span class="math inline">\(\mathbf{x}^{(b)}\)</span> and so on.</p>
-<p>Ideal for Top-k searchs and recommendations</p>
+<p>Ideal for Top-k searches and recommendations</p>
 <!-- ---------------- -->
 </section></section>
 <section>
@@ -314,7 +317,7 @@ AP
 <p><span class="math display">\[W =  V \cdot V^T \ \Rightarrow
 w_{ij} = \mathbf{v}^T_i\cdot \mathbf{v}_j = &lt;\mathbf{v}_i, \mathbf{v}_j&gt;
 \]</span></p>
-<p><strong>Key point:</strong> <span class="math inline">\(W\)</span> contains <span class="math inline">\(\frac{n^2}{2}-\frac{n}{2}\)</span> estimates while the equivaleny <span class="math inline">\(V\)</span> only has <span class="math inline">\(n\cdot k\)</span> (latent) estimates.</p>
+<p><strong>Key point:</strong> <span class="math inline">\(W\)</span> contains <span class="math inline">\(\frac{n^2}{2}-\frac{n}{2}\)</span> estimates while the equivalent <span class="math inline">\(V\)</span> only has <span class="math inline">\(n\cdot k\)</span> (latent) estimates.</p>
 </div>
 </section>
 <section class="slide level2">
@@ -373,21 +376,21 @@ w_{ij} = \mathbf{v}^T_i\cdot \mathbf{v}_j = &lt;\mathbf{v}_i, \mathbf{v}_j&gt;
 <h2>FMs in Python</h2>
 <p><a href="https://pythonawesome.com/factorization-machines-in-python/">PyFM</a></p>
 <p>provides a new environment for running FMs within Python.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="ex">pip</span> install git+https://github.com/coreylynch/pyFM</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="ex">pip</span> install git+https://github.com/coreylynch/pyFM</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Build and train a Factorization Machine</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Build and train a Factorization Machine</span></span>
 <span id="cb2-2"><a href=""></a>myfm <span class="op">=</span> pylibfm.FM(num_factors<span class="op">=</span><span class="dv">10</span>,</span>
 <span id="cb2-3"><a href=""></a>                  num_iter<span class="op">=</span><span class="dv">100</span>,</span>
 <span id="cb2-4"><a href=""></a>                  task<span class="op">=</span><span class="st">"regression"</span>,</span>
 <span id="cb2-5"><a href=""></a>                  ...)</span>
 <span id="cb2-6"><a href=""></a></span>
 <span id="cb2-7"><a href=""></a>myfm.fit(X_train,y_train)</span>
-<span id="cb2-8"><a href=""></a>...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href=""></a>...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="hot-econding" class="slide level2">
 <h2>1-Hot econding</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">from</span> pyfm <span class="im">import</span> pylibfm</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">from</span> pyfm <span class="im">import</span> pylibfm</span>
 <span id="cb3-2"><a href=""></a><span class="im">from</span> sklearn.feature_extraction <span class="im">import</span> DictVectorizer</span>
 <span id="cb3-3"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-4"><a href=""></a></span>
@@ -395,37 +398,37 @@ w_{ij} = \mathbf{v}^T_i\cdot \mathbf{v}_j = &lt;\mathbf{v}_i, \mathbf{v}_j&gt;
 <span id="cb3-6"><a href=""></a>    {<span class="st">"user"</span>: <span class="st">"1"</span>, <span class="st">"item"</span>: <span class="st">"5"</span>, <span class="st">"age"</span>: <span class="dv">19</span>},</span>
 <span id="cb3-7"><a href=""></a>    {<span class="st">"user"</span>: <span class="st">"2"</span>, <span class="st">"item"</span>: <span class="st">"43"</span>, <span class="st">"age"</span>: <span class="dv">33</span>},</span>
 <span id="cb3-8"><a href=""></a>    ...</span>
-<span id="cb3-9"><a href=""></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href=""></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>four users, four items: 8 columns</p>
 <div class="fragment">
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>v <span class="op">=</span> DictVectorizer()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>v <span class="op">=</span> DictVectorizer()</span>
 <span id="cb4-2"><a href=""></a>X <span class="op">=</span> v.fit_transform(train)</span>
 <span id="cb4-3"><a href=""></a><span class="bu">print</span>(X.toarray())</span>
 <span id="cb4-4"><a href=""></a>[[ <span class="fl">19.</span>   <span class="fl">0.</span>   <span class="fl">0.</span>   <span class="fl">0.</span>   <span class="fl">1.</span>   <span class="fl">1.</span>   <span class="fl">0.</span>   <span class="fl">0.</span>   <span class="fl">0.</span>]</span>
 <span id="cb4-5"><a href=""></a> [ <span class="fl">33.</span>   <span class="fl">0.</span>   <span class="fl">0.</span>   <span class="fl">1.</span>   <span class="fl">0.</span>   <span class="fl">0.</span>   <span class="fl">1.</span>   <span class="fl">0.</span>   <span class="fl">0.</span>]</span>
 <span id="cb4-6"><a href=""></a> ...</span>
-<span id="cb4-7"><a href=""></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a href=""></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section class="slide level2">
 
 <p>What is the estimated appreciation of user 1, aged 24 now, for item 10 once he or she buys it?</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>y <span class="op">=</span> np.repeat(<span class="fl">1.0</span>, X.shape[<span class="dv">0</span>])</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>y <span class="op">=</span> np.repeat(<span class="fl">1.0</span>, X.shape[<span class="dv">0</span>])</span>
 <span id="cb5-2"><a href=""></a></span>
 <span id="cb5-3"><a href=""></a>fm <span class="op">=</span> pylibfm.FM()</span>
 <span id="cb5-4"><a href=""></a></span>
 <span id="cb5-5"><a href=""></a>fm.fit(X, y)</span>
 <span id="cb5-6"><a href=""></a></span>
-<span id="cb5-7"><a href=""></a>fm.predict(v.transform({<span class="st">"user"</span>: <span class="st">"1"</span>, <span class="st">"item"</span>: <span class="st">"10"</span>, <span class="st">"age"</span>: <span class="dv">24</span>}))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-7"><a href=""></a>fm.predict(v.transform({<span class="st">"user"</span>: <span class="st">"1"</span>, <span class="st">"item"</span>: <span class="st">"10"</span>, <span class="st">"age"</span>: <span class="dv">24</span>}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
-<section id="coda-the-time-efficency-of-mf" class="title-slide slide level1 center">
-<h1>Coda: The time-efficency of MF</h1>
+<section id="coda-the-time-efficiency-of-mf" class="title-slide slide level1 center">
+<h1>Coda: The time-efficiency of MF</h1>
 
 </section>
 <section id="computational-aspects" class="slide level2">
 <h2>Computational aspects</h2>
-<p>Rendle proved that an intrisically quadratic activity: compute all possible second-order, <span class="math inline">\(x_i\cdot x_j\)</span>, effects, can be done in a time linear and not quadratic in n.</p>
+<p>Rendle proved that an intrinsically quadratic activity: compute all possible second-order, <span class="math inline">\(x_i\cdot x_j\)</span>, effects, can be done in a time linear and not quadratic in n.</p>
 <p><span class="math inline">\(\hat{y}(\textbf{x}) = w_{0} + \sum_{i=1}^{n} w_{i} x_{i} +  \sum_{i=1}^n \sum_{j=i+1}^n w_{ij} x_{i} x_{j}\)</span></p>
 <p>To do so, Rendle models feature interactions by learning <span class="math inline">\(k\)</span> latent factors:</p>
 <p><span class="math inline">\(\langle \textbf{v}_i, \textbf{v}_{j} \rangle = \sum_{f=1}^k v_{i,f} v_{j,f}\)</span></p>
@@ -656,7 +659,7 @@ w_{ij} = \mathbf{v}^T_i\cdot \mathbf{v}_j = &lt;\mathbf{v}_i, \mathbf{v}_j&gt;
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -730,13 +733,14 @@ w_{ij} = \mathbf{v}^T_i\cdot \mathbf{v}_j = &lt;\mathbf{v}_i, \mathbf{v}_j&gt;
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
