@@ -163,6 +163,11 @@ it describes a complete, weighted network!
 
 The MST has only n-1 *heavy* connections while maintaining connectivity.
 
+
+[![](./imgs/mst-example.png){width=30%}](https://en.wikipedia.org/wiki/Minimum_spanning_tree)
+
+
+
 ## Resulting model
 
 The MST of 141 NYSE high-cap stocks, $\Delta t =$ 6h:30min
